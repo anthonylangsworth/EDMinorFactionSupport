@@ -27,7 +27,7 @@ namespace EDMissionSummary
                         Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), 
                         "Saved Games\\Frontier Developments\\Elite Dangerous\\"));
                 IEnumerable<FileInfo> journalFiles = journalFolder.GetFiles("Journal.*.log")
-                                                                  .Where(f => f.LastWriteTime.Date == DateTime.Now.Date.AddDays(-1))
+                                                                  .Where(f => f.LastWriteTime.Date == DateTime.Now.Date) // .AddDays(-1)
                                                                   .OrderByDescending(f => f.LastWriteTime);
 
                 Journal journal = new Journal(fileName);
