@@ -35,7 +35,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             FactionSupportResult supportResult = SupportsFaction(entry, supportedFaction.Name);
             string influence = GetInfluence(entry);
 
-            return new SquadronSummaryMissionEntry(
+            return new MissionSummaryEntry(
                     "", // influenceSection.Value<string>("SystemAddress"),
                     entry.Value<string>("DestinationSystem"),
                     supportResult == FactionSupportResult.Support,

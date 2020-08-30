@@ -4,9 +4,9 @@ using System.Text;
 
 namespace EDMissionSummary.SummaryEntries
 {
-    public class SquadronSummaryMissionEntry: SquadronSummaryEntry
+    public class MissionSummaryEntry: SquadronSummaryEntry
     {
-        public SquadronSummaryMissionEntry(string sourceSystemId, string destinationSystem, bool supportingFaction, string factionInfluence)
+        public MissionSummaryEntry(string sourceSystemId, string destinationSystem, bool supportingFaction, string factionInfluence)
         {
             SourceSystemId = sourceSystemId;
             DestinationSystem = destinationSystem;

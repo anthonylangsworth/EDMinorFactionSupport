@@ -17,7 +17,8 @@ namespace EDMissionSummary
         {
             journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
             {
-                {  MissionCompletedEventProcessor.EventName, new MissionCompletedEventProcessor() }
+                {  MissionCompletedEventProcessor.EventName, new MissionCompletedEventProcessor() },
+                {  RedeemVoucherEventProcessor.EventName, new RedeemVoucherEventProcessor() }
             };
         }
 
