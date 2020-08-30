@@ -6,15 +6,17 @@ namespace EDMissionSummary
 {
     public class SquadronSummaryMissionEntry: SquadronSummaryEntry
     {
-        public SquadronSummaryMissionEntry(string systemName, string supportedFaction, int influencePluses)
+        public SquadronSummaryMissionEntry(string sourceSystemId, string destinationSystem, bool supportingFaction, string factionInfluence)
         {
-            SystemName = systemName;
-            SupportedFaction = supportedFaction;
-            InfluencePluses = influencePluses;
+            SourceSystemId = sourceSystemId;
+            DestinationSystem = destinationSystem;
+            SupportingFaction = supportingFaction;
+            FactionInfluence = factionInfluence;
         }
 
-        public string SystemName { get; }
-        public string SupportedFaction { get; }
-        public int InfluencePluses { get; }
+        public string SourceSystemId { get; }
+        public string DestinationSystem { get; }
+        public bool SupportingFaction { get; }
+        public string FactionInfluence { get; }
     }
 }
