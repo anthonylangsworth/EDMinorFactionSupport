@@ -16,7 +16,7 @@ namespace EDMissionSummary
             // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830134805.01.log";
             // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830102216.01.log";
             string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830212509.01.log";
-            // string fileName = @"Missions.log";
+            // string fileName = @"TestMissions.log";
             string supportedFactionName = "EDA Kunti League";
 
             //try
