@@ -19,6 +19,7 @@ Important things to fix:
 2. Fixing anti-minor faction mission detection.
 3. Cartography data.
 4. Trades.
+5. Internal fixes like a better folder structure and automated tests.
 
 If this tool proves useful we may automate the collation of these further, e.g. by pasting the results to Discord directly or a similar tighter integration.
 
