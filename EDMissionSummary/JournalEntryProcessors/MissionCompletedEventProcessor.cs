@@ -23,55 +23,23 @@ namespace EDMissionSummary.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(pilotState));
             }
-
             if (supportedFaction is null)
             {
                 throw new ArgumentNullException(nameof(supportedFaction));
             }
-
             if (entry is null)
             {
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            SquadronSummaryMissionEntry result = null;
-            JArray factionEffects = entry.Value<JArray>(FactionEffectsSectionName);
-            FactionSupportResult supportResult;
+            FactionSupportResult supportResult = SupportsFaction(entry, supportedFaction.Name);
+            string influence = GetInfluence(entry);
 
-            // TODO: Find the sections with influence.
-            // Of those sections, find the one that matches the supported faction.
-            JObject factionEffect = factionEffects.FirstOrDefault(
-                fe => fe.Value<string>("Faction") == supportedFaction.Name
-                   && fe.Value<JArray>("Influence").Any()) as JObject;
-            if (factionEffect != null)
-            {
-                supportResult = FactionSupportResult.Support;
-            }
-            else
-            {
-                // If it is not in the list, take the first entry that has an influence section to determine the 
-                //
-                // Workaround: Assume the influence gain is the same for all parties and use the first entry
-                // with a supplied influence gain.
-                factionEffect = factionEffects.FirstOrDefault(fe => ((JObject)fe).Value<JArray>("Influence").Any()).Value<JObject>();
-
-                // It is only working 
-                supportResult = FactionSupportResult.Undermine;
-            }
-
-            if (factionEffect != null && supportResult != FactionSupportResult.None)
-            {
-                JToken influenceSection = factionEffect["Influence"].FirstOrDefault();
-                string influencePluses = influenceSection.Value<string>("Influence");
-
-                result = new SquadronSummaryMissionEntry(
-                    influenceSection.Value<string>("SystemAddress"),
+            return new SquadronSummaryMissionEntry(
+                    "", // influenceSection.Value<string>("SystemAddress"),
                     entry.Value<string>("DestinationSystem"),
                     supportResult == FactionSupportResult.Support,
-                    influenceSection.Value<string>("Influence"));
-            }
-
-            return result;
+                    influence);
         }
 
         /// <summary>
@@ -80,7 +48,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <param name="entry">
         /// The JObject representing the journal entry to check. This cannot be null.
         /// </param>
-        /// <param name="supportedFaction">
+        /// <param name="supportedFactionName">
         /// The name of the supported faction. Cannot be null, empty or whitespace.
         /// </param>
         /// <returns>
@@ -90,23 +58,23 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <paramref name="entry"/> cannot be null.
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// <paramref name="supportedFaction"/> cannot be null, empty or whitespace.
+        /// <paramref name="supportedFactionName"/> cannot be null, empty or whitespace.
         /// </exception>
-        protected  static FactionSupportResult SupportsFaction(JObject entry, string supportedFaction)
+        protected internal static FactionSupportResult SupportsFaction(JObject entry, string supportedFactionName)
         {
             if (entry is null)
             {
                 throw new ArgumentNullException(nameof(entry));
             }
-            if (string.IsNullOrWhiteSpace(supportedFaction))
+            if (string.IsNullOrWhiteSpace(supportedFactionName))
             {
-                throw new ArgumentException($"'{nameof(supportedFaction)}' cannot be null or whitespace", nameof(supportedFaction));
+                throw new ArgumentException($"'{nameof(supportedFactionName)}' cannot be null or whitespace", nameof(supportedFactionName));
             }
 
             FactionSupportResult result = FactionSupportResult.None;
 
-            if (entry.Value<JArray>("FactionEffectsSectionName")
-                     .Any(fe => fe.Value<string>("Faction") == supportedFaction))
+            if (entry.Value<JArray>(FactionEffectsSectionName)
+                     .Any(fe => fe.Value<string>("Faction") == supportedFactionName))
             {
                 result = FactionSupportResult.Support;
             }
@@ -134,18 +102,21 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <exception cref="ArgumentNullException">
         /// <paramref name="entry"/> cannot be null.
         /// </exception>
-        private string GetInfluence(JObject entry)
+        protected internal static string GetInfluence(JObject entry)
         {
             if (entry is null)
             {
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            return entry.Value<JArray>("FactionEffectsSectionName")
-                        .FirstOrDefault(fe => ((JObject)fe)
-                        .Value<JArray>("Influence").Any())
-                        .Value<JObject>()
+            return entry.Value<JArray>(FactionEffectsSectionName)
+                        .SelectMany(e => e.Value<JArray>("Influence"))
+                        .FirstOrDefault(e => e.Any())
                         .Value<string>("Influence");
+
+            //return entry.Value<JArray>(FactionEffectsSectionName)
+            //            .FirstOrDefault(fe => ((JObject)fe).Value<JArray>("Influence").Any())
+            //            .Value<string>("Influence");
         }
     }
 }

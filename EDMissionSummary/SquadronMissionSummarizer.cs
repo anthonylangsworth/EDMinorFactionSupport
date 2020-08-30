@@ -36,7 +36,8 @@ namespace EDMissionSummary
                 throw new NullReferenceException(nameof(entry));
             }
 
-            JournalEntryProcessor journalEntryProcessor = journalEntryProcessors[entry.Value<string>("event")];
+            JournalEntryProcessor journalEntryProcessor;
+            journalEntryProcessors.TryGetValue(entry.Value<string>("event"), out journalEntryProcessor);
             return journalEntryProcessor?.Process(pilotState, supportedFaction, entry);
         }
     }
