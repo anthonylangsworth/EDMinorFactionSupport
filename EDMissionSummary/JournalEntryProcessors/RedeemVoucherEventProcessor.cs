@@ -34,7 +34,10 @@ namespace EDMissionSummary.JournalEntryProcessors
             {
                 JToken supportedFactionBounty = entry.Value<JArray>(FactionsPropertyName)
                                                       .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedFaction.Name);
-                result = new BountySummaryEntry(supportedFactionBounty.Value<string>("Amount"));
+                if (supportedFactionBounty != null)
+                {
+                    result = new BountySummaryEntry(supportedFactionBounty.Value<string>("Amount"));
+                }
             }
 
             return result;
