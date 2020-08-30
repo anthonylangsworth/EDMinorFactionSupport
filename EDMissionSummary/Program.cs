@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using EDMissionSummary.JournalEntryProcessors;
+using EDMissionSummary.SummaryEntries;
 using Newtonsoft.Json.Linq;
 
 namespace EDMissionSummary
@@ -17,15 +18,18 @@ namespace EDMissionSummary
 
             try
             {
-                Journal journal = new Journal(fileName);// args[0]
+                Journal journal = new Journal(fileName);
                 JournalEntryParser journalEntryParser = new JournalEntryParser();
                 SquadronMissionSummarizer squadronMissionSummarizer = new SquadronMissionSummarizer();
                 PilotState pilotState = new PilotState();
                 SupportedFaction supportedFaction = new SupportedFaction(supportedFactionName, new string[0], new string[0]);
 
-                var output = journal.Entries
+                foreach(SquadronSummaryEntry summaryEntry in journal.Entries
                     .Select(journalEntryParser.Parse)
-                    .Select(entry => squadronMissionSummarizer.Convert(pilotState, supportedFaction, entry)).ToList();
+                    .Select(entry => squadronMissionSummarizer.Convert(pilotState, supportedFaction, entry)))
+                {
+                    Console.Out.WriteLine(summaryEntry.ToString());
+                }
             }
             catch(Exception ex)
             {

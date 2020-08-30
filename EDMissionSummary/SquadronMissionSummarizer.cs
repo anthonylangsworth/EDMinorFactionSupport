@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EDMissionSummary.SummaryEntries;
 
 namespace EDMissionSummary
 {
@@ -26,12 +27,10 @@ namespace EDMissionSummary
             {
                 throw new ArgumentNullException(nameof(pilotState));
             }
-
             if (supportedFaction is null)
             {
                 throw new ArgumentNullException(nameof(supportedFaction));
             }
-
             if (entry == null)
             {
                 throw new NullReferenceException(nameof(entry));

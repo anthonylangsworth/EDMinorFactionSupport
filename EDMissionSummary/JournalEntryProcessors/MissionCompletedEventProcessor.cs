@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EDMissionSummary.SummaryEntries;
 
 namespace EDMissionSummary.JournalEntryProcessors
 {
@@ -41,7 +42,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             // Of those sections, find the one that matches the supported faction.
             JObject factionEffect = factionEffects.FirstOrDefault(
                 fe => fe.Value<string>("Faction") == supportedFaction.Name
-                    && fe.Value<JArray>("Influence").Any()) as JObject;
+                   && fe.Value<JArray>("Influence").Any()) as JObject;
             if (factionEffect != null)
             {
                 supportResult = FactionSupportResult.Support;

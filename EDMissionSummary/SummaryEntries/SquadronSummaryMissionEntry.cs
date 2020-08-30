@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EDMissionSummary
+namespace EDMissionSummary.SummaryEntries
 {
     public class SquadronSummaryMissionEntry: SquadronSummaryEntry
     {
@@ -18,5 +18,10 @@ namespace EDMissionSummary
         public string DestinationSystem { get; }
         public bool SupportingFaction { get; }
         public string FactionInfluence { get; }
+
+        public override string ToString()
+        {
+            return string.Format("{0} Inf{1}", SupportingFaction ? "Pro" : "Con", FactionInfluence);
+        }
     }
 }
