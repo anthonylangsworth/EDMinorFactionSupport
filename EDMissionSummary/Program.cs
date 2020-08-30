@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
@@ -8,12 +10,23 @@ namespace EDMissionSummary
     {
         static void Main(string[] args)
         {
-            Journal journal = new Journal(args[0]);
-            JournalEntryParser journalEntryParser = new JournalEntryParser();
+            // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830134805.01.log";
+            string fileName = @"Missions.log";
+            string supportedSquadron = "EDA Kunti League";
 
-            foreach (JObject entry in journal.Entries.Select(journalEntryParser.Parse))
+            try
             {
-                if(entry.Value<string>("event") == "MissionCompleted")
+                Journal journal = new Journal(fileName);// args[0]
+                JournalEntryParser journalEntryParser = new JournalEntryParser();
+                SquadronMissionSummarizer squadronMissionSummarizer = new SquadronMissionSummarizer(supportedSquadron);
+
+                var output = journal.Entries
+                    .Select(journalEntryParser.Parse)
+                    .Select(squadronMissionSummarizer.Convert).ToList();
+            }
+            catch(Exception ex)
+            {
+                Console.Error.Write(ex.ToString());
             }
         }
     }

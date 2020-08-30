@@ -5,11 +5,12 @@ using System.Text;
 
 namespace EDMissionSummary
 {
-    public class SquadronMissionSummary
+    public class SquadronMissionSummarizer
     {
         public readonly string MissionCompletedEvent = "MissionCompleted";
+        public readonly string FactionEffectsSectionName = "FactionEffects";
 
-        public SquadronMissionSummary(string supportedFaction)
+        public SquadronMissionSummarizer(string supportedFaction)
         {
             if(string.IsNullOrWhiteSpace(supportedFaction))
             {
@@ -24,17 +25,22 @@ namespace EDMissionSummary
             get;
         }
 
-        public Dictionary<string, string> Convert(JObject entry)
+        public SquadronSummaryEntry Convert(JObject entry)
         {
             if(entry == null)
             {
                 throw new NullReferenceException(nameof(entry));
             }
 
-            if (entry.Value<string>("event") == MissionCompletedEvent
-                && entry.Value<string>("faction") == SupportedFaction)
-            { 
+            if (entry.Value<string>("event") == MissionCompletedEvent)
+            {
+                // entry.Property(FactionEffectsSectionName);
 
+                return new SquadronSummaryMissionEntry(entry.Value<string>("DestinationSystem"), entry.Value<string>("Faction"), 0);
+            }
+            else
+            {
+                return null;
             }
         }
     }

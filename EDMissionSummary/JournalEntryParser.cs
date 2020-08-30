@@ -10,7 +10,7 @@ namespace EDMissionSummary
     {
         public JournalEntryParser()
         {
-
+            // Do nothing
         }
 
         public JObject Parse(string line)
