@@ -1,0 +1,39 @@
+﻿{
+	"timestamp": "2020-08-30T05:26:11Z",
+	"event": "MissionCompleted",
+	"Faction": "EDA Kunti League",
+	"Name": "Mission_Courier_name",
+	"MissionID": 624098478,
+	"TargetFaction": "36 Doradus Autocracy",
+	"DestinationSystem": "36 Doradus",
+	"DestinationStation": "Pudwill Gorie Dock",
+	"Reward": 110000,
+	"FactionEffects": [
+		{
+			"Faction": "36 Doradus Autocracy",
+			"Effects": [],
+			"Influence": [],
+			"ReputationTrend": "UpGood",
+			"Reputation": "+"
+		},
+		{
+			"Faction": "EDA Kunti League",
+			"Effects": [
+				{
+					"Effect": "$MISSIONUTIL_Interaction_Summary_EP_up;",
+					"Effect_Localised": "The economic status of $#MinorFaction; has improved in the $#System; system.",
+					"Trend": "UpGood"
+				}
+			],
+			"Influence": [
+				{
+					"SystemAddress": 672028108201,
+					"Trend": "UpGood",
+					"Influence": "++"
+				}
+			],
+			"ReputationTrend": "UpGood",
+			"Reputation": "+"
+		}
+	]
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDMissionSummary", "EDMissionSummary\EDMissionSummary.csproj", "{BEC3D15B-D30E-401F-8F21-75406E5F0897}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDFC803B-9A65-4518-800A-A18045F498D7}
+	EndGlobalSection
+EndGlobal
