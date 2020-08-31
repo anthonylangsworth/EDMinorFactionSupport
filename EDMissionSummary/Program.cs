@@ -6,6 +6,7 @@ using System.Linq;
 using EDMissionSummary.JournalEntryProcessors;
 using EDMissionSummary.SummaryEntries;
 using EDMissionSummary.JournalSources;
+using System.Text;
 
 namespace EDMissionSummary
 {
@@ -27,13 +28,12 @@ namespace EDMissionSummary
                 PilotState pilotState = new PilotState();
                 SupportedFaction supportedFaction = new SupportedFaction(supportedFactionName, new string[0], new string[0]);
 
-            foreach (SquadronSummaryEntry summaryEntry in journal.Entries
-                    .Select(journalEntryParser.Parse)
-                    .Select(entry => squadronMissionSummarizer.Convert(pilotState, supportedFaction, entry))
-                    .Where(e => e != null))
-                {
-                    Console.Out.WriteLine(summaryEntry.ToString());
-                }
+            Console.Out.WriteLine(
+                journal.Entries
+                       .Select(journalEntryParser.Parse)
+                       .Select(entry => squadronMissionSummarizer.Convert(pilotState, supportedFaction, entry))
+                       .Where(e => e != null)
+                       .Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
             //}
             //catch(Exception ex)
             //{
