@@ -3,12 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDMissionSummary", "EDMissionSummary\EDMissionSummary.csproj", "{BEC3D15B-D30E-401F-8F21-75406E5F0897}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83D7A7FD-FAE4-46A4-8AF2-EC0F946BA8DD}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDMissionSummary", "src\EDMissionSummary\EDMissionSummary.csproj", "{A31D230E-60A0-42EE-A49F-24FE8DC4E290}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{23BC59CC-29C6-444B-9929-922F2A7E81C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EBBDAD9D-BE5D-44DE-9AB6-D1ABA042DB99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDMissionSummaryTest", "test\EDMissionSummaryTest\EDMissionSummaryTest.csproj", "{C810F941-CABB-4412-A84E-469225E6A9DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +22,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEC3D15B-D30E-401F-8F21-75406E5F0897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A31D230E-60A0-42EE-A49F-24FE8DC4E290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A31D230E-60A0-42EE-A49F-24FE8DC4E290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A31D230E-60A0-42EE-A49F-24FE8DC4E290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A31D230E-60A0-42EE-A49F-24FE8DC4E290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C810F941-CABB-4412-A84E-469225E6A9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C810F941-CABB-4412-A84E-469225E6A9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C810F941-CABB-4412-A84E-469225E6A9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C810F941-CABB-4412-A84E-469225E6A9DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A31D230E-60A0-42EE-A49F-24FE8DC4E290} = {23BC59CC-29C6-444B-9929-922F2A7E81C3}
+		{23BC59CC-29C6-444B-9929-922F2A7E81C3} = {83D7A7FD-FAE4-46A4-8AF2-EC0F946BA8DD}
+		{EBBDAD9D-BE5D-44DE-9AB6-D1ABA042DB99} = {83D7A7FD-FAE4-46A4-8AF2-EC0F946BA8DD}
+		{C810F941-CABB-4412-A84E-469225E6A9DE} = {EBBDAD9D-BE5D-44DE-9AB6-D1ABA042DB99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EDFC803B-9A65-4518-800A-A18045F498D7}
