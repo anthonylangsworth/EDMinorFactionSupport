@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace EDMissionSummary
+
+namespace EDMissionSummary.JournalSources
 {
-    public class Journal
+    public class FileJournalSource: JournalSource
     {
-        public Journal(string fileName)
+        public FileJournalSource(string fileName)
         {
             if (!File.Exists(fileName))
             {
@@ -22,7 +23,7 @@ namespace EDMissionSummary
             get;
         }
 
-        public string[] Entries
+        public override IEnumerable<string> Entries
         {
             get
             {
