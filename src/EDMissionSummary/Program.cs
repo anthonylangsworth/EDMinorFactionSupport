@@ -27,6 +27,12 @@ namespace EDMissionSummary
                 PilotState pilotState = new PilotState();
                 SupportedFaction supportedFaction = new SupportedFaction("EDA Kunti League", new string[0], new string[0]);
 
+            //IEnumerable<SummaryEntry> missionSummaryEntries = 
+            //    journal.Entries
+            //           .Select(journalEntryParser.Parse)
+            //           .Select(entry => missionSummarizer.Convert(pilotState, supportedFaction, entry))
+            //           .Where(e => e != null);
+
             Console.Out.WriteLine(
                 journal.Entries
                        .Select(journalEntryParser.Parse)
@@ -39,5 +45,10 @@ namespace EDMissionSummary
             //    Console.Error.Write(ex.ToString());
             //}
         }
+
+        //static void DisplayMissions(IEnumerable<MissionSummaryEntry> missionSummaryEntries)
+        //{
+        //    missionSummaryEntries.GroupBy(mse => mse.SourceSystemId);
+        //}
     }
 }

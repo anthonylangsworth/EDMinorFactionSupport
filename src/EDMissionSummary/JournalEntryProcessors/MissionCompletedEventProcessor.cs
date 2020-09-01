@@ -12,11 +12,6 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string EventName = "MissionCompleted";
         public static readonly string FactionEffectsSectionName = "FactionEffects";
 
-        public MissionCompletedEventProcessor()
-        {
-            // Do nothing
-        }
-
         public override SummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
         {
             if (pilotState is null)

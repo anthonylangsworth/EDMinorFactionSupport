@@ -11,6 +11,12 @@ namespace EDMissionSummary.JournalEntryProcessors
     /// </summary>
     public abstract class JournalEntryProcessor
     {
+        public DateTime TimeStamp
+        {
+            get;
+            protected set;
+        }
+
         public abstract SummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry);
     }
 }

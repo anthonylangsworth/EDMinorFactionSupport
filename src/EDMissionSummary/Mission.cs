@@ -2,6 +2,17 @@
 {
     public class Mission
     {
+        public Mission(string missonId, string name, string sourceFactionName, string targetFactionName, string destinationSystem, string destinationStation, string influence)
+        {
+            TargetFactionName = targetFactionName;
+            SourceFactionName = sourceFactionName;
+            DestinationSystem = destinationSystem;
+            DestinationStation = destinationStation;
+            Name = name;
+            Influence = influence;
+            MissonId = missonId;
+        }
+
         public string TargetFactionName
         {
             get;
