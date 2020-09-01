@@ -5,8 +5,14 @@ using System.Text;
 
 namespace EDMissionSummary.JournalSources
 {
+    /// <summary>
+    /// A source of Elite: Dangerous journal entries. 
+    /// </summary>
     public abstract class JournalSource
     {
+        /// <summary>
+        /// The Elite: Dangerous journal entries.
+        /// </summary>
         public abstract IEnumerable<string> Entries
         {
             get;
