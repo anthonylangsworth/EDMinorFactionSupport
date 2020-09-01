@@ -18,20 +18,19 @@ namespace EDMissionSummary
             // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830102216.01.log";
             // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830212509.01.log";
             // string fileName = @"TestMissions.log";
-            string supportedFactionName = "EDA Kunti League";
 
             //try
             //{
                 JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-1)); // new FileJournalSource(fileName);
                 JournalEntryParser journalEntryParser = new JournalEntryParser();
-                MissionSummarizer squadronMissionSummarizer = new MissionSummarizer();
+                MissionSummarizer missionSummarizer = new MissionSummarizer();
                 PilotState pilotState = new PilotState();
-                SupportedFaction supportedFaction = new SupportedFaction(supportedFactionName, new string[0], new string[0]);
+                SupportedFaction supportedFaction = new SupportedFaction("EDA Kunti League", new string[0], new string[0]);
 
             Console.Out.WriteLine(
                 journal.Entries
                        .Select(journalEntryParser.Parse)
-                       .Select(entry => squadronMissionSummarizer.Convert(pilotState, supportedFaction, entry))
+                       .Select(entry => missionSummarizer.Convert(pilotState, supportedFaction, entry))
                        .Where(e => e != null)
                        .Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
             //}
