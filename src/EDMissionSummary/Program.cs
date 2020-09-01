@@ -24,7 +24,7 @@ namespace EDMissionSummary
             //{
                 JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-1)); // new FileJournalSource(fileName);
                 JournalEntryParser journalEntryParser = new JournalEntryParser();
-                SquadronMissionSummarizer squadronMissionSummarizer = new SquadronMissionSummarizer();
+                MissionSummarizer squadronMissionSummarizer = new MissionSummarizer();
                 PilotState pilotState = new PilotState();
                 SupportedFaction supportedFaction = new SupportedFaction(supportedFactionName, new string[0], new string[0]);
 
