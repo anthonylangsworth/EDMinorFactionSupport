@@ -14,7 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{23BC59CC-29C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EBBDAD9D-BE5D-44DE-9AB6-D1ABA042DB99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDMissionSummaryTest", "test\EDMissionSummaryTest\EDMissionSummaryTest.csproj", "{C810F941-CABB-4412-A84E-469225E6A9DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDMissionSummaryTest", "test\EDMissionSummaryTest\EDMissionSummaryTest.csproj", "{C810F941-CABB-4412-A84E-469225E6A9DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A31D230E-60A0-42EE-A49F-24FE8DC4E290} = {A31D230E-60A0-42EE-A49F-24FE8DC4E290}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EDMissionSummary.SummaryEntries
 {
-    internal class BountySummaryEntry : SquadronSummaryEntry
+    internal class BountySummaryEntry : SummaryEntry
     {
         public BountySummaryEntry(string amount)
         {

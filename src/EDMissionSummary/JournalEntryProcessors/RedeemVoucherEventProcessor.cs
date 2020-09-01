@@ -14,7 +14,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string BountyValue = "bounty";
         public static readonly string FactionsPropertyName = "Factions";
 
-        public override SquadronSummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
+        public override SummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
         {
             if (pilotState is null)
             {

@@ -17,7 +17,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             // Do nothing
         }
 
-        public override SquadronSummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
+        public override SummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
         {
             if (pilotState is null)
             {

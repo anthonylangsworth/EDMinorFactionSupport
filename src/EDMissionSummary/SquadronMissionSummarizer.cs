@@ -22,7 +22,7 @@ namespace EDMissionSummary
             };
         }
 
-        public SquadronSummaryEntry Convert(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
+        public SummaryEntry Convert(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
         {
             if (pilotState is null)
             {

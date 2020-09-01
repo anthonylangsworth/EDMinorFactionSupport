@@ -11,6 +11,6 @@ namespace EDMissionSummary.JournalEntryProcessors
     /// </summary>
     public abstract class JournalEntryProcessor
     {
-        public abstract SquadronSummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry);
+        public abstract SummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry);
     }
 }

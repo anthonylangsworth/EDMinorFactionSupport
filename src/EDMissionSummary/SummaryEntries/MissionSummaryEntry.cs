@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EDMissionSummary.SummaryEntries
 {
-    public class MissionSummaryEntry: SquadronSummaryEntry
+    public class MissionSummaryEntry: SummaryEntry
     {
         public MissionSummaryEntry(string sourceSystemId, string destinationSystem, bool supportingFaction, string factionInfluence)
         {
