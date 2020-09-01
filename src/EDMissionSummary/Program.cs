@@ -21,7 +21,7 @@ namespace EDMissionSummary
 
             //try
             //{
-                JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-1)); // new FileJournalSource(fileName);
+                JournalSource journal = new EdFileJournalSource(DateTime.Now); // new FileJournalSource(fileName);
                 JournalEntryParser journalEntryParser = new JournalEntryParser();
                 MissionSummarizer missionSummarizer = new MissionSummarizer();
                 PilotState pilotState = new PilotState();
@@ -36,8 +36,7 @@ namespace EDMissionSummary
             Console.Out.WriteLine(
                 journal.Entries
                        .Select(journalEntryParser.Parse)
-                       .Select(entry => missionSummarizer.Convert(pilotState, supportedFaction, entry))
-                       .Where(e => e != null)
+                       .SelectMany(entry => missionSummarizer.Convert(pilotState, supportedFaction, entry))
                        .Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
             //}
             //catch(Exception ex)

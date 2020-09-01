@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using EDMissionSummary.SummaryEntries;
+using System.Globalization;
+using System.Linq;
 
 namespace EDMissionSummary.JournalEntryProcessors
 {
@@ -14,9 +16,14 @@ namespace EDMissionSummary.JournalEntryProcessors
         public DateTime TimeStamp
         {
             get;
-            protected set;
+            private set;
         }
 
-        public abstract SummaryEntry Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry);
+        public virtual IEnumerable<SummaryEntry> Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
+        {
+            TimeStamp = DateTime.Parse(entry.Value<string>("timestamp"), CultureInfo.CurrentUICulture);
+
+            return Enumerable.Empty<SummaryEntry>();
+        }
     }
 }
