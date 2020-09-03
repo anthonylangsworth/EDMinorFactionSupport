@@ -13,7 +13,7 @@ namespace EDMissionSummaryTest
         {
             PilotState pilotState = new PilotState();
             Assert.That(pilotState.Missions, Is.Empty, "Missions is not empty");
-            Assert.That(pilotState.Station, Is.Null);
+            Assert.That(pilotState.LastDockedStation, Is.Null);
         }
     }
 }

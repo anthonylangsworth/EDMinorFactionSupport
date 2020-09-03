@@ -18,6 +18,10 @@ namespace EDMissionSummary.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(pilotState));
             }
+            if (galaxyState is null)
+            {
+                throw new ArgumentNullException(nameof(galaxyState));
+            }
             if (supportedMinorFaction is null)
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));

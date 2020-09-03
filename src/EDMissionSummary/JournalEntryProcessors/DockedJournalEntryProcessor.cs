@@ -7,9 +7,9 @@ using System.Text;
 
 namespace EDMissionSummary.JournalEntryProcessors
 {
-    public class MissionAcceptedEventProcessor : JournalEntryProcessor
+    public class DockedJournalEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "Docked";
+        public static readonly string EventName = "MissionAccepted";
 
         /// <summary>
         /// Track the mission in the <see cref="PilotState"/> because some mission relevant details are only
@@ -52,13 +52,19 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            pilotState.Missions.Add(new Mission(
-                entry.Value<string>("MissionID"),
-                entry.Value<string>("LocalisedName"),
-                entry.Value<string>("Faction"),
-                entry.Value<string>("TargetFaction"),
-                entry.Value<string>("DestinationSystem")
-            ));
+            Station station = new Station(
+                entry.Value<string>("StationName"),
+                ulong.Parse(entry.Value<string>("SystemAddress")),
+                entry.Property("StationFaction").Value<string>("Name")
+            );
+
+            // SystemAddress = entry.Value<string>("SystemAddress"),
+            // SystemName = entry.Value<string>("StarSystem"),
+
+            pilotState.LastDockedStation = station;
+
+            // TODO: Add station to galaxy state
+            // TODO: Add system to galaxy state
 
             return Enumerable.Empty<SummaryEntry>();
         }

@@ -6,13 +6,18 @@ namespace EDMissionSummary
 {
     public class Station
     {
+        public Station(string name, ulong systemAddress, string controllingMinorFaction)
+        {
+
+        }
+
         public string Name
         {
             get; 
             set;
         }
 
-        public string ControllingFaction
+        public string ControllingMinorFaction
         {
             get;
             set;
