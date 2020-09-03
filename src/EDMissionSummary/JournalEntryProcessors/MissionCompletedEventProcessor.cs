@@ -12,7 +12,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string EventName = "MissionCompleted";
         public static readonly string FactionEffectsSectionName = "FactionEffects";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, string supportedFaction,  JObject entry)
         {
             if (pilotState is null)
             {
@@ -29,7 +29,7 @@ namespace EDMissionSummary.JournalEntryProcessors
 
             base.Process(pilotState, supportedFaction, entry);
 
-            FactionSupportResult supportResult = SupportsFaction(entry, supportedFaction.Name);
+            FactionSupportResult supportResult = SupportsFaction(entry, supportedFaction);
             string influence = GetInfluence(entry);
 
             List<SummaryEntry> result = new List<SummaryEntry>();

@@ -14,7 +14,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string BountyValue = "bounty";
         public static readonly string FactionsPropertyName = "Factions";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, string supportedFaction, JObject entry)
         {
             if (pilotState is null)
             {
@@ -35,7 +35,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             if (entry.Value<string>(TypePropertyName) == BountyValue)
             {
                 JToken supportedFactionBounty = entry.Value<JArray>(FactionsPropertyName)
-                                                      .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedFaction.Name);
+                                                      .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedFaction);
                 if (supportedFactionBounty != null)
                 {
                     result.Add(new BountySummaryEntry(supportedFactionBounty.Value<string>("Amount")));

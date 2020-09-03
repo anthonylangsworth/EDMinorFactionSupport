@@ -25,7 +25,7 @@ namespace EDMissionSummary
                 JournalEntryParser journalEntryParser = new JournalEntryParser();
                 MissionSummarizer missionSummarizer = new MissionSummarizer();
                 PilotState pilotState = new PilotState();
-                SupportedFaction supportedFaction = new SupportedFaction("EDA Kunti League", new string[0], new string[0]);
+                string supportedFaction = "EDA Kunti League";
 
             //IEnumerable<SummaryEntry> missionSummaryEntries = 
             //    journal.Entries

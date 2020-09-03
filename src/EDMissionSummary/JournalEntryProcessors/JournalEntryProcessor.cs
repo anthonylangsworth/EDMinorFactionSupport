@@ -19,7 +19,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             private set;
         }
 
-        public virtual IEnumerable<SummaryEntry> Process(PilotState pilotState, SupportedFaction supportedFaction, JObject entry)
+        public virtual IEnumerable<SummaryEntry> Process(PilotState pilotState, string supportedFaction, JObject entry)
         {
             TimeStamp = DateTime.Parse(entry.Value<string>("timestamp"), CultureInfo.CurrentUICulture);
 
