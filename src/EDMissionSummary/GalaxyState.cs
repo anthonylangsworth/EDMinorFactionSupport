@@ -18,7 +18,7 @@ namespace EDMissionSummary
         public GalaxyState()
         {
             _stations = new HashSet<Station>();
-            Systems = new Dictionary<long, string>();
+            Systems = new Dictionary<long, StarSystem>();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace EDMissionSummary
 
         public IEnumerable<Station> Stations => _stations;
 
-        public IDictionary<long, string> Systems
+        public IDictionary<long, StarSystem> Systems
         {
             get;
         }

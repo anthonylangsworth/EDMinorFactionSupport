@@ -14,7 +14,7 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
     {
         [Test]
         [TestCaseSource(nameof(ProcessSingleEntrySource))]
-        public void ProcessSingleEntry(string journalEntry, string minorFaction, string expectedStationName, long expectedSystemAddress, string expectedSystemName, string expectedControllingMinorFaction, string[] expectedMinorFactions)
+        public void ProcessSingleEntry(string journalEntry, string minorFaction, string expectedStationName, long expectedSystemAddress, string expectedSystemName, string expectedStationControllingMinorFaction, string[] expectedMinorFactions, string expectedSystemMinorFaction)
         {
             LocationEntryProcessor dockedEventProcessor = new LocationEntryProcessor();
             PilotState pilotState = new PilotState();
@@ -28,14 +28,14 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
             Assert.That(pilotState.LastDockedStation, Is.Not.Null);
             Assert.That(pilotState.LastDockedStation.Name, Is.EqualTo(expectedStationName));
             Assert.That(pilotState.LastDockedStation.SystemAddress, Is.EqualTo(expectedSystemAddress));
-            Assert.That(pilotState.LastDockedStation.ControllingMinorFaction, Is.EqualTo(expectedControllingMinorFaction));
+            Assert.That(pilotState.LastDockedStation.ControllingMinorFaction, Is.EqualTo(expectedStationControllingMinorFaction));
             Assert.That(pilotState.LastDockedStation.MinorFactions, Is.EqualTo(expectedMinorFactions));
 
             Assert.That(galaxyState.Systems, Has.Count.EqualTo(1));
-            Assert.That(galaxyState.Systems[expectedSystemAddress], Is.EqualTo(expectedSystemName));
+            Assert.That(galaxyState.Systems[expectedSystemAddress], Is.EqualTo(new StarSystem(expectedSystemAddress, expectedSystemName, expectedSystemMinorFaction)));
 
             Assert.That(galaxyState.Stations, Has.Count.EqualTo(1));
-            Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { new Station(expectedStationName, expectedSystemAddress, expectedControllingMinorFaction, expectedMinorFactions) }));
+            Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { new Station(expectedStationName, expectedSystemAddress, expectedStationControllingMinorFaction, expectedMinorFactions) }));
         }
 
         public static IEnumerable ProcessSingleEntrySource()
@@ -56,7 +56,8 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                     "Afli Blue Partnership",
                     "The Sovereign Justice Collective",
                     "Afli Silver Universal Exchange" 
-                }
+                },
+                "The Sovereign Justice Collective"
             );
         }
     }
