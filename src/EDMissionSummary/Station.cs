@@ -6,27 +6,59 @@ namespace EDMissionSummary
 {
     public class Station
     {
-        public Station(string name, ulong systemAddress, string controllingMinorFaction)
+        /// <summary>
+        /// Create a station.
+        /// </summary>
+        /// <param name="name">
+        /// The station name. Should be unique within a system. Cannot be null or empty.
+        /// </param>
+        /// <param name="systemAddress">
+        /// The system address, a unique identifier of the system.
+        /// </param>
+        /// <param name="controllingMinorFaction">
+        /// The name of the controlling minor faction. Cannot be null or empty.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        /// No parameter can be empty or null.
+        /// </exception>
+        public Station(string name, long systemAddress, string controllingMinorFaction)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException($"'{nameof(name)}' cannot be null or empty", nameof(name));
+            }
+            if (string.IsNullOrEmpty(controllingMinorFaction))
+            {
+                throw new ArgumentException($"'{nameof(controllingMinorFaction)}' cannot be null or empty", nameof(controllingMinorFaction));
+            }
 
+            Name = name;
+            SystemAddress = systemAddress;
+            ControllingMinorFaction = controllingMinorFaction;
         }
 
+        /// <summary>
+        /// The station name. Should be unique within a system. Cannot be null or empty.
+        /// </summary>
         public string Name
         {
             get; 
-            set;
         }
 
+        /// <summary>
+        /// The name of the controlling minor faction. Cannot be null or empty.
+        /// </summary>
         public string ControllingMinorFaction
         {
             get;
-            set;
         }
 
-        public string Id
+        /// <summary>
+        /// The system address, a unique identifier of the system.
+        /// </summary>
+        public long SystemAddress
         {
             get;
-            set;
         }
     }
 }
