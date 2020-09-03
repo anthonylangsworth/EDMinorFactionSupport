@@ -24,4 +24,10 @@
     <ProjectReference Include="..\..\src\EDMissionSummary\EDMissionSummary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Samples\TestMissions.log">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,19 @@
+﻿{
+  "timestamp": "2020-08-30T01:25:07Z",
+  "event": "MissionAccepted",
+  "Faction": "EDA Kunti League",
+  "Name": "Mission_Delivery_Investment",
+  "LocalisedName": "Improve our financial status by delivering 120 units of Food Cartridges",
+  "Commodity": "$FoodCartridges_Name;",
+  "Commodity_Localised": "Food Cartridges",
+  "Count": 120,
+  "TargetFaction": "LTT 2337 Empire Party",
+  "DestinationSystem": "Kunti",
+  "DestinationStation": "Hughes Enterprise",
+  "Expiry": "2020-08-31T01:23:51Z",
+  "Wing": false,
+  "Influence": "++",
+  "Reputation": "++",
+  "Reward": 1111394,
+  "MissionID": 624049090
+}

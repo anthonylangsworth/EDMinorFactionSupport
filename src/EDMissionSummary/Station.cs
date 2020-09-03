@@ -23,7 +23,7 @@ namespace EDMissionSummary
         /// <exception cref="ArgumentException">
         /// No parameter can be empty or null.
         /// </exception>
-        public Station(string name, long systemAddress, string controllingMinorFaction)
+        public Station(string name, long systemAddress, string controllingMinorFaction, IEnumerable<string> minorFactions)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -37,23 +37,23 @@ namespace EDMissionSummary
             Name = name;
             SystemAddress = systemAddress;
             ControllingMinorFaction = controllingMinorFaction;
+            MinorFactions = minorFactions;
         }
 
         /// <summary>
         /// The station name. Should be unique within a system. Cannot be null or empty.
         /// </summary>
-        public string Name
-        {
-            get; 
-        }
+        public string Name { get; }
 
         /// <summary>
         /// The name of the controlling minor faction. Cannot be null or empty.
         /// </summary>
-        public string ControllingMinorFaction
-        {
-            get;
-        }
+        public string ControllingMinorFaction { get; }
+
+        /// <summary>
+        /// The minor factions present at this station.
+        /// </summary>
+        public IEnumerable<string> MinorFactions { get; }
 
         /// <summary>
         /// The system address, a unique identifier of the system.

@@ -36,7 +36,7 @@ namespace EDMissionSummary.JournalEntryProcessors
 
             List<SummaryEntry> result = new List<SummaryEntry>();
 
-            // TODO: Fix!
+            // TODO: FIX!!!!
             //result.Add(new MissionSummaryEntry(
             //        "", // influenceSection.Value<string>("SystemAddress"),
             //        entry.Value<string>("DestinationSystem"),

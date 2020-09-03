@@ -21,7 +21,7 @@ namespace EDMissionSummaryTest
         public void AddOrUpdateStation_Empty()
         {
             GalaxyState galaxyState = new GalaxyState();
-            Station station = new Station("A", 1, "F1");
+            Station station = new Station("A", 1, "F1", new string[0]);
             galaxyState.AddOrUpdateStation(station);
             Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { station }));
             Assert.That(galaxyState.Systems, Is.Empty);
@@ -31,8 +31,8 @@ namespace EDMissionSummaryTest
         public void AddOrUpdateStation_Add()
         {
             GalaxyState galaxyState = new GalaxyState();
-            Station station1 = new Station("A", 1, "F1");
-            Station station2 = new Station("A", 2, "F2");
+            Station station1 = new Station("A", 1, "F1", new string[0]);
+            Station station2 = new Station("A", 2, "F2", new string[0]);
             galaxyState.AddOrUpdateStation(station1);
             galaxyState.AddOrUpdateStation(station2);
             Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { station1, station2 }));
@@ -43,8 +43,8 @@ namespace EDMissionSummaryTest
         public void AddOrUpdateStation_Update()
         {
             GalaxyState galaxyState = new GalaxyState();
-            Station station1 = new Station("A", 1, "F1");
-            Station station2 = new Station("A", 1, "F2");
+            Station station1 = new Station("A", 1, "F1", new string[0]);
+            Station station2 = new Station("A", 1, "F2", new string[0]);
             galaxyState.AddOrUpdateStation(station1);
             galaxyState.AddOrUpdateStation(station2);
             Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { station2 }));
@@ -62,8 +62,8 @@ namespace EDMissionSummaryTest
         public void GetStation_Hit()
         {
             GalaxyState galaxyState = new GalaxyState();
-            Station station1 = new Station("A", 1, "F1");
-            Station station2 = new Station("B", 2, "F2");
+            Station station1 = new Station("A", 1, "F1", new string[0]);
+            Station station2 = new Station("B", 2, "F2", new string[0]);
             galaxyState.AddOrUpdateStation(station1);
             galaxyState.AddOrUpdateStation(station2);
             Assert.That(galaxyState.GetStation(station1.Name, station1.SystemAddress), Is.EqualTo(station1));
@@ -74,7 +74,7 @@ namespace EDMissionSummaryTest
         public void GetStation_MissName()
         {
             GalaxyState galaxyState = new GalaxyState();
-            Station station = new Station("A", 1, "F1");
+            Station station = new Station("A", 1, "F1", new string[0]);
             galaxyState.AddOrUpdateStation(station);
             Assert.That(galaxyState.GetStation(station.Name + "A", station.SystemAddress), Is.Null);
         }
@@ -83,7 +83,7 @@ namespace EDMissionSummaryTest
         public void GetStation_MissSystemAddress()
         {
             GalaxyState galaxyState = new GalaxyState();
-            Station station = new Station("A", 1, "F1");
+            Station station = new Station("A", 1, "F1", new string[0]);
             galaxyState.AddOrUpdateStation(station);
             Assert.That(galaxyState.GetStation(station.Name, station.SystemAddress + 1), Is.Null);
         }

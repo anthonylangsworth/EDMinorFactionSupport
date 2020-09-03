@@ -7,12 +7,12 @@ using System.Text;
 
 namespace EDMissionSummary.JournalEntryProcessors
 {
-    public class DockedEntryProcessor : JournalEntryProcessor
+    public class LocationEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "Docked";
+        public static readonly string EventName = "Location";
 
         /// <summary>
-        /// Track the mission in the <see cref="PilotState"/> because some mission relevant details are only
+        /// Track the mission in the <see cref="PilotState"/> and <see cref="GalaxyState"/> because some mission relevant details are only
         /// available in this journal entry.
         /// </summary>
         /// <param name="pilotState">
@@ -55,10 +55,12 @@ namespace EDMissionSummary.JournalEntryProcessors
             Station station = new Station(
                 entry.Value<string>("StationName"),
                 long.Parse(entry.Value<string>("SystemAddress")),
-                entry["StationFaction"].Value<string>("Name")
+                entry["StationFaction"].Value<string>("Name"),
+                entry["Factions"].Select(o => o.Value<string>("Name"))
             );
 
             pilotState.LastDockedStation = station;
+
             galaxyState.AddOrUpdateStation(station);
             galaxyState.Systems[entry.Value<long>("SystemAddress")] = entry.Value<string>("StarSystem");
 
