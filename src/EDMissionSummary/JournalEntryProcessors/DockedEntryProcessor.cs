@@ -58,13 +58,9 @@ namespace EDMissionSummary.JournalEntryProcessors
                 entry["StationFaction"].Value<string>("Name")
             );
 
-            // SystemAddress = entry.Value<string>("SystemAddress"),
-            // SystemName = entry.Value<string>("StarSystem"),
-
             pilotState.LastDockedStation = station;
-
-            // TODO: Add station to galaxy state
-            // TODO: Add system to galaxy state
+            galaxyState.AddOrUpdateStation(station);
+            galaxyState.Systems[entry.Value<long>("SystemAddress")] = entry.Value<string>("StarSystem");
 
             return Enumerable.Empty<SummaryEntry>();
         }

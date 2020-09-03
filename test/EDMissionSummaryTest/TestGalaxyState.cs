@@ -14,6 +14,7 @@ namespace EDMissionSummaryTest
         {
             GalaxyState galaxyState = new GalaxyState();
             Assert.That(galaxyState.Stations, Is.Empty);
+            Assert.That(galaxyState.Systems, Is.Empty);
         }
 
         [Test]
@@ -23,6 +24,7 @@ namespace EDMissionSummaryTest
             Station station = new Station("A", 1, "F1");
             galaxyState.AddOrUpdateStation(station);
             Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { station }));
+            Assert.That(galaxyState.Systems, Is.Empty);
         }
 
         [Test]
@@ -34,6 +36,7 @@ namespace EDMissionSummaryTest
             galaxyState.AddOrUpdateStation(station1);
             galaxyState.AddOrUpdateStation(station2);
             Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { station1, station2 }));
+            Assert.That(galaxyState.Systems, Is.Empty);
         }
 
         [Test]
@@ -45,6 +48,7 @@ namespace EDMissionSummaryTest
             galaxyState.AddOrUpdateStation(station1);
             galaxyState.AddOrUpdateStation(station2);
             Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { station2 }));
+            Assert.That(galaxyState.Systems, Is.Empty);
         }
 
         [Test]

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace EDMissionSummary
 {
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public class Station : IEquatable<Station>
     {
         /// <summary>
@@ -77,6 +79,16 @@ namespace EDMissionSummary
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, ControllingMinorFaction, SystemAddress);
+        }
+
+        private string GetDebuggerDisplay()
+        {
+            return ToString();
+        }
+
+        public override string ToString()
+        {
+            return $"{ Name } ({ SystemAddress }) by { ControllingMinorFaction }";
         }
     }
 }
