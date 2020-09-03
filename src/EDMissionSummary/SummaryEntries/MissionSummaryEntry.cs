@@ -6,22 +6,30 @@ namespace EDMissionSummary.SummaryEntries
 {
     public class MissionSummaryEntry: SummaryEntry
     {
-        public MissionSummaryEntry(string sourceSystemId, string destinationSystem, bool supportingFaction, string factionInfluence)
+        public MissionSummaryEntry(string systemName, bool supportsFaction, string influence)
         {
-            SourceSystemId = sourceSystemId;
-            DestinationSystem = destinationSystem;
-            SupportingFaction = supportingFaction;
-            FactionInfluence = factionInfluence;
+            if (string.IsNullOrWhiteSpace(systemName))
+            {
+                throw new ArgumentException($"'{nameof(systemName)}' cannot be null or whitespace", nameof(systemName));
+            }
+
+            if (string.IsNullOrWhiteSpace(influence))
+            {
+                throw new ArgumentException($"'{nameof(influence)}' cannot be null or whitespace", nameof(influence));
+            }
+
+            SystemName = systemName;
+            SupportsFaction = supportsFaction;
+            Influence = influence;
         }
 
-        public string SourceSystemId { get; }
-        public string DestinationSystem { get; }
-        public bool SupportingFaction { get; }
-        public string FactionInfluence { get; }
+        public string SystemName { get; }
+        public bool SupportsFaction { get; }
+        public string Influence { get; }
 
         public override string ToString()
         {
-            return string.Format("{0} Inf{1}", SupportingFaction ? "Pro" : "Con", FactionInfluence);
+            return string.Format("{0} {1} Inf{2}", SystemName, SupportsFaction ? "Pro" : "Con", Influence);
         }
     }
 }

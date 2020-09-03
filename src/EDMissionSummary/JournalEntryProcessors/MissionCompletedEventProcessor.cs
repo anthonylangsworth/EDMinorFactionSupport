@@ -29,15 +29,17 @@ namespace EDMissionSummary.JournalEntryProcessors
 
             base.Process(pilotState, galaxyState, supportedFaction, entry);
 
-            FactionSupportResult supportResult = SupportsFaction(entry, supportedFaction);
+            FactionSupport supportResult = SupportsFaction(entry, supportedFaction);
             string influence = GetInfluence(entry);
 
             List<SummaryEntry> result = new List<SummaryEntry>();
-            result.Add(new MissionSummaryEntry(
-                    "", // influenceSection.Value<string>("SystemAddress"),
-                    entry.Value<string>("DestinationSystem"),
-                    supportResult == FactionSupportResult.Support,
-                    influence));
+
+            // TODO: Fix!
+            //result.Add(new MissionSummaryEntry(
+            //        "", // influenceSection.Value<string>("SystemAddress"),
+            //        entry.Value<string>("DestinationSystem"),
+            //        supportResult == FactionSupport.Support,
+            //        influence));
 
             return result;
         }
@@ -60,7 +62,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <exception cref="ArgumentException">
         /// <paramref name="supportedFactionName"/> cannot be null, empty or whitespace.
         /// </exception>
-        protected internal static FactionSupportResult SupportsFaction(JObject entry, string supportedFactionName)
+        protected internal static FactionSupport SupportsFaction(JObject entry, string supportedFactionName)
         {
             if (entry is null)
             {
@@ -71,19 +73,19 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentException($"'{nameof(supportedFactionName)}' cannot be null or whitespace", nameof(supportedFactionName));
             }
 
-            FactionSupportResult result = FactionSupportResult.None;
+            FactionSupport result = FactionSupport.None;
 
             if (entry.Value<JArray>(FactionEffectsSectionName)
                      .Any(fe => fe.Value<string>("Faction") == supportedFactionName))
             {
-                result = FactionSupportResult.Support;
+                result = FactionSupport.Support;
             }
             else
             {
                 // TODO: Check systems involved to determine whether the supported faction is present.
                 // If so, it is undermining. If not, it has no effect.
 
-                result = FactionSupportResult.Undermine;
+                result = FactionSupport.Undermine;
             }
 
             return result;

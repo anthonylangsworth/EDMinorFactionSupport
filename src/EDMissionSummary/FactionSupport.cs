@@ -7,7 +7,7 @@ namespace EDMissionSummary
     /// <summary>
     /// The result of a mission or other activity on the supported minor faction.
     /// </summary>
-    public enum FactionSupportResult
+    public enum FactionSupport
     {
         /// <summary>
         /// The action improves or supports the minor faction.
