@@ -20,12 +20,12 @@ namespace EDMissionSummaryTest
         {
             PilotState pilotState = new PilotState();
             GalaxyState galaxyState = new GalaxyState();
-            string supportedFaction = "EDA Kunti League";
+            string supportedMinorFaction = "EDA Kunti League";
 
             Assert.That(
                 new StringJournalSource(journal).Entries
                                                 .Select(new JournalEntryParser().Parse)
-                                                .SelectMany(entry => new MissionSummarizer().Convert(pilotState, galaxyState, supportedFaction, entry)), 
+                                                .SelectMany(entry => new MissionSummarizer().Convert(pilotState, galaxyState, supportedMinorFaction, entry)), 
                 Is.EquivalentTo(expectedSummaryEntries));
         }
 

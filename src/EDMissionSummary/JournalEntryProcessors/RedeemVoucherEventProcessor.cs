@@ -14,31 +14,29 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string BountyValue = "bounty";
         public static readonly string FactionsPropertyName = "Factions";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {
             if (pilotState is null)
             {
                 throw new ArgumentNullException(nameof(pilotState));
             }
-            if (supportedFaction is null)
+            if (supportedMinorFaction is null)
             {
-                throw new ArgumentNullException(nameof(supportedFaction));
+                throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
             if (entry is null)
             {
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            base.Process(pilotState, galaxyState, supportedFaction, entry);
-
             List<SummaryEntry> result = new List<SummaryEntry>();
             if (entry.Value<string>(TypePropertyName) == BountyValue)
             {
-                JToken supportedFactionBounty = entry.Value<JArray>(FactionsPropertyName)
-                                                      .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedFaction);
-                if (supportedFactionBounty != null)
+                JToken supportedMinorFactionBounty = entry.Value<JArray>(FactionsPropertyName)
+                                                      .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedMinorFaction);
+                if (supportedMinorFactionBounty != null)
                 {
-                    result.Add(new BountySummaryEntry(supportedFactionBounty.Value<string>("Amount")));
+                    result.Add(new BountySummaryEntry(GetTimeStamp(entry), supportedMinorFactionBounty.Value<string>("Amount")));
                 }
             }
 

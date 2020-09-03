@@ -6,7 +6,8 @@ namespace EDMissionSummary.SummaryEntries
 {
     internal class BountySummaryEntry : SummaryEntry
     {
-        public BountySummaryEntry(string amount)
+        public BountySummaryEntry(DateTime timestamp, string amount)
+            : base(timestamp)
         {
             if (string.IsNullOrWhiteSpace(amount))
             {

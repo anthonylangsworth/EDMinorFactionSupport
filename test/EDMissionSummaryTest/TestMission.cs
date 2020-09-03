@@ -16,14 +16,12 @@ namespace EDMissionSummaryTest
                 "Name",
                 "SourceFactionName",
                 "TargetFactionName",
-                "DestinationSystem",
-                "DestinationStation");
-            Assert.That(mission.DestinationStation, Is.EqualTo("DestinationStation"));
+                "DestinationSystem");
             Assert.That(mission.DestinationSystem, Is.EqualTo("DestinationSystem"));
             Assert.That(mission.MissonId, Is.EqualTo("MissionID"));
             Assert.That(mission.Name, Is.EqualTo("Name"));
-            Assert.That(mission.SourceFactionName, Is.EqualTo("SourceFactionName"));
-            Assert.That(mission.TargetFactionName, Is.EqualTo("TargetFactionName"));
+            Assert.That(mission.SourceMinorFactionName, Is.EqualTo("SourceFactionName"));
+            Assert.That(mission.TargetMinorFactionName, Is.EqualTo("TargetFactionName"));
         }
     }
 }

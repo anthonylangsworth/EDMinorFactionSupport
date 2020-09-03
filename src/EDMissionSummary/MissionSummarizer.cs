@@ -23,15 +23,15 @@ namespace EDMissionSummary
             };
         }
 
-        public IEnumerable<SummaryEntry> Convert(PilotState pilotState, GalaxyState galaxyState, string supportedFaction, JObject entry)
+        public IEnumerable<SummaryEntry> Convert(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {
             if (pilotState is null)
             {
                 throw new ArgumentNullException(nameof(pilotState));
             }
-            if (supportedFaction is null)
+            if (supportedMinorFaction is null)
             {
-                throw new ArgumentNullException(nameof(supportedFaction));
+                throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
             if (entry == null)
             {
@@ -41,7 +41,7 @@ namespace EDMissionSummary
             IEnumerable<SummaryEntry> result = Enumerable.Empty<SummaryEntry>();
             if (journalEntryProcessors.TryGetValue(entry.Value<string>("event"), out JournalEntryProcessor journalEntryProcessor))
             {
-                result = journalEntryProcessor.Process(pilotState, galaxyState, supportedFaction, entry);
+                result = journalEntryProcessor.Process(pilotState, galaxyState, supportedMinorFaction, entry);
             }
             return result;
         }

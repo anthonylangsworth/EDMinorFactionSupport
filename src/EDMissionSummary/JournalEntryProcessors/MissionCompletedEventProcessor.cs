@@ -12,24 +12,22 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string EventName = "MissionCompleted";
         public static readonly string FactionEffectsSectionName = "FactionEffects";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedFaction,  JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction,  JObject entry)
         {
             if (pilotState is null)
             {
                 throw new ArgumentNullException(nameof(pilotState));
             }
-            if (supportedFaction is null)
+            if (supportedMinorFaction is null)
             {
-                throw new ArgumentNullException(nameof(supportedFaction));
+                throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
             if (entry is null)
             {
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            base.Process(pilotState, galaxyState, supportedFaction, entry);
-
-            FactionSupport supportResult = SupportsFaction(entry, supportedFaction);
+            FactionSupport supportResult = SupportsFaction(entry, supportedMinorFaction);
             string influence = GetInfluence(entry);
 
             List<SummaryEntry> result = new List<SummaryEntry>();
@@ -50,7 +48,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <param name="entry">
         /// The JObject representing the journal entry to check. This cannot be null.
         /// </param>
-        /// <param name="supportedFactionName">
+        /// <param name="supportedMinorFactionName">
         /// The name of the supported faction. Cannot be null, empty or whitespace.
         /// </param>
         /// <returns>
@@ -60,23 +58,23 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <paramref name="entry"/> cannot be null.
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// <paramref name="supportedFactionName"/> cannot be null, empty or whitespace.
+        /// <paramref name="supportedMinorFactionName"/> cannot be null, empty or whitespace.
         /// </exception>
-        protected internal static FactionSupport SupportsFaction(JObject entry, string supportedFactionName)
+        protected internal static FactionSupport SupportsFaction(JObject entry, string supportedMinorFactionName)
         {
             if (entry is null)
             {
                 throw new ArgumentNullException(nameof(entry));
             }
-            if (string.IsNullOrWhiteSpace(supportedFactionName))
+            if (string.IsNullOrWhiteSpace(supportedMinorFactionName))
             {
-                throw new ArgumentException($"'{nameof(supportedFactionName)}' cannot be null or whitespace", nameof(supportedFactionName));
+                throw new ArgumentException($"'{nameof(supportedMinorFactionName)}' cannot be null or whitespace", nameof(supportedMinorFactionName));
             }
 
             FactionSupport result = FactionSupport.None;
 
             if (entry.Value<JArray>(FactionEffectsSectionName)
-                     .Any(fe => fe.Value<string>("Faction") == supportedFactionName))
+                     .Any(fe => fe.Value<string>("Faction") == supportedMinorFactionName))
             {
                 result = FactionSupport.Support;
             }

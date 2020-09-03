@@ -6,7 +6,8 @@ namespace EDMissionSummary.SummaryEntries
 {
     public class MissionSummaryEntry: SummaryEntry
     {
-        public MissionSummaryEntry(string systemName, bool supportsFaction, string influence)
+        public MissionSummaryEntry(DateTime timestamp, string systemName, bool supportsFaction, string influence)
+            : base(timestamp)
         {
             if (string.IsNullOrWhiteSpace(systemName))
             {
