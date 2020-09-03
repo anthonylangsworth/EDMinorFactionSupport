@@ -11,11 +11,16 @@ namespace EDMissionSummary
     {
         public PilotState()
         {
-            LastStation = new Station();
+            Station = null;
             Missions = new HashSet<Mission>();
         }
 
-        public Station LastStation
+        public Station Station
+        {
+            get;
+        }
+
+        public string SystemName
         {
             get;
         }

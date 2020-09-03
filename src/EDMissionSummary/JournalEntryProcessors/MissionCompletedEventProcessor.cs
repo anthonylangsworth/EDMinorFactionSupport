@@ -12,7 +12,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string EventName = "MissionCompleted";
         public static readonly string FactionEffectsSectionName = "FactionEffects";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, string supportedFaction,  JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedFaction,  JObject entry)
         {
             if (pilotState is null)
             {
@@ -27,7 +27,7 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            base.Process(pilotState, supportedFaction, entry);
+            base.Process(pilotState, galaxyState, supportedFaction, entry);
 
             FactionSupportResult supportResult = SupportsFaction(entry, supportedFaction);
             string influence = GetInfluence(entry);

@@ -25,6 +25,7 @@ namespace EDMissionSummary
                 JournalEntryParser journalEntryParser = new JournalEntryParser();
                 MissionSummarizer missionSummarizer = new MissionSummarizer();
                 PilotState pilotState = new PilotState();
+                GalaxyState galaxyState = new GalaxyState();
                 string supportedFaction = "EDA Kunti League";
 
             //IEnumerable<SummaryEntry> missionSummaryEntries = 
@@ -36,7 +37,7 @@ namespace EDMissionSummary
             Console.Out.WriteLine(
                 journal.Entries
                        .Select(journalEntryParser.Parse)
-                       .SelectMany(entry => missionSummarizer.Convert(pilotState, supportedFaction, entry))
+                       .SelectMany(entry => missionSummarizer.Convert(pilotState, galaxyState, supportedFaction, entry))
                        .Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
             //}
             //catch(Exception ex)

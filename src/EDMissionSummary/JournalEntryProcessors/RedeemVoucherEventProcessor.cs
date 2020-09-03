@@ -14,7 +14,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string BountyValue = "bounty";
         public static readonly string FactionsPropertyName = "Factions";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, string supportedFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedFaction, JObject entry)
         {
             if (pilotState is null)
             {
@@ -29,7 +29,7 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            base.Process(pilotState, supportedFaction, entry);
+            base.Process(pilotState, galaxyState, supportedFaction, entry);
 
             List<SummaryEntry> result = new List<SummaryEntry>();
             if (entry.Value<string>(TypePropertyName) == BountyValue)
