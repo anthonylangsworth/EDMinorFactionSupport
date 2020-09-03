@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EDMissionSummary
 {
-    public class Station
+    public class Station : IEquatable<Station>
     {
         /// <summary>
         /// Create a station.
@@ -59,6 +59,24 @@ namespace EDMissionSummary
         public long SystemAddress
         {
             get;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Station);
+        }
+
+        public bool Equals(Station other)
+        {
+            return other != null &&
+                   Name == other.Name &&
+                   ControllingMinorFaction == other.ControllingMinorFaction &&
+                   SystemAddress == other.SystemAddress;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, ControllingMinorFaction, SystemAddress);
         }
     }
 }
