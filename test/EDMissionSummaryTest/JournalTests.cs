@@ -25,7 +25,7 @@ namespace EDMissionSummaryTest
             Assert.That(
                 new StringJournalSource(journal).Entries
                                                 .Select(new JournalEntryParser().Parse)
-                                                .SelectMany(entry => new MissionSummarizer().Convert(pilotState, galaxyState, supportedMinorFaction, entry)), 
+                                                .SelectMany(entry => new Summarizer().Convert(pilotState, galaxyState, supportedMinorFaction, entry)), 
                 Is.EquivalentTo(expectedSummaryEntries));
         }
 

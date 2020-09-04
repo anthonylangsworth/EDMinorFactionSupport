@@ -23,7 +23,7 @@ namespace EDMissionSummary
             //{
                 JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-2)); // new FileJournalSource(fileName);
                 JournalEntryParser journalEntryParser = new JournalEntryParser();
-                MissionSummarizer missionSummarizer = new MissionSummarizer();
+                Summarizer missionSummarizer = new Summarizer();
                 PilotState pilotState = new PilotState();
                 GalaxyState galaxyState = new GalaxyState();
                 string supportedMinorFaction = "EDA Kunti League";

@@ -8,14 +8,14 @@ using EDMissionSummary.SummaryEntries;
 
 namespace EDMissionSummary
 {
-    public class MissionSummarizer
+    public class Summarizer
     {
         public readonly string FactionEffectsSectionName = "FactionEffects";
-        private Dictionary<string, JournalEntryProcessor> journalEntryProcessors;
+        protected internal Dictionary<string, JournalEntryProcessor> _journalEntryProcessors;
 
-        public MissionSummarizer()
+        public Summarizer()
         {
-            journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
+            _journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
             {
                 {  FsdJumpEntryProcessor.EventName, new FsdJumpEntryProcessor() },
                 {  DockedEntryProcessor.EventName, new DockedEntryProcessor() },
@@ -25,6 +25,11 @@ namespace EDMissionSummary
                 {  RedeemVoucherEntryProcessor.EventName, new RedeemVoucherEntryProcessor() }
             };
         }
+
+        /// <summary>
+        /// The <see cref="JournalEntryProcessor"/> types used to process journal entries.
+        /// </summary>
+        public IReadOnlyDictionary<string, JournalEntryProcessor> JournalEntryProcessors => _journalEntryProcessors;
 
         public IEnumerable<SummaryEntry> Convert(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {
@@ -42,7 +47,7 @@ namespace EDMissionSummary
             }
 
             IEnumerable<SummaryEntry> result = Enumerable.Empty<SummaryEntry>();
-            if (journalEntryProcessors.TryGetValue(entry.Value<string>("event"), out JournalEntryProcessor journalEntryProcessor))
+            if (_journalEntryProcessors.TryGetValue(entry.Value<string>("event"), out JournalEntryProcessor journalEntryProcessor))
             {
                 result = journalEntryProcessor.Process(pilotState, galaxyState, supportedMinorFaction, entry);
             }
