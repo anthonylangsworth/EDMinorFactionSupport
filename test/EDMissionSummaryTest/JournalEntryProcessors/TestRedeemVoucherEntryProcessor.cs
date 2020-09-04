@@ -46,6 +46,11 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                 "The Sovereign Justice Collective",
                 new RedeemVoucherSummaryEntry[] { new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T08:33:09Z"), "bounty", 107549) });
             yield return new TestCaseData(
+                "{ 'timestamp':'2020-07-17T08:33:09Z', 'event':'RedeemVoucher', 'Type':'bounty', 'Amount':128024, 'Factions':[ { 'Faction':'The Sovereign Justice Collective', 'Amount':107549 }, { 'Faction':'Afli Silver Universal Exchange', 'Amount':20475 } ] }"
+                    .Replace("'", "\""),
+                "Afli Silver Universal Exchange",
+                new RedeemVoucherSummaryEntry[] { new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T08:33:09Z"), "bounty", 20475) });
+            yield return new TestCaseData(
                 "{ 'timestamp':'2020-07-17T12:18:21Z', 'event':'RedeemVoucher', 'Type':'CombatBond', 'Amount':598144, 'Faction':'Kausalya Netcoms Organisation' }"
                     .Replace("'", "\""),
                 "Kausalya Netcoms Organisation",
