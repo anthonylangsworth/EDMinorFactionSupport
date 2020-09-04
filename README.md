@@ -16,18 +16,19 @@ What does it support?
 
 Important things to fix (not necessarily in this order):
 1. A better display (e.g. counting up the number of influence missions instead of listing them separately)
-2. Fixing anti-minor faction mission detection.
+2. (Done) Fixing anti-minor faction mission detection.
 3. Cartography data.
 4. Trades.
 5. Mission failure, abandonment and redirection.
-6. Internal fixes like a better folder structure, design improvements and automated tests.
+6. (Done, will always need better automated tests) Internal fixes like a better folder structure, design improvements and automated tests.
 7. Error handling and command line argument support, e.g. for the day.
 
 If this tool proves useful we may automate the collation of these further, e.g. by pasting the results to Discord directly or sending them to a central source for consolidated reporting.
 
-TODO: Add Frontier disclaimer.
-TODO: Add reference to documentation (http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf)
-TODO: Discussion on definition of PRO and CON. For example, does a decrease in influence for another faction count?
+TODOS for the README:
+1. Add Frontier disclaimer.
+2. Add reference to documentation (http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf)
+3. Discussion on definition of PRO and CON. For example, does a decrease in influence for another faction count?
 
 # License
  

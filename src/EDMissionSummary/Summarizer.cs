@@ -10,11 +10,11 @@ namespace EDMissionSummary
 {
     public class Summarizer
     {
-        public readonly string FactionEffectsSectionName = "FactionEffects";
         protected internal Dictionary<string, JournalEntryProcessor> _journalEntryProcessors;
 
         public Summarizer()
         {
+            // TODO: Consider injection for building this list
             _journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
             {
                 {  FsdJumpEntryProcessor.EventName, new FsdJumpEntryProcessor() },
