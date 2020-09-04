@@ -31,7 +31,7 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            FactionSupport supportResult = SupportsFaction(entry, supportedMinorFaction);
+            FactionInfluence supportResult = SupportsFaction(entry, supportedMinorFaction);
             string influence = GetInfluence(entry);
 
             List<SummaryEntry> result = new List<SummaryEntry>();
@@ -52,7 +52,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <param name="entry">
         /// The JObject representing the journal entry to check. This cannot be null.
         /// </param>
-        /// <param name="supportedMinorFactionName">
+        /// <param name="supportedMinorFaction">
         /// The name of the supported faction. Cannot be null, empty or whitespace.
         /// </param>
         /// <returns>
@@ -62,32 +62,32 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <paramref name="entry"/> cannot be null.
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// <paramref name="supportedMinorFactionName"/> cannot be null, empty or whitespace.
+        /// <paramref name="supportedMinorFaction"/> cannot be null, empty or whitespace.
         /// </exception>
-        protected internal static FactionSupport SupportsFaction(JObject entry, string supportedMinorFactionName)
+        protected internal static FactionInfluence SupportsFaction(JObject entry, string supportedMinorFaction)
         {
             if (entry is null)
             {
                 throw new ArgumentNullException(nameof(entry));
             }
-            if (string.IsNullOrWhiteSpace(supportedMinorFactionName))
+            if (string.IsNullOrWhiteSpace(supportedMinorFaction))
             {
-                throw new ArgumentException($"'{nameof(supportedMinorFactionName)}' cannot be null or whitespace", nameof(supportedMinorFactionName));
+                throw new ArgumentException($"'{nameof(supportedMinorFaction)}' cannot be null or whitespace", nameof(supportedMinorFaction));
             }
 
-            FactionSupport result = FactionSupport.None;
+            FactionInfluence result = FactionInfluence.None;
 
             if (entry.Value<JArray>(FactionEffectsSectionName)
-                     .Any(fe => fe.Value<string>("Faction") == supportedMinorFactionName))
+                     .Any(fe => fe.Value<string>("Faction") == supportedMinorFaction))
             {
-                result = FactionSupport.Support;
+                result = FactionInfluence.Increase;
             }
             else
             {
                 // TODO: Check systems involved to determine whether the supported faction is present.
                 // If so, it is undermining. If not, it has no effect.
 
-                result = FactionSupport.Undermine;
+                result = FactionInfluence.Decrease;
             }
 
             return result;

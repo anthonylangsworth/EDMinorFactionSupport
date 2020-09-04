@@ -48,27 +48,85 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            string systemName = galaxyState.Systems[pilotState.LastDockedStation.SystemAddress]?.Name ?? "";
+            StarSystem starSystem = galaxyState.Systems[pilotState.LastDockedStation.SystemAddress];
+            Station station = pilotState.LastDockedStation;
 
             List<SummaryEntry> result = new List<SummaryEntry>();
             if (entry.Value<string>(TypePropertyName) == BountyValue)
             {
-                result.AddRange(entry.Value<JArray>(FactionsPropertyName)
-                                     .Where(e => ((JObject)e).Value<string>(FactionPropertyName) == supportedMinorFaction)
-                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), galaxyState.Systems[pilotState.LastDockedStation.SystemAddress]?.Name, true, entry.Value<string>(TypePropertyName), e.Value<int>(AmountPropertyName))));
-
-                // TODO: Claiming bounties against the supported minor faction
+                var categorizedEntries = entry.Value<JArray>(FactionsPropertyName)
+                                     .Select(e => (JObject)e)
+                                     .Select(e => new { Entry = e, FactionSupport = GetFactionInfluence(supportedMinorFaction, e.Value<string>(FactionPropertyName), station.ControllingMinorFaction, station.MinorFactions) });
+                result.AddRange(categorizedEntries
+                                     .Where(e => e.FactionSupport == FactionInfluence.Increase)
+                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), starSystem?.Name, true, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
+                result.AddRange(categorizedEntries
+                                     .Where(e => e.FactionSupport == FactionInfluence.Decrease)
+                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), starSystem?.Name, false, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
             }
             else
             {
                 if(entry.Value<string>(FactionPropertyName) == supportedMinorFaction)
                 {
-                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), galaxyState.Systems[pilotState.LastDockedStation.SystemAddress]?.Name, true, entry.Value<string>(TypePropertyName), entry.Value<int>(AmountPropertyName)));
+                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), starSystem?.Name, true, entry.Value<string>(TypePropertyName), entry.Value<int>(AmountPropertyName)));
                 }
 
                 // TODO: Claiming vouchers against the supported minor faction
             }
 
+            return result;
+        }
+
+        /// <summary>
+        /// Determine whether the journal entry affects the supported minor faction's influence in the system.
+        /// </summary>
+        /// <param name="supportedMinorFaction">
+        /// The name of the supported minor faction. This cannot be null.
+        /// </param>
+        /// <param name="entryFaction">
+        /// The faction affeted by the journal entry. For example, it was a mission supplier or the payer of combat bonds.  This cannot be null.
+        /// </param>
+        /// <param name="stationControllingFaction">
+        /// The faction controlling the station.  This cannot be null.
+        /// </param>
+        /// <param name="stationMinorFactions">
+        /// The minor factions present but not controlling the station.  This cannot be null.
+        /// </param>
+        /// <returns>
+        /// A <see cref="FactionInfluence"/> indicating what affect it had on minor faction influence.
+        /// </returns>
+        public static FactionInfluence GetFactionInfluence(string supportedMinorFaction, string entryFaction, string stationControllingFaction, IEnumerable<string> stationMinorFactions)
+        {
+            if (supportedMinorFaction is null)
+            {
+                throw new ArgumentNullException(nameof(supportedMinorFaction));
+            }
+            if (string.IsNullOrEmpty(entryFaction))
+            {
+                throw new ArgumentException($"'{nameof(entryFaction)}' cannot be null or empty", nameof(entryFaction));
+            }
+            if (string.IsNullOrEmpty(stationControllingFaction))
+            {
+                throw new ArgumentException($"'{nameof(stationControllingFaction)}' cannot be null or empty", nameof(stationControllingFaction));
+            }
+            if (stationMinorFactions is null)
+            {
+                throw new ArgumentNullException(nameof(stationMinorFactions));
+            }
+
+            FactionInfluence result = FactionInfluence.None;
+            if (supportedMinorFaction == entryFaction)
+            {
+                result = FactionInfluence.Increase;
+            }
+            else
+            {
+                IEnumerable<string> factions = stationMinorFactions.Concat(new[] { stationControllingFaction });
+                if(factions.Contains(supportedMinorFaction) && factions.Contains(entryFaction))
+                {
+                    result = FactionInfluence.Decrease;
+                }
+            }
             return result;
         }
     }

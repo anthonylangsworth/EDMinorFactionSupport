@@ -58,5 +58,24 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                 "The Sovereign Justice Collective",
                 new RedeemVoucherSummaryEntry[] { new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T12:18:21Z"), "Afli", true, "CombatBond", 598144) });
         }
+
+        [Test]
+        [TestCaseSource(nameof(GetFactionInfluenceSource))]
+        public FactionInfluence GetFactionInfluence(string supportedMinorFaction, string entryFaction, string stationControllingFaction, IEnumerable<string> stationMinorFactions)
+        {
+            return RedeemVoucherEntryProcessor.GetFactionInfluence(supportedMinorFaction, entryFaction, stationControllingFaction, stationMinorFactions);
+        }
+
+        public static IEnumerable GetFactionInfluenceSource()
+        {
+            return new TestCaseData[]
+            {
+                new TestCaseData("A", "A", "C", new string[0]).Returns(FactionInfluence.Increase),
+                new TestCaseData("A", "B", "A", new string[0]).Returns(FactionInfluence.None),
+                new TestCaseData("A", "B", "A", new string[] { "B" }).Returns(FactionInfluence.Decrease),
+                new TestCaseData("A", "B", "A", new string[] { "B", "C" }).Returns(FactionInfluence.Decrease),
+                new TestCaseData("A", "B", "B", new string[] { "A" }).Returns(FactionInfluence.Decrease)
+            };
+        }
     }
 }
