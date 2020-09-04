@@ -1,0 +1,56 @@
+{
+  "timestamp": "2020-09-02T12:29:07Z",
+  "event": "MissionCompleted",
+  "Faction": "Kunti Dynamic Industry",
+  "Name": "Mission_Assassinate_Legal_Corporate_name",
+  "MissionID": 625188219,
+  "TargetType": "$MissionUtil_FactionTag_PirateLord;",
+  "TargetType_Localised": "Known Pirate",
+  "TargetFaction": "LTT 2337 Jet Brothers",
+  "NewDestinationSystem": "Kunti",
+  "DestinationSystem": "LTT 2337",
+  "NewDestinationStation": "Hughes Enterprise",
+  "DestinationStation": "Weaver Laboratory",
+  "Target": "Nysos Heluin",
+  "Reward": 71104,
+  "FactionEffects": [
+    {
+      "Faction": "Kunti Dynamic Industry",
+      "Effects": [
+        {
+          "Effect": "$MISSIONUTIL_Interaction_Summary_EP_up;",
+          "Effect_Localised": "The economic status of $#MinorFaction; has improved in the $#System; system.",
+          "Trend": "UpGood"
+        }
+      ],
+      "Influence": [
+        {
+          "SystemAddress": 9468121064873,
+          "Trend": "UpGood",
+          "Influence": "++++"
+        }
+      ],
+      "ReputationTrend": "UpGood",
+      "Reputation": "++"
+    },
+    {
+      "Faction": "",
+      "Effects": [
+        {
+          "Effect": "$MISSIONUTIL_Interaction_Summary_EP_down;",
+          "Effect_Localised": "The economic status of $#MinorFaction; has declined in the $#System; system.",
+          "Trend": "DownBad"
+        }
+      ],
+      "Influence": [
+        {
+          "SystemAddress": 908620436178,
+          "Trend": "DownBad",
+          "Influence": "+"
+        }
+      ],
+      "ReputationTrend": "DownBad",
+      "Reputation": "+"
+    }
+  ]
+}

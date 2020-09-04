@@ -12,7 +12,7 @@ namespace EDMissionSummary
         public PilotState()
         {
             LastDockedStation = null;
-            Missions = new HashSet<Mission>();
+            Missions = new Dictionary<long, Mission>();
         }
 
         public Station LastDockedStation 
@@ -21,13 +21,9 @@ namespace EDMissionSummary
             set;
         }
 
-        public ISet<Mission> Missions
+        public IDictionary<long, Mission> Missions
         {
             get;
         }
-
-        // Ideas
-        // * Current System
-        // * ISet<Mission>
     }
 }

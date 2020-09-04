@@ -1,37 +1,27 @@
-﻿namespace EDMissionSummary
+﻿using System;
+using System.Collections.Generic;
+
+namespace EDMissionSummary
 {
     public class Mission
     {
-        public Mission(string missonId, string name, string sourceMinorFactionName, string targetMinorFactionName, string destinationSystem)
+        public Mission(long id, string name, string influence)
         {
-            TargetMinorFactionName = targetMinorFactionName;
-            SourceMinorFactionName = sourceMinorFactionName;
-            DestinationSystem = destinationSystem;
             Name = name;
-            MissonId = missonId;
-        }
-
-        public string TargetMinorFactionName
-        {
-            get;
-        }
-
-        public string SourceMinorFactionName
-        {
-            get;
-        }
-
-        public string DestinationSystem
-        {
-            get;
+            Influence = influence;
+            Id = id;
         }
 
         public string Name
         {
             get;
         }
+        public string Influence 
+        { 
+            get; 
+        }
 
-        public string MissonId
+        public long Id
         {
             get;
         }

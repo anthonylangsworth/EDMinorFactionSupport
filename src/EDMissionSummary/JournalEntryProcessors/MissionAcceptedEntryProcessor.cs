@@ -51,14 +51,18 @@ namespace EDMissionSummary.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(entry));
             }
+            if(pilotState.LastDockedStation is null)
+            {
+                throw new InvalidOperationException("No current station");
+            }
 
-            pilotState.Missions.Add(new Mission(
-                entry.Value<string>("MissionID"),
-                entry.Value<string>("LocalisedName"),
-                entry.Value<string>("Faction"),
-                entry.Value<string>("TargetFaction"),
-                entry.Value<string>("DestinationSystem")
-            ));
+            pilotState.Missions.Add(
+                entry.Value<long>("MissionID"),
+                new Mission(
+                    entry.Value<long>("MissionID"),
+                    entry.Value<string>("LocalisedName"),
+                    entry.Value<string>("Influence"))
+                );
 
             return Enumerable.Empty<SummaryEntry>();
         }

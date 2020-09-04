@@ -10,11 +10,12 @@ namespace EDMissionSummaryTest.MissionSummaryEntries
     {
         public void Constructor()
         {
-            MissionSummaryEntry missionSummaryEntry = new MissionSummaryEntry(DateTime.MinValue, "SystemName", true, "++");
+            MissionSummaryEntry missionSummaryEntry = new MissionSummaryEntry(DateTime.MinValue, "Mission Name", "System Name", true, "++");
             Assert.That(missionSummaryEntry.TimeStamp, Is.EqualTo(DateTime.MinValue));
             Assert.That(missionSummaryEntry.Influence, Is.EqualTo("++"));
             Assert.That(missionSummaryEntry.IncreasesInfluence, Is.EqualTo(true));
-            Assert.That(missionSummaryEntry.SystemName, Is.EqualTo("SystemName"));
+            Assert.That(missionSummaryEntry.SystemName, Is.EqualTo("System Name"));
+            Assert.That(missionSummaryEntry.Name, Is.EqualTo("Mission Name"));
         }
     }
 }

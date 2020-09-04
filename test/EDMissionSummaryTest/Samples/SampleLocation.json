@@ -1,139 +1,140 @@
 {
-  'timestamp': '2020 - 07 - 17T11: 34:25Z',
-  'event': 'Location',
-  'Docked': true,
-  'StationName': 'Pu City',
-  'StationType': 'Coriolis',
-  'MarketID': 3223894016,
-  'StationFaction': {
-    'Name': 'The Sovereign Justice Collective',
-    'FactionState': 'Boom'
+  "timestamp": "2020 - 07 - 17T11: 34:25Z",
+  "event": "Location",
+  "Docked": true,
+  "StationName": "Pu City",
+  "StationType": "Coriolis",
+  "MarketID": 3223894016,
+  "StationFaction": {
+    "Name": "The Sovereign Justice Collective",
+    "FactionState": "Boom"
   },
-  'StationGovernment': '$government_Dictatorship;',
-  'StationGovernment_Localised': 'Dictatorship',
-  'StationServices': [ 'dock', 'autodock', 'commodities', 'contacts', 'exploration', 'missions', 'outfitting', 'crewlounge', 'rearm', 'refuel', 'repair', 'shipyard', 'tuning', 'engineer', 'missionsgenerated', 'flightcontroller', 'stationoperations', 'powerplay', 'searchrescue', 'stationMenu', 'shop', 'modulepacks' ],
-  'StationEconomy': '$economy_HighTech;',
-  'StationEconomy_Localised': 'High Tech',
-  'StationEconomies': [
+  "StationGovernment": "$government_Dictatorship;",
+  "StationGovernment_Localised": "Dictatorship",
+  "StationServices": [ "dock", "autodock", "commodities", "contacts", "exploration", "missions", "outfitting", "crewlounge", "rearm", "refuel", "repair", "shipyard", "tuning", "engineer", "missionsgenerated", "flightcontroller", "stationoperations", "powerplay", "searchrescue", "stationMenu", "shop", "modulepacks" ],
+  "StationEconomy": "$economy_HighTech;",
+  "StationEconomy_Localised": "High Tech",
+  "StationEconomies": [
     {
-      'Name': '$economy_HighTech;',
-      'Name_Localised': 'High Tech',
-      'Proportion': 0.890000
+      "Name": "$economy_HighTech;",
+      "Name_Localised": "High Tech",
+      "Proportion": 0.890000
     },
     {
-      'Name': '$economy_Refinery;',
-      'Name_Localised': 'Refinery',
-      'Proportion': 0.110000
+      "Name": "$economy_Refinery;",
+      "Name_Localised": "Refinery",
+      "Proportion": 0.110000
     }
   ],
-  'StarSystem': 'Afli',
-  'SystemAddress': 3107576550106,
-  'StarPos': [ 35.31250, -78.03125, 38.62500 ],
-  'SystemAllegiance': 'Independent',
-  'SystemEconomy': '$economy_HighTech;',
-  'SystemEconomy_Localised': 'High Tech',
-  'SystemSecondEconomy': '$economy_Refinery;',
-  'SystemSecondEconomy_Localised': 'Refinery',
-  'SystemGovernment': '$government_Dictatorship;',
-  'SystemGovernment_Localised': 'Dictatorship',
-  'SystemSecurity': '$SYSTEM_SECURITY_high;',
-  'SystemSecurity_Localised': 'High Security',
-  'Population': 90349309,
-  'Body': 'Pu City',
-  'BodyID': 50,
-  'BodyType': 'Station',
-  'Factions': [
+  "StarSystem": "Afli",
+  "SystemAddress": 3107576550106,
+  "StarPos": [ 35.31250, -78.03125, 38.62500 ],
+  "SystemAllegiance": "Independent",
+  "SystemEconomy": "$economy_HighTech;",
+  "SystemEconomy_Localised": "High Tech",
+  "SystemSecondEconomy": "$economy_Refinery;",
+  "SystemSecondEconomy_Localised": "Refinery",
+  "SystemGovernment": "$government_Dictatorship;",
+  "SystemGovernment_Localised": "Dictatorship",
+  "SystemSecurity": "$SYSTEM_SECURITY_high;",
+  "SystemSecurity_Localised": "High Security",
+  "Population": 90349309,
+  "Body": "Pu City",
+  "BodyID": 50,
+  "BodyType": "Station",
+  "Factions": [
     {
-      'Name': 'HR 8829 Purple State Industries',
-      'FactionState': 'War',
-      'Government': 'Corporate',
-      'Influence': 0.074223,
-      'Allegiance': 'Empire',
-      'Happiness': '$Faction_HappinessBand2;',
-      'Happiness_Localised': 'Happy',
-      'MyReputation': 100.000000,
-      'ActiveStates': [ { 'State': 'War' } ]
+      "Name": "HR 8829 Purple State Industries",
+      "FactionState": "War",
+      "Government": "Corporate",
+      "Influence": 0.074223,
+      "Allegiance": "Empire",
+      "Happiness": "$Faction_HappinessBand2;",
+      "Happiness_Localised": "Happy",
+      "MyReputation": 100.000000,
+      "ActiveStates": [ { "State": "War" } ]
     },
     {
-      'Name': 'Afli Imperial Society',
-      'FactionState': 'Boom',
-      'Government': 'Patronage',
-      'Influence': 0.134403,
-      'Allegiance': 'Empire',
-      'Happiness': '$Faction_HappinessBand2;',
-      'Happiness_Localised': 'Happy',
-      'MyReputation': 100.000000,
-      'ActiveStates': [ { 'State': 'Boom' } ]
+      "Name": "Afli Imperial Society",
+      "FactionState": "Boom",
+      "Government": "Patronage",
+      "Influence": 0.134403,
+      "Allegiance": "Empire",
+      "Happiness": "$Faction_HappinessBand2;",
+      "Happiness_Localised": "Happy",
+      "MyReputation": 100.000000,
+      "ActiveStates": [ { "State": "Boom" } ]
     },
     {
-      'Name': 'Afli Power Co',
-      'FactionState': 'None',
-      'Government': 'Corporate',
-      'Influence': 0.044132,
-      'Allegiance': 'Independent',
-      'Happiness': '$Faction_HappinessBand2;',
-      'Happiness_Localised': 'Happy',
-      'MyReputation': 100.000000
+      "Name": "Afli Power Co",
+      "FactionState": "None",
+      "Government": "Corporate",
+      "Influence": 0.044132,
+      "Allegiance": "Independent",
+      "Happiness": "$Faction_HappinessBand2;",
+      "Happiness_Localised": "Happy",
+      "MyReputation": 100.000000
     },
     {
-      'Name': 'Afli Patron\'s Principles',
-      'FactionState': 'War',
-      'Government': 'Patronage',
-      'Influence': 0.074223,
-      'Allegiance': 'Empire',
-      'Happiness': '$Faction_HappinessBand2;',
-      'Happiness_Localised': 'Happy',
-      'MyReputation': 100.000000,
-      'ActiveStates': [ { 'State': 'War' } ]
+      "Name": "Afli Patron's Principles",
+      "FactionState": "War",
+      "Government": "Patronage",
+      "Influence": 0.074223,
+      "Allegiance": "Empire",
+      "Happiness": "$Faction_HappinessBand2;",
+      "Happiness_Localised": "Happy",
+      "MyReputation": 100.000000,
+      "ActiveStates": [ { "State": "War" } ]
     },
     {
-      'Name': 'Afli Blue Partnership',
-      'FactionState': 'None',
-      'Government': 'Anarchy',
-      'Influence': 0.031093,
-      'Allegiance': 'Independent',
-      'Happiness': '$Faction_HappinessBand2;',
-      'Happiness_Localised': 'Happy',
-      'MyReputation': 13.124900
+      "Name": "Afli Blue Partnership",
+      "FactionState": "None",
+      "Government": "Anarchy",
+      "Influence": 0.031093,
+      "Allegiance": "Independent",
+      "Happiness": "$Faction_HappinessBand2;",
+      "Happiness_Localised": "Happy",
+      "MyReputation": 13.124900
     },
     {
-      'Name': 'The Sovereign Justice Collective',
-      'FactionState': 'Boom',
-      'Government': 'Dictatorship',
-      'Influence': 0.589769,
-      'Allegiance': 'Independent',
-      'Happiness': '$Faction_HappinessBand2;',
-      'Happiness_Localised': 'Happy',
-      'MyReputation': 100.000000,
-      'ActiveStates': [ { 'State': 'Boom' } ]
+      "Name": "The Sovereign Justice Collective",
+      "FactionState": "Boom",
+      "Government": "Dictatorship",
+      "Influence": 0.589769,
+      "Allegiance": "Independent",
+      "Happiness": "$Faction_HappinessBand2;",
+      "Happiness_Localised": "Happy",
+      "MyReputation": 100.000000,
+      "ActiveStates": [ { "State": "Boom" } ]
     },
     {
-      'Name': 'Afli Silver Universal Exchange',
-      'FactionState': 'None',
-      'Government': 'Corporate',
-      'Influence': 0.052156,
-      'Allegiance': 'Independent',
-      'Happiness': '$Faction_HappinessBand2;',
-      'Happiness_Localised': 'Happy',
-      'MyReputation': 81.570503
+      "Name": "Afli Silver Universal Exchange",
+      "FactionState": "None",
+      "Government": "Corporate",
+      "Influence": 0.052156,
+      "Allegiance": "Independent",
+      "Happiness": "$Faction_HappinessBand2;",
+      "Happiness_Localised": "Happy",
+      "MyReputation": 81.570503
     }
   ],
-  'SystemFaction': {
-    'Name': 'The Sovereign Justice Collective',
-    'FactionState': 'Boom'
+  "SystemFaction": {
+    "Name": "The Sovereign Justice Collective",
+    "FactionState": "Boom"
   },
-  'Conflicts': [
+  "Conflicts": [
     {
-      'WarType': 'war',
-      'Status': 'active',
-      'Faction1': {
-        'Name': 'HR
-        8829 Purple
-        State Industries', 'Stake':'Cosmogonic
-        Vision Relay', 'WonDays':0 }, 'Faction2':{ 'Name':'Afli
-        Patron's Principles',
-        'Stake': 'Weizsacker Installation',
-        'WonDays': 0
+      "WarType": "war",
+      "Status": "active",
+      "Faction1": {
+        "Name": "HR 8829 Purple State Industries",
+        "Stake": "Cosmogonic Vision Relay",
+        "WonDays": 0
+      },
+      "Faction2": {
+        "Name": "Afli Patron's Principles",
+        "Stake": "Weizsacker Installation",
+        "WonDays": 0
       }
     }
   ]

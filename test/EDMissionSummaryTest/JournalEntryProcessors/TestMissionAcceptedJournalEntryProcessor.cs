@@ -66,8 +66,6 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                 "EDA Kunti League",
                 "LTT 2337"
             );
-            
-
         }
     }
 }
