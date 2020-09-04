@@ -74,6 +74,14 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                 { 
                     new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T12:18:21Z"), "Afli", true, "CombatBond", 598144) 
                 });
+            yield return new TestCaseData(
+                "{ 'timestamp':'2020-07-17T12:18:21Z', 'event':'RedeemVoucher', 'Type':'CombatBond', 'Amount':598144, 'Faction':'The Sovereign Justice Collective' }"
+                    .Replace("'", "\""),
+                "Afli Silver Universal Exchange",
+                new RedeemVoucherSummaryEntry[]
+                {
+                    new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T12:18:21Z"), "Afli", false, "CombatBond", 598144)
+                });
         }
 
         [Test]
