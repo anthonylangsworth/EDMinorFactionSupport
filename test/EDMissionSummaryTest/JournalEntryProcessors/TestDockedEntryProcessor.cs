@@ -14,7 +14,7 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
     {
         [Test]
         [TestCaseSource(nameof(ProcessSingleEntrySource))]
-        public void ProcessSingleEntry(string journalEntry, string minorFaction, string expectedStationName, long expectedSystemAddress, string expectedSystemName, string expectedControllingMinorFaction)
+        public void ProcessSingleEntry(string journalEntry, string minorFaction, string expectedStationName, long expectedSystemAddress, string expectedControllingMinorFaction)
         {
             DockedEntryProcessor dockedEventProcessor = new DockedEntryProcessor();
             PilotState pilotState = new PilotState();
@@ -38,7 +38,6 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                 "",
                 "Hughes Enterprise",
                 9468121064873,
-                "Kunti",
                 "EDA Kunti League"
             );
             yield return new TestCaseData(
@@ -47,7 +46,6 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                 "",
                 "Ansari Hangar",
                 560266725739,
-                "9 G. Carinae",
                 "Purple Universal Network"
             );
 
