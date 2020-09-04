@@ -46,6 +46,8 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
+            // TODO: Be consistent with use of constants
+
             List<SummaryEntry> result = new List<SummaryEntry>();
             if (entry.Value<string>(TypePropertyName) == BountyValue)
             {
