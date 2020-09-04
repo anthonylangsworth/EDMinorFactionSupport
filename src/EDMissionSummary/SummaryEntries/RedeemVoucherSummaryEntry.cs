@@ -76,7 +76,7 @@ namespace EDMissionSummary.SummaryEntries
 
         public override string ToString()
         {
-            return string.Format("{0} {1} of {2} CR", base.ToString(), VoucherType, Amount);
+            return string.Format("{0} {1} of {2:n0} CR", base.ToString(), VoucherType, Amount);
         }
 
         private string GetDebuggerDisplay()

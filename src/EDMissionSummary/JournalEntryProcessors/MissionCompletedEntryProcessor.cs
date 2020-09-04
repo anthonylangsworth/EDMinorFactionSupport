@@ -58,8 +58,12 @@ namespace EDMissionSummary.JournalEntryProcessors
                             influenceIncrease,
                             influence));
                     }
-                    else if (system != null && system.MinorFactions.Contains(supportedMinorFaction))
+                    else if (system != null 
+                        && system.MinorFactions.Contains(supportedMinorFaction)
+                        && influenceIncrease)
                     {
+                        // Only include influence increases. An influence decrease helps all minor factions and not just the supported minor faction.
+
                         result.Add(new MissionSummaryEntry(
                             timeStamp,
                             missionName,

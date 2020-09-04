@@ -37,7 +37,9 @@ namespace EDMissionSummary
             IEnumerable<SummaryEntry> summary = journal.Entries
                                                        .Select(journalEntryParser.Parse)
                                                        .SelectMany(entry => missionSummarizer.Convert(pilotState, galaxyState, supportedMinorFaction, entry));
+            // Verbose output
             Console.Out.WriteLine(summary.Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
+
             //}
             //catch(Exception ex)
             //{
