@@ -1,27 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace EDMissionSummary.SummaryEntries
 {
-    internal class BountySummaryEntry : SummaryEntry
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+    public class BountySummaryEntry : SummaryEntry, IEquatable<BountySummaryEntry>
     {
-        public BountySummaryEntry(DateTime timestamp, string amount)
+        public BountySummaryEntry(DateTime timestamp, int amount)
             : base(timestamp)
         {
-            if (string.IsNullOrWhiteSpace(amount))
-            {
-                throw new ArgumentException($"'{nameof(amount)}' cannot be null or whitespace", nameof(amount));
-            }
-
             Amount = amount;
         }
 
-        public string Amount { get; }
+        public int Amount { get; }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as BountySummaryEntry);
+        }
+
+        public bool Equals(BountySummaryEntry other)
+        {
+            return other != null &&
+                   TimeStamp == other.TimeStamp &&
+                   Amount == other.Amount;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(TimeStamp, Amount);
+        }
 
         public override string ToString()
         {
-            return string.Format("Bounty: {0} CR", Amount);
+            return string.Format("{0}: Bounty: {1} CR", TimeStamp, Amount);
+        }
+
+        private string GetDebuggerDisplay()
+        {
+            return ToString();
         }
     }
 }

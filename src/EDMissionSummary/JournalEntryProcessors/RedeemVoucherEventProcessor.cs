@@ -7,23 +7,36 @@ using System.Text;
 
 namespace EDMissionSummary.JournalEntryProcessors
 {
-    internal class RedeemVoucherEventProcessor : JournalEntryProcessor
+    public class RedeemVoucherEventProcessor : JournalEntryProcessor
     {
         public static readonly string EventName = "RedeemVoucher";
         public static readonly string TypePropertyName = "Type";
         public static readonly string BountyValue = "bounty";
         public static readonly string FactionsPropertyName = "Factions";
 
+        /// <summary>
+        /// Add the bounty if it is relevant to the minor faction.
+        /// </summary>
+        /// <param name="pilotState">
+        /// A <see cref="PilotState"/> representing data associated with the pilot, such as the current station or system.
+        /// </param>
+        /// <param name="galaxyState">
+        /// A <see cref="GalaxyState"/> reoresenting the Elite: Dangerous universe the pilot plays in.
+        /// </param>
+        /// <param name="supportedMinorFaction">
+        /// The supported minor faction name. This must <b>exactly</b> match the name in the journal.
+        /// </param>
+        /// <param name="entry">
+        /// A <see cref="JObject"/> representing the journal entry.
+        /// </param>
+        /// <returns>
+        /// Will never return <see cref="SummaryEntry"/> objects.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// No argument can be null.
+        /// </exception>
         public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {
-            if (pilotState is null)
-            {
-                throw new ArgumentNullException(nameof(pilotState));
-            }
-            if (galaxyState is null)
-            {
-                throw new ArgumentNullException(nameof(galaxyState));
-            }
             if (supportedMinorFaction is null)
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));
@@ -37,10 +50,10 @@ namespace EDMissionSummary.JournalEntryProcessors
             if (entry.Value<string>(TypePropertyName) == BountyValue)
             {
                 JToken supportedMinorFactionBounty = entry.Value<JArray>(FactionsPropertyName)
-                                                      .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedMinorFaction);
+                                                          .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedMinorFaction);
                 if (supportedMinorFactionBounty != null)
                 {
-                    result.Add(new BountySummaryEntry(GetTimeStamp(entry), supportedMinorFactionBounty.Value<string>("Amount")));
+                    result.Add(new BountySummaryEntry(GetTimeStamp(entry), supportedMinorFactionBounty.Value<int>("Amount")));
                 }
             }
 

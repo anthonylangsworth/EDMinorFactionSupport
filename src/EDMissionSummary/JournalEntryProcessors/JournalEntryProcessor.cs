@@ -48,7 +48,32 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// </returns>
         protected DateTime GetTimeStamp(JObject entry)
         {
-            return DateTime.Parse(entry.Value<string>("timestamp"), CultureInfo.CurrentUICulture);
+            // JObject is "helpful" in that it appears to natively convert it to a DateTime before 
+            // converting back to a string. This means we cannot use a single code path to convert
+            // timestamps.
+            return entry.Value<DateTime>("timestamp").ToUniversalTime();
+        }
+
+        /// <summary>
+        /// Parse the standard jounral entry time stamp.
+        /// </summary>
+        /// <param name="timeStamp">
+        /// The time stamp to parse. Cannot be null, empty or whitespace.
+        /// </param>
+        /// <returns>
+        /// The parsed time stamp.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="timeStamp"/> cannot be null, empty or whitespace.
+        /// </exception>
+        public static DateTime ParseTimeStamp(string timeStamp)
+        {
+            if (string.IsNullOrWhiteSpace(timeStamp))
+            {
+                throw new ArgumentException($"'{nameof(timeStamp)}' cannot be null or whitespace", nameof(timeStamp));
+            }
+
+            return DateTime.ParseExact(timeStamp, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", CultureInfo.InvariantCulture);
         }
     }
 }
