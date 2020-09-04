@@ -23,7 +23,7 @@ namespace EDMissionSummary
         /// <exception cref="ArgumentException">
         /// No parameter can be empty or null.
         /// </exception>
-        public Station(string name, long systemAddress, string controllingMinorFaction, IEnumerable<string> minorFactions)
+        public Station(string name, long systemAddress, string controllingMinorFaction)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -37,7 +37,6 @@ namespace EDMissionSummary
             Name = name;
             SystemAddress = systemAddress;
             ControllingMinorFaction = controllingMinorFaction;
-            MinorFactions = minorFactions;
         }
 
         /// <summary>
@@ -49,11 +48,6 @@ namespace EDMissionSummary
         /// The name of the controlling minor faction. Cannot be null or empty.
         /// </summary>
         public string ControllingMinorFaction { get; }
-
-        /// <summary>
-        /// The minor factions present at this station.
-        /// </summary>
-        public IEnumerable<string> MinorFactions { get; }
 
         /// <summary>
         /// The system address, a unique identifier of the system.
@@ -88,7 +82,7 @@ namespace EDMissionSummary
 
         public override string ToString()
         {
-            return $"{ Name } ({ SystemAddress }) by { ControllingMinorFaction }";
+            return $"'{ Name }' ({ SystemAddress }) controlled by '{ ControllingMinorFaction }'";
         }
     }
 }

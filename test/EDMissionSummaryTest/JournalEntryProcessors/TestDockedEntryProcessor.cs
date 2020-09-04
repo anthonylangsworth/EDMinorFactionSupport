@@ -19,7 +19,7 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
             DockedEntryProcessor dockedEventProcessor = new DockedEntryProcessor();
             PilotState pilotState = new PilotState();
             GalaxyState galaxyState = new GalaxyState();
-            Station station = new Station(expectedStationName, expectedSystemAddress, expectedControllingMinorFaction, new string[0]);
+            Station station = new Station(expectedStationName, expectedSystemAddress, expectedControllingMinorFaction);
             galaxyState.AddOrUpdateStation(station);
 
             JObject entry = new JournalEntryParser().Parse(journalEntry);

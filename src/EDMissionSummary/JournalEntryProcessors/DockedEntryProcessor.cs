@@ -56,8 +56,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             pilotState.LastDockedStation = new Station(
                 entry.Value<string>("StationName"),
                 long.Parse(entry.Value<string>("SystemAddress")),
-                entry["StationFaction"].Value<string>("Name"),
-                new string[0] // The minor factions are not available.
+                entry["StationFaction"].Value<string>("Name")
             );
 
             return Enumerable.Empty<SummaryEntry>();

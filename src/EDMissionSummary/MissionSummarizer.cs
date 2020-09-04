@@ -17,6 +17,7 @@ namespace EDMissionSummary
         {
             journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
             {
+                {  FsdJumpEntryProcessor.EventName, new FsdJumpEntryProcessor() },
                 {  DockedEntryProcessor.EventName, new DockedEntryProcessor() },
                 {  LocationEntryProcessor.EventName, new LocationEntryProcessor() },
                 {  MissionAcceptedEntryProcessor.EventName, new MissionAcceptedEntryProcessor() },

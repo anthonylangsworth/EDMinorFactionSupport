@@ -19,9 +19,9 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
         {
             RedeemVoucherEntryProcessor dockedEventProcessor = new RedeemVoucherEntryProcessor();
             PilotState pilotState = new PilotState();
-            pilotState.LastDockedStation = new Station("Quetelet Dock", 1, "The Sovereign Justice Collective", new string[] { "Afli Silver Universal Exchange" }); 
+            pilotState.LastDockedStation = new Station("Quetelet Dock", 1, "The Sovereign Justice Collective"); 
             GalaxyState galaxyState = new GalaxyState();
-            galaxyState.Systems[1] = new StarSystem(1, "Afli", "The Sovereign Justice Collective");
+            galaxyState.Systems[1] = new StarSystem(1, "Afli", new string[] { "The Sovereign Justice Collective", "Afli Silver Universal Exchange" });
 
             JObject entry = new JournalEntryParser().Parse(journalEntry);
                 

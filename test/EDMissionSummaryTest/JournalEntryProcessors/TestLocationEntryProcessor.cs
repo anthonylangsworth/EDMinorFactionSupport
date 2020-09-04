@@ -16,26 +16,25 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
         [TestCaseSource(nameof(ProcessSingleEntrySource))]
         public void ProcessSingleEntry(string journalEntry, string minorFaction, string expectedStationName, long expectedSystemAddress, string expectedSystemName, string expectedStationControllingMinorFaction, string[] expectedMinorFactions, string expectedSystemMinorFaction)
         {
-            LocationEntryProcessor dockedEventProcessor = new LocationEntryProcessor();
+            LocationEntryProcessor locationEntryProcessor = new LocationEntryProcessor();
             PilotState pilotState = new PilotState();
             GalaxyState galaxyState = new GalaxyState();
 
             JObject entry = new JournalEntryParser().Parse(journalEntry);
 
-            IEnumerable<SummaryEntry> entries = dockedEventProcessor.Process(pilotState, galaxyState, minorFaction, entry);
+            IEnumerable<SummaryEntry> entries = locationEntryProcessor.Process(pilotState, galaxyState, minorFaction, entry);
             Assert.That(entries, Is.Empty);
             Assert.That(pilotState.Missions, Is.Empty);
             Assert.That(pilotState.LastDockedStation, Is.Not.Null);
             Assert.That(pilotState.LastDockedStation.Name, Is.EqualTo(expectedStationName));
             Assert.That(pilotState.LastDockedStation.SystemAddress, Is.EqualTo(expectedSystemAddress));
             Assert.That(pilotState.LastDockedStation.ControllingMinorFaction, Is.EqualTo(expectedStationControllingMinorFaction));
-            Assert.That(pilotState.LastDockedStation.MinorFactions, Is.EqualTo(expectedMinorFactions));
 
             Assert.That(galaxyState.Systems, Has.Count.EqualTo(1));
-            Assert.That(galaxyState.Systems[expectedSystemAddress], Is.EqualTo(new StarSystem(expectedSystemAddress, expectedSystemName, expectedSystemMinorFaction)));
+            Assert.That(galaxyState.Systems[expectedSystemAddress], Is.EqualTo(new StarSystem(expectedSystemAddress, expectedSystemName, expectedMinorFactions)));
 
             Assert.That(galaxyState.Stations, Has.Count.EqualTo(1));
-            Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { new Station(expectedStationName, expectedSystemAddress, expectedStationControllingMinorFaction, expectedMinorFactions) }));
+            Assert.That(galaxyState.Stations, Is.EquivalentTo(new[] { new Station(expectedStationName, expectedSystemAddress, expectedStationControllingMinorFaction) }));
         }
 
         public static IEnumerable ProcessSingleEntrySource()

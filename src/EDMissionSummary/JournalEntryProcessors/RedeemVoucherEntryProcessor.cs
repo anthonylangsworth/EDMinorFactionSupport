@@ -47,6 +47,14 @@ namespace EDMissionSummary.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(entry));
             }
+            if(pilotState.LastDockedStation == null)
+            {
+                throw new InvalidOperationException("Has not docked at a station");
+            }
+            if (!galaxyState.Systems.ContainsKey(pilotState.LastDockedStation.SystemAddress))
+            {
+                throw new InvalidOperationException($"System address { pilotState.LastDockedStation.SystemAddress } not found");
+            }
 
             string systemName = galaxyState.GetSystemName(pilotState.LastDockedStation.SystemAddress);
             Station station = pilotState.LastDockedStation;
@@ -56,7 +64,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             {
                 var categorizedEntries = entry.Value<JArray>(FactionsPropertyName)
                                      .Select(e => (JObject)e)
-                                     .Select(e => new { Entry = e, FactionInfluence = GetFactionInfluence(supportedMinorFaction, e.Value<string>(FactionPropertyName), station.ControllingMinorFaction, station.MinorFactions) });
+                                     .Select(e => new { Entry = e, FactionInfluence = GetFactionInfluence(supportedMinorFaction, e.Value<string>(FactionPropertyName), station.ControllingMinorFaction, galaxyState.Systems[pilotState.LastDockedStation.SystemAddress].MinorFactions) });
                 result.AddRange(categorizedEntries
                                      .Where(e => e.FactionInfluence == FactionInfluence.Increase)
                                      .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, true, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
@@ -66,7 +74,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             }
             else
             {
-                FactionInfluence factionInfluence = GetFactionInfluence(supportedMinorFaction, entry.Value<string>(FactionPropertyName), station.ControllingMinorFaction, station.MinorFactions);
+                FactionInfluence factionInfluence = GetFactionInfluence(supportedMinorFaction, entry.Value<string>(FactionPropertyName), station.ControllingMinorFaction, galaxyState.Systems[pilotState.LastDockedStation.SystemAddress].MinorFactions);
                 if (factionInfluence != FactionInfluence.None)
                 {
                     result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, factionInfluence == FactionInfluence.Increase, entry.Value<string>(TypePropertyName), entry.Value<int>(AmountPropertyName)));

@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="TestJournals\Empty.log" />
+    <None Remove="TestJournals\Journal.200901205816.01.log" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="TestJournals\Empty.log" />
+    <EmbeddedResource Include="TestJournals\Journal.200901205816.01.log" />
   </ItemGroup>
 
   <ItemGroup>

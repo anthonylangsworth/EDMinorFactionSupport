@@ -52,20 +52,20 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            Station station = new Station(
-                entry.Value<string>("StationName"),
-                long.Parse(entry.Value<string>("SystemAddress")),
-                entry["StationFaction"].Value<string>("Name"),
-                entry["Factions"]?.Select(o => o.Value<string>("Name"))
-            );
+            if (entry.Value<string>("StationName") != null)
+            {
+                Station station = new Station(
+                    entry.Value<string>("StationName"),
+                    long.Parse(entry.Value<string>("SystemAddress")),
+                    entry["StationFaction"].Value<string>("Name"));
+                galaxyState.AddOrUpdateStation(station);
+                pilotState.LastDockedStation = station;
+            }
 
-            pilotState.LastDockedStation = station;
-
-            galaxyState.AddOrUpdateStation(station);
             galaxyState.Systems[entry.Value<long>("SystemAddress")] = new StarSystem(
                     entry.Value<long>("SystemAddress"),
                     entry.Value<string>("StarSystem"),
-                    entry["SystemFaction"].Value<string>("Name"));
+                    entry["Factions"]?.Select(o => o.Value<string>("Name")));
 
             return Enumerable.Empty<SummaryEntry>();
         }
