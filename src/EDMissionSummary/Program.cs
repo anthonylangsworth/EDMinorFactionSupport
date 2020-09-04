@@ -21,7 +21,8 @@ namespace EDMissionSummary
 
             //try
             //{
-            JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-3)); //  DateTime.MinValue); // DateTime.Now.AddDays(-3)); // new FileJournalSource(fileName);
+            // JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-3)); //  DateTime.MinValue); // DateTime.Now.AddDays(-3)); // new FileJournalSource(fileName);
+            JournalSource journal = new EdFileJournalSource(DateTime.MinValue); //  DateTime.MinValue); // DateTime.Now.AddDays(-3)); // new FileJournalSource(fileName);
             JournalEntryParser journalEntryParser = new JournalEntryParser();
             Summarizer missionSummarizer = new Summarizer();
             PilotState pilotState = new PilotState();

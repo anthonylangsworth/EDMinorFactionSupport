@@ -27,6 +27,7 @@ If this tool proves useful we may automate the collation of these further, e.g. 
 
 TODO: Add Frontier disclaimer.
 TODO: Add reference to documentation (http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf)
+TODO: Discussion on definition of PRO and CON. For example, does a decrease in influence for another faction count?
 
 # License
  

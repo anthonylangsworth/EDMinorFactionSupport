@@ -64,7 +64,7 @@ namespace EDMissionSummary.SummaryEntries
 
         public override string ToString()
         {
-            return string.Format("{0} in '{1}' {2}:", TimeStamp.ToString("G", DateTimeFormatInfo.InvariantInfo), SystemName, IncreasesInfluence ? "PRO" : "CON");
+            return string.Format("{0} in '{1}' {2}:", TimeStamp.ToString(), SystemName, IncreasesInfluence ? "PRO" : "CON");
         }
     }
 }
