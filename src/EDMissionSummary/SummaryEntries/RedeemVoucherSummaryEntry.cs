@@ -8,14 +8,52 @@ namespace EDMissionSummary.SummaryEntries
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public class RedeemVoucherSummaryEntry : SummaryEntry, IEquatable<RedeemVoucherSummaryEntry>
     {
-        public RedeemVoucherSummaryEntry(DateTime timestamp, string voucherType, int amount)
-            : base(timestamp)
+        /// <summary>
+        /// Create a new <see cref="RedeemVoucherSummaryEntry"/>.
+        /// </summary>
+        /// <param name="timestamp">
+        /// When the voucher was redeemed.
+        /// </param>
+        /// <param name="systemName">
+        /// The system where the influece gain or loss occurred.
+        /// </param>
+        /// <param name="increasesInfluence">
+        /// TYrue if this increases the minor faction's influence, false otherwise.
+        /// </param>
+        /// <param name="voucherType">
+        /// The voucher type, as per the journal entry "type" field.
+        /// </param>
+        /// <param name="amount">
+        /// The amount in credits. This must be positive.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="voucherType"/> cannot be null, empty or whitespace. <paramref name="amount"/> must be positive.
+        /// </exception>
+        public RedeemVoucherSummaryEntry(DateTime timestamp, string systemName, bool increasesInfluence, string voucherType, int amount)
+            : base(timestamp, systemName, increasesInfluence)
         {
+            if (string.IsNullOrWhiteSpace(voucherType))
+            {
+                throw new ArgumentException($"'{nameof(voucherType)}' cannot be null or whitespace", nameof(voucherType));
+            }
+            if (amount < 0)
+
+            {
+                throw new ArgumentException($"'{nameof(amount)}' cannot cannot be negative", nameof(amount));
+            }
+
             VoucherType = voucherType;
             Amount = amount;
         }
 
+        /// <summary>
+        /// The voucher type, as per the journal entry "type" field.
+        /// </summary>
         public string VoucherType { get; }
+
+        /// <summary>
+        /// The amount in credits.
+        /// </summary>
         public int Amount { get; }
 
         public override bool Equals(object obj)
@@ -26,19 +64,19 @@ namespace EDMissionSummary.SummaryEntries
         public bool Equals(RedeemVoucherSummaryEntry other)
         {
             return other != null &&
-                   TimeStamp == other.TimeStamp &&
+                   base.Equals(other) &&
                    VoucherType == other.VoucherType &&
                    Amount == other.Amount;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(TimeStamp, VoucherType, Amount);
+            return HashCode.Combine(base.GetHashCode(), VoucherType, Amount);
         }
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}: {2} CR", TimeStamp, VoucherType, Amount);
+            return string.Format("{0}: {1}: {2} CR at '{3}' ({4})", TimeStamp, VoucherType, Amount, SystemName, IncreasesInfluence ? "for" : "against");
         }
 
         private string GetDebuggerDisplay()

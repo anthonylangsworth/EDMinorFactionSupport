@@ -13,7 +13,7 @@ namespace EDMissionSummaryTest.MissionSummaryEntries
             MissionSummaryEntry missionSummaryEntry = new MissionSummaryEntry(DateTime.MinValue, "SystemName", true, "++");
             Assert.That(missionSummaryEntry.TimeStamp, Is.EqualTo(DateTime.MinValue));
             Assert.That(missionSummaryEntry.Influence, Is.EqualTo("++"));
-            Assert.That(missionSummaryEntry.SupportsFaction, Is.EqualTo(true));
+            Assert.That(missionSummaryEntry.IncreasesInfluence, Is.EqualTo(true));
             Assert.That(missionSummaryEntry.SystemName, Is.EqualTo("SystemName"));
         }
     }

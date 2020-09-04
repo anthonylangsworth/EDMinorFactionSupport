@@ -12,7 +12,9 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string EventName = "RedeemVoucher";
         public static readonly string TypePropertyName = "Type";
         public static readonly string BountyValue = "bounty";
+        public static readonly string FactionPropertyName = "Faction";
         public static readonly string FactionsPropertyName = "Factions";
+        public static readonly string AmountPropertyName = "Amount";
 
         /// <summary>
         /// Add the bounty if it is relevant to the minor faction.
@@ -46,22 +48,22 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            // TODO: Be consistent with use of constants
+            string systemName = galaxyState.Systems[pilotState.LastDockedStation.SystemAddress]?.Name ?? "";
 
             List<SummaryEntry> result = new List<SummaryEntry>();
             if (entry.Value<string>(TypePropertyName) == BountyValue)
             {
                 result.AddRange(entry.Value<JArray>(FactionsPropertyName)
-                                     .Where(e => ((JObject)e).Value<string>("Faction") == supportedMinorFaction)
-                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), e.Value<int>("Amount"))));
+                                     .Where(e => ((JObject)e).Value<string>(FactionPropertyName) == supportedMinorFaction)
+                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), galaxyState.Systems[pilotState.LastDockedStation.SystemAddress]?.Name, true, entry.Value<string>(TypePropertyName), e.Value<int>(AmountPropertyName))));
 
                 // TODO: Claiming bounties against the supported minor faction
             }
             else
             {
-                if(entry.Value<string>("Faction") == supportedMinorFaction)
+                if(entry.Value<string>(FactionPropertyName) == supportedMinorFaction)
                 {
-                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), entry.Value<int>("Amount")));
+                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), galaxyState.Systems[pilotState.LastDockedStation.SystemAddress]?.Name, true, entry.Value<string>(TypePropertyName), entry.Value<int>(AmountPropertyName)));
                 }
 
                 // TODO: Claiming vouchers against the supported minor faction

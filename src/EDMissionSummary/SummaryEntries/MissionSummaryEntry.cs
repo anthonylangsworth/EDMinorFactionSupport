@@ -6,8 +6,8 @@ namespace EDMissionSummary.SummaryEntries
 {
     public class MissionSummaryEntry: SummaryEntry
     {
-        public MissionSummaryEntry(DateTime timestamp, string systemName, bool supportsFaction, string influence)
-            : base(timestamp)
+        public MissionSummaryEntry(DateTime timestamp, string systemName, bool increasesInfluence, string influence)
+            : base(timestamp, systemName, increasesInfluence)
         {
             if (string.IsNullOrWhiteSpace(systemName))
             {
@@ -19,18 +19,14 @@ namespace EDMissionSummary.SummaryEntries
                 throw new ArgumentException($"'{nameof(influence)}' cannot be null or whitespace", nameof(influence));
             }
 
-            SystemName = systemName;
-            SupportsFaction = supportsFaction;
             Influence = influence;
         }
 
-        public string SystemName { get; }
-        public bool SupportsFaction { get; }
         public string Influence { get; }
 
         public override string ToString()
         {
-            return string.Format("{0} {1} Inf{2}", SystemName, SupportsFaction ? "Pro" : "Con", Influence);
+            return string.Format("{0} {1} Inf{2}", SystemName, IncreasesInfluence ? "Pro" : "Con", Influence);
         }
     }
 }
