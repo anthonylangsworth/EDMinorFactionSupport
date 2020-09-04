@@ -49,12 +49,9 @@ namespace EDMissionSummary.JournalEntryProcessors
             List<SummaryEntry> result = new List<SummaryEntry>();
             if (entry.Value<string>(TypePropertyName) == BountyValue)
             {
-                JToken supportedMinorFactionBounty = entry.Value<JArray>(FactionsPropertyName)
-                                                          .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedMinorFaction);
-                if (supportedMinorFactionBounty != null)
-                {
-                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), supportedMinorFactionBounty.Value<int>("Amount")));
-                }
+                result.AddRange(entry.Value<JArray>(FactionsPropertyName)
+                                     .Where(e => ((JObject)e).Value<string>("Faction") == supportedMinorFaction)
+                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), e.Value<int>("Amount"))));
             }
             else
             {
