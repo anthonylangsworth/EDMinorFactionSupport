@@ -52,6 +52,8 @@ namespace EDMissionSummary.JournalEntryProcessors
                 result.AddRange(entry.Value<JArray>(FactionsPropertyName)
                                      .Where(e => ((JObject)e).Value<string>("Faction") == supportedMinorFaction)
                                      .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), e.Value<int>("Amount"))));
+
+                // TODO: Claiming bounties against the supported minor faction
             }
             else
             {
@@ -60,7 +62,7 @@ namespace EDMissionSummary.JournalEntryProcessors
                     result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), entry.Value<int>("Amount")));
                 }
 
-                // TODO: Claiming bounties against the supported minor faction
+                // TODO: Claiming vouchers against the supported minor faction
             }
 
             return result;
