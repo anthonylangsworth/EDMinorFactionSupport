@@ -32,7 +32,7 @@ namespace EDMissionSummary.SummaryEntries
 
         public override string ToString()
         {
-            return string.Format("{0}: {1} {2} Inf{3} '{4}'", TimeStamp, SystemName, IncreasesInfluence ? "Pro" : "Con", Influence, Name);
+            return string.Format("{0} Inf{1} from '{2}'", base.ToString(), Influence, Name);
         }
     }
 }

@@ -76,7 +76,7 @@ namespace EDMissionSummary.SummaryEntries
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}: {2} CR at '{3}' ({4})", TimeStamp, VoucherType, Amount, SystemName, IncreasesInfluence ? "for" : "against");
+            return string.Format("{0} {1} of {2} CR", base.ToString(), VoucherType, Amount);
         }
 
         private string GetDebuggerDisplay()

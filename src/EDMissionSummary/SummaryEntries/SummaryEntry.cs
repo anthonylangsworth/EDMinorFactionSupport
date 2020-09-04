@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace EDMissionSummary.SummaryEntries
@@ -59,6 +60,11 @@ namespace EDMissionSummary.SummaryEntries
         public override int GetHashCode()
         {
             return HashCode.Combine(TimeStamp, SystemName, IncreasesInfluence);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} in '{1}' {2}:", TimeStamp.ToString("G", DateTimeFormatInfo.InvariantInfo), SystemName, IncreasesInfluence ? "PRO" : "CON");
         }
     }
 }

@@ -34,11 +34,10 @@ namespace EDMissionSummary
             //           .Select(entry => missionSummarizer.Convert(pilotState, supportedMinorFaction, entry))
             //           .Where(e => e != null);
 
-            Console.Out.WriteLine(
-                journal.Entries
-                       .Select(journalEntryParser.Parse)
-                       .SelectMany(entry => missionSummarizer.Convert(pilotState, galaxyState, supportedMinorFaction, entry))
-                       .Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
+            IEnumerable<SummaryEntry> summary = journal.Entries
+                                                       .Select(journalEntryParser.Parse)
+                                                       .SelectMany(entry => missionSummarizer.Convert(pilotState, galaxyState, supportedMinorFaction, entry));
+            Console.Out.WriteLine(summary.Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
             //}
             //catch(Exception ex)
             //{
