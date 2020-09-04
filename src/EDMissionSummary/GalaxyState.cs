@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace EDMissionSummary
@@ -68,6 +69,30 @@ namespace EDMissionSummary
             return _stations.FirstOrDefault(
                  s => s.Name == stationName && s.SystemAddress == systemAddress);
         }
+
+        /// <summary>
+        /// Lookup the system name.
+        /// </summary>
+        /// <param name="systemAddress">
+        /// The system address.
+        /// </param>
+        /// <returns></returns>
+        public string GetSystemName(long systemAddress)
+        {
+            string result;
+
+            if(Systems.TryGetValue(systemAddress, out StarSystem system))
+            {
+                result = system.Name;
+            }
+            else
+            {
+                result = systemAddress.ToString();
+            }
+
+            return result;
+        }
+
 
         public IEnumerable<Station> Stations => _stations;
 

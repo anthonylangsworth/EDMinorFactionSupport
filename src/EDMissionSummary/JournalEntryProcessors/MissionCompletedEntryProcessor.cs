@@ -12,7 +12,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         public static readonly string EventName = "MissionCompleted";
         public static readonly string FactionEffectsSectionName = "FactionEffects";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction,  JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {
             if (pilotState is null)
             {
@@ -31,17 +31,20 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            FactionInfluence supportResult = SupportsFaction(entry, supportedMinorFaction);
-            string influence = GetInfluence(entry);
-
             List<SummaryEntry> result = new List<SummaryEntry>();
-
-            // TODO: FIX!!!!
-            //result.Add(new MissionSummaryEntry(
-            //        "", // influenceSection.Value<string>("SystemAddress"),
-            //        entry.Value<string>("DestinationSystem"),
-            //        supportResult == FactionSupport.Support,
-            //        influence));
+            string influence = GetInfluence(entry);
+            JObject factionObject = (JObject)entry.Value<JArray>(FactionEffectsSectionName)
+                                                  .FirstOrDefault(fe => fe.Value<string>("Faction") == supportedMinorFaction);
+            if (factionObject != null)
+            {
+                result.AddRange(
+                    factionObject.Value<JArray>("Influence")
+                                 .Select(e => new MissionSummaryEntry(
+                                    GetTimeStamp(entry),
+                                    galaxyState.GetSystemName(e.Value<long>("SystemAddress")),
+                                    true,
+                                    influence)));
+            }
 
             return result;
         }

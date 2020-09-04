@@ -56,7 +56,7 @@ namespace EDMissionSummary.JournalEntryProcessors
                 entry.Value<string>("StationName"),
                 long.Parse(entry.Value<string>("SystemAddress")),
                 entry["StationFaction"].Value<string>("Name"),
-                entry["Factions"].Select(o => o.Value<string>("Name"))
+                entry["Factions"]?.Select(o => o.Value<string>("Name"))
             );
 
             pilotState.LastDockedStation = station;

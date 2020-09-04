@@ -48,7 +48,7 @@ namespace EDMissionSummary.JournalEntryProcessors
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            StarSystem starSystem = galaxyState.Systems[pilotState.LastDockedStation.SystemAddress];
+            string systemName = galaxyState.GetSystemName(pilotState.LastDockedStation.SystemAddress);
             Station station = pilotState.LastDockedStation;
 
             List<SummaryEntry> result = new List<SummaryEntry>();
@@ -59,17 +59,17 @@ namespace EDMissionSummary.JournalEntryProcessors
                                      .Select(e => new { Entry = e, FactionInfluence = GetFactionInfluence(supportedMinorFaction, e.Value<string>(FactionPropertyName), station.ControllingMinorFaction, station.MinorFactions) });
                 result.AddRange(categorizedEntries
                                      .Where(e => e.FactionInfluence == FactionInfluence.Increase)
-                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), starSystem?.Name, true, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
+                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, true, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
                 result.AddRange(categorizedEntries
                                      .Where(e => e.FactionInfluence == FactionInfluence.Decrease)
-                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), starSystem?.Name, false, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
+                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, false, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
             }
             else
             {
                 FactionInfluence factionInfluence = GetFactionInfluence(supportedMinorFaction, entry.Value<string>(FactionPropertyName), station.ControllingMinorFaction, station.MinorFactions);
                 if (factionInfluence != FactionInfluence.None)
                 {
-                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), starSystem?.Name, factionInfluence == FactionInfluence.Increase, entry.Value<string>(TypePropertyName), entry.Value<int>(AmountPropertyName)));
+                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, factionInfluence == FactionInfluence.Increase, entry.Value<string>(TypePropertyName), entry.Value<int>(AmountPropertyName)));
                 }
             }
 
@@ -82,7 +82,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <param name="supportedMinorFaction">
         /// The name of the supported minor faction. This cannot be null.
         /// </param>
-        /// <param name="entryFaction">
+        /// <param name="journalEntryFaction">
         /// The faction affeted by the journal entry. For example, it was a mission supplier or the payer of combat bonds.  This cannot be null.
         /// </param>
         /// <param name="stationControllingFaction">
@@ -94,15 +94,15 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// <returns>
         /// A <see cref="FactionInfluence"/> indicating what affect it had on minor faction influence.
         /// </returns>
-        public static FactionInfluence GetFactionInfluence(string supportedMinorFaction, string entryFaction, string stationControllingFaction, IEnumerable<string> stationMinorFactions)
+        public static FactionInfluence GetFactionInfluence(string supportedMinorFaction, string journalEntryFaction, string stationControllingFaction, IEnumerable<string> stationMinorFactions)
         {
             if (supportedMinorFaction is null)
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
-            if (string.IsNullOrEmpty(entryFaction))
+            if (string.IsNullOrEmpty(journalEntryFaction))
             {
-                throw new ArgumentException($"'{nameof(entryFaction)}' cannot be null or empty", nameof(entryFaction));
+                throw new ArgumentException($"'{nameof(journalEntryFaction)}' cannot be null or empty", nameof(journalEntryFaction));
             }
             if (string.IsNullOrEmpty(stationControllingFaction))
             {
@@ -114,14 +114,14 @@ namespace EDMissionSummary.JournalEntryProcessors
             }
 
             FactionInfluence result = FactionInfluence.None;
-            if (supportedMinorFaction == entryFaction)
+            if (supportedMinorFaction == journalEntryFaction)
             {
                 result = FactionInfluence.Increase;
             }
             else
             {
                 IEnumerable<string> factions = stationMinorFactions.Concat(new[] { stationControllingFaction });
-                if(factions.Contains(supportedMinorFaction) && factions.Contains(entryFaction))
+                if(factions.Contains(supportedMinorFaction) && factions.Contains(journalEntryFaction))
                 {
                     result = FactionInfluence.Decrease;
                 }
