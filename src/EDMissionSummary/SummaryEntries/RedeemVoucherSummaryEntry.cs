@@ -38,7 +38,7 @@ namespace EDMissionSummary.SummaryEntries
 
         public override string ToString()
         {
-            return string.Format("{0}: Bounty: {1} CR", TimeStamp, Amount);
+            return string.Format("{0}: {1}: {2} CR", TimeStamp, VoucherType, Amount);
         }
 
         private string GetDebuggerDisplay()
