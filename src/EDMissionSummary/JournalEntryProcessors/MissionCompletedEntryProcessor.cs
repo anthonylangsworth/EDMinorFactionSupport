@@ -7,7 +7,7 @@ using EDMissionSummary.SummaryEntries;
 
 namespace EDMissionSummary.JournalEntryProcessors
 {
-    public class MissionCompletedEventProcessor : JournalEntryProcessor
+    public class MissionCompletedEntryProcessor : JournalEntryProcessor
     {
         public static readonly string EventName = "MissionCompleted";
         public static readonly string FactionEffectsSectionName = "FactionEffects";

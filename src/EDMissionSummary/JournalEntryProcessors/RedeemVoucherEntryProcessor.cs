@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EDMissionSummary.JournalEntryProcessors
 {
-    public class RedeemVoucherEventProcessor : JournalEntryProcessor
+    public class RedeemVoucherEntryProcessor : JournalEntryProcessor
     {
         public static readonly string EventName = "RedeemVoucher";
         public static readonly string TypePropertyName = "Type";

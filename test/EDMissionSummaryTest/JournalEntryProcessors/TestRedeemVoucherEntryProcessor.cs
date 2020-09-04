@@ -11,13 +11,13 @@ using System.Linq;
 
 namespace EDMissionSummaryTest.JournalEntryProcessors
 {
-    public class TestRedeemVoucherEventProcessor
+    public class TestRedeemVoucherEntryProcessor
     {
         [Test]
         [TestCaseSource(nameof(ProcessSingleEntrySource))]
         public void ProcessSingleEntry(string journalEntry, string minorFaction, IEnumerable<BountySummaryEntry> expectedSummaryEntries)
         {
-            RedeemVoucherEventProcessor dockedEventProcessor = new RedeemVoucherEventProcessor();
+            RedeemVoucherEntryProcessor dockedEventProcessor = new RedeemVoucherEntryProcessor();
             PilotState pilotState = new PilotState();
             GalaxyState galaxyState = new GalaxyState();
 
