@@ -15,7 +15,7 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
     {
         [Test]
         [TestCaseSource(nameof(ProcessSingleEntrySource))]
-        public void ProcessSingleEntry(string journalEntry, string minorFaction, IEnumerable<BountySummaryEntry> expectedSummaryEntries)
+        public void ProcessSingleEntry(string journalEntry, string minorFaction, IEnumerable<RedeemVoucherSummaryEntry> expectedSummaryEntries)
         {
             RedeemVoucherEntryProcessor dockedEventProcessor = new RedeemVoucherEntryProcessor();
             PilotState pilotState = new PilotState();
@@ -24,7 +24,7 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
             JObject entry = new JournalEntryParser().Parse(journalEntry);
 
             Assert.That(
-                dockedEventProcessor.Process(pilotState, galaxyState, minorFaction, entry).Cast<BountySummaryEntry>(),
+                dockedEventProcessor.Process(pilotState, galaxyState, minorFaction, entry).Cast<RedeemVoucherSummaryEntry>(),
                 Is.EquivalentTo(expectedSummaryEntries));
         }
 
@@ -34,17 +34,22 @@ namespace EDMissionSummaryTest.JournalEntryProcessors
                 "{ 'timestamp':'2020-07-17T08:33:09Z', 'event':'RedeemVoucher', 'Type':'bounty', 'Amount':107549, 'Factions':[ { 'Faction':'The Sovereign Justice Collective', 'Amount':107549 } ] }"
                     .Replace("'", "\""),
                 "The Sovereign Justice Collective",
-                new BountySummaryEntry[] { new BountySummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T08:33:09Z"), 107549) });
+                new RedeemVoucherSummaryEntry[] { new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T08:33:09Z"), "bounty", 107549) });
             yield return new TestCaseData(
                 "{ 'timestamp':'2020-07-17T08:33:09Z', 'event':'RedeemVoucher', 'Type':'bounty', 'Amount':107549, 'Factions':[ { 'Faction':'The Sovereign Justice Collective', 'Amount':107549 } ] }"
                     .Replace("'", "\""),
                 "Afli Silver Universal Exchange",
-                new BountySummaryEntry[] {  });
+                new RedeemVoucherSummaryEntry[] {  });
             yield return new TestCaseData(
                 "{ 'timestamp':'2020-07-17T08:33:09Z', 'event':'RedeemVoucher', 'Type':'bounty', 'Amount':128024, 'Factions':[ { 'Faction':'The Sovereign Justice Collective', 'Amount':107549 }, { 'Faction':'Afli Silver Universal Exchange', 'Amount':20475 } ] }"
                     .Replace("'", "\""),
                 "The Sovereign Justice Collective",
-                new BountySummaryEntry[] { new BountySummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T08:33:09Z"), 107549) });
+                new RedeemVoucherSummaryEntry[] { new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T08:33:09Z"), "bounty", 107549) });
+            yield return new TestCaseData(
+                "{ 'timestamp':'2020-07-17T12:18:21Z', 'event':'RedeemVoucher', 'Type':'CombatBond', 'Amount':598144, 'Faction':'Kausalya Netcoms Organisation' }"
+                    .Replace("'", "\""),
+                "Kausalya Netcoms Organisation",
+                new RedeemVoucherSummaryEntry[] { new RedeemVoucherSummaryEntry(JournalEntryProcessor.ParseTimeStamp("2020-07-17T12:18:21Z"), "CombatBond", 598144) });
         }
     }
 }

@@ -7,7 +7,7 @@ namespace EDMissionSummary.SummaryEntries
     /// <summary>
     /// Base class for summary entries. These represent the processinng of the journal into relevant data in a display-independent way.
     /// </summary>
-    public class SummaryEntry
+    public abstract class SummaryEntry
     {
         /// <summary>
         /// Create a new <see cref="SummaryEntry"/>.

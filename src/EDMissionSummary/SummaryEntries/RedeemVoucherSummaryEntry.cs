@@ -6,31 +6,34 @@ using System.Text;
 namespace EDMissionSummary.SummaryEntries
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-    public class BountySummaryEntry : SummaryEntry, IEquatable<BountySummaryEntry>
+    public class RedeemVoucherSummaryEntry : SummaryEntry, IEquatable<RedeemVoucherSummaryEntry>
     {
-        public BountySummaryEntry(DateTime timestamp, int amount)
+        public RedeemVoucherSummaryEntry(DateTime timestamp, string voucherType, int amount)
             : base(timestamp)
         {
+            VoucherType = voucherType;
             Amount = amount;
         }
 
+        public string VoucherType { get; }
         public int Amount { get; }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as BountySummaryEntry);
+            return Equals(obj as RedeemVoucherSummaryEntry);
         }
 
-        public bool Equals(BountySummaryEntry other)
+        public bool Equals(RedeemVoucherSummaryEntry other)
         {
             return other != null &&
                    TimeStamp == other.TimeStamp &&
+                   VoucherType == other.VoucherType &&
                    Amount == other.Amount;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(TimeStamp, Amount);
+            return HashCode.Combine(TimeStamp, VoucherType, Amount);
         }
 
         public override string ToString()

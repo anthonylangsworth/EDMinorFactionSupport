@@ -53,8 +53,17 @@ namespace EDMissionSummary.JournalEntryProcessors
                                                           .FirstOrDefault(e => ((JObject) e).Value<string>("Faction") == supportedMinorFaction);
                 if (supportedMinorFactionBounty != null)
                 {
-                    result.Add(new BountySummaryEntry(GetTimeStamp(entry), supportedMinorFactionBounty.Value<int>("Amount")));
+                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), supportedMinorFactionBounty.Value<int>("Amount")));
                 }
+            }
+            else
+            {
+                if(entry.Value<string>("Faction") == supportedMinorFaction)
+                {
+                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), entry.Value<string>("Type"), entry.Value<int>("Amount")));
+                }
+
+                // TODO: Claiming bounties against the supported minor faction
             }
 
             return result;
