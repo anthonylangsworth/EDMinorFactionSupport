@@ -91,7 +91,7 @@ namespace EDMissionSummary.JournalEntryProcessors
         /// The name of the supported minor faction. This cannot be null.
         /// </param>
         /// <param name="journalEntryFaction">
-        /// The faction affeted by the journal entry. For example, it was a mission supplier or the payer of combat bonds.  This cannot be null.
+        /// The faction affeted by the journal entry. For example, it was a mission supplier or the payer of combat bonds. If null or empty, assumed to be the station controlling faction.
         /// </param>
         /// <param name="stationControllingFaction">
         /// The faction controlling the station.  This cannot be null.
@@ -110,7 +110,7 @@ namespace EDMissionSummary.JournalEntryProcessors
             }
             if (string.IsNullOrEmpty(journalEntryFaction))
             {
-                throw new ArgumentException($"'{nameof(journalEntryFaction)}' cannot be null or empty", nameof(journalEntryFaction));
+                journalEntryFaction = stationControllingFaction;
             }
             if (string.IsNullOrEmpty(stationControllingFaction))
             {

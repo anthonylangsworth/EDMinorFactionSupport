@@ -30,13 +30,9 @@ namespace EDMissionSummary.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(entry));
             }
-            if(!pilotState.Missions.ContainsKey(entry.Value<long>("MissionID")))
-            {
-                throw new InvalidOperationException($"Mission { entry.Value<long>("MissionID") } is unknown");
-            }
 
             List<SummaryEntry> result = new List<SummaryEntry>();
-            Mission mission = pilotState.Missions[entry.Value<long>("MissionID")];
+            string missionName = pilotState.Missions.TryGetValue(entry.Value<long>("MissionID"), out Mission mission) ? mission.Name : entry.Value<string>("Name");
 
             foreach (JObject influenceObject in entry.Value<JArray>(FactionEffectsSectionName)
                                                     .SelectMany(e => e.Value<JArray>("Influence").Children<JObject>()))
@@ -48,7 +44,7 @@ namespace EDMissionSummary.JournalEntryProcessors
 
                 if (influenceObject.HasValues)
                 {
-                    StarSystem system = galaxyState.Systems[influenceObject.Value<long>("SystemAddress")];
+                    string systemName = galaxyState.Systems.TryGetValue(influenceObject.Value<long>("SystemAddress"), out StarSystem system) ? system.Name : influenceObject.Value<string>("SystemAddress");
                     string influence = influenceObject.Value<string>("Influence");
                     bool influenceIncrease = influenceObject.Value<string>("Trend") == "UpGood";
                     DateTime timeStamp = GetTimeStamp(entry);
@@ -57,17 +53,17 @@ namespace EDMissionSummary.JournalEntryProcessors
                     {
                         result.Add(new MissionSummaryEntry(
                             timeStamp,
-                            mission.Name,
-                            system.Name,
+                            missionName,
+                            systemName,
                             influenceIncrease,
                             influence));
                     }
-                    else if (system.MinorFactions.Contains(faction))
+                    else if (system != null && system.MinorFactions.Contains(supportedMinorFaction))
                     {
                         result.Add(new MissionSummaryEntry(
                             timeStamp,
-                            mission.Name,
-                            system.Name,
+                            missionName,
+                            systemName,
                             !influenceIncrease,
                             influence));
                     }

@@ -21,12 +21,12 @@ namespace EDMissionSummary
 
             //try
             //{
-                JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-2)); // new FileJournalSource(fileName);
-                JournalEntryParser journalEntryParser = new JournalEntryParser();
-                Summarizer missionSummarizer = new Summarizer();
-                PilotState pilotState = new PilotState();
-                GalaxyState galaxyState = new GalaxyState();
-                string supportedMinorFaction = "EDA Kunti League";
+            JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-3)); //  DateTime.MinValue); // DateTime.Now.AddDays(-3)); // new FileJournalSource(fileName);
+            JournalEntryParser journalEntryParser = new JournalEntryParser();
+            Summarizer missionSummarizer = new Summarizer();
+            PilotState pilotState = new PilotState();
+            GalaxyState galaxyState = new GalaxyState();
+            string supportedMinorFaction = "EDA Kunti League";
 
             //IEnumerable<SummaryEntry> missionSummaryEntries = 
             //    journal.Entries
