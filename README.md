@@ -19,10 +19,14 @@ Important things to fix (not necessarily in this order):
 2. Fixing anti-minor faction mission detection.
 3. Cartography data.
 4. Trades.
-5. Internal fixes like a better folder structure, design improvements and automated tests.
-6. Error handling and command line argument support, e.g. for the day.
+5. Mission failure and abandonment
+6. Internal fixes like a better folder structure, design improvements and automated tests.
+7. Error handling and command line argument support, e.g. for the day.
 
-If this tool proves useful we may automate the collation of these further, e.g. by pasting the results to Discord directly or a similar tighter integration.
+If this tool proves useful we may automate the collation of these further, e.g. by pasting the results to Discord directly or sending them to a central source for consolidated reporting.
+
+TODO: Add Frontier disclaimer.
+TODO: Add reference to documentation (http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf)
 
 # License
  
