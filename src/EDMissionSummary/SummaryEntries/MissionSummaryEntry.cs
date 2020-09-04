@@ -26,7 +26,7 @@ namespace EDMissionSummary.SummaryEntries
 
         public override string ToString()
         {
-            return string.Format("{0} {1} Inf{2}", SystemName, IncreasesInfluence ? "Pro" : "Con", Influence);
+            return string.Format("{0}: {1} {2} Inf{3}", TimeStamp, SystemName, IncreasesInfluence ? "Pro" : "Con", Influence);
         }
     }
 }
