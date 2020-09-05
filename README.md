@@ -7,9 +7,10 @@ Creates a summary of pro- and anti-minor faction work by players for **Elite:Dan
 Instructions:
 1. Install .Net Core installed. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
 2. Download the latest release and extract the ZIP file.
-3. Open a command prompt (e.g. cmd.exe).
-3. Run the executable after a day of play. It will scan the game's journal files and output a summary to the console window. It shows nothing if you have no relevant activity or have not played Elite today.
-4. For command line options, run it with the "--help" paramater.
+3. After a session of playing Elite, open a command prompt (e.g. cmd.exe).
+4. Navigate to the folder where the ZIP file extracted to.
+5. Run "edmfs". It will scan the game's journal files and output a summary to the console window. It shows nothing if you have no relevant activity or have not played Elite today.
+6. For command line options, run it with the "--help" paramater. For example, you can see results of other day's sessions.
 
 I recommend piping the results to the Windows clipboard by using the built-in "clip" command, e.g. "edmfs | clip". You can then paste the result in Discord.
 
