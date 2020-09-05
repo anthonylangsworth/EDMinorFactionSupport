@@ -6,6 +6,7 @@ using EDMinorFactionSupport;
 using System.Linq;
 using EDMinorFactionSupport.JournalEntryProcessors;
 using System.Collections;
+using System;
 using System.Resources;
 using System.Reflection;
 using System.IO;
@@ -25,7 +26,13 @@ namespace EDMinorFactionSupportTest
             Assert.That(
                 new StringJournalSource(journal).Entries
                                                 .Select(new JournalEntryParser().Parse)
-                                                .SelectMany(entry => new Summarizer().Convert(pilotState, galaxyState, supportedMinorFaction, entry)), 
+                                                .SelectMany(entry => new Summarizer(
+                                                    Assembly.GetAssembly(typeof(JournalEntryProcessor))
+                                                            .GetTypes()
+                                                            .Where(t => t != typeof(JournalEntryProcessor) && t.IsAssignableFrom(typeof(JournalEntryProcessor)))
+                                                            .Select(t => t.GetConstructor(new Type[0]).Invoke(new object[0]))
+                                                            .Cast<JournalEntryProcessor>())
+                                                .Convert(pilotState, galaxyState, supportedMinorFaction, entry)), 
                 Is.EquivalentTo(expectedSummaryEntries));
         }
 

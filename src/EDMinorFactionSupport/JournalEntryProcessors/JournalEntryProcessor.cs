@@ -12,7 +12,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
     /// <summary>
     /// Base class for classes that process a event type in the journal into <see cref="SummaryEntry"/> objects.
     /// </summary>
-    public abstract class JournalEntryProcessor
+    public abstract class JournalEntryProcessor : IJournalEntryProcessor
     {
         /// <summary>
         /// Process the journal entry.
@@ -36,6 +36,11 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// No argument can be null.
         /// </exception>
         public abstract IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry);
+
+        /// <summary>
+        /// The name of the journal event that this processor handles.
+        /// </summary>
+        public abstract string EventName { get; }
 
         /// <summary>
         /// Extract the date and time the journal entry was written.

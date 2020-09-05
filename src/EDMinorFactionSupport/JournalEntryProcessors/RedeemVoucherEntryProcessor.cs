@@ -9,7 +9,11 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
 {
     public class RedeemVoucherEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "RedeemVoucher";
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string EventName => "RedeemVoucher";
+
         public static readonly string TypePropertyName = "Type";
         public static readonly string BountyValue = "bounty";
         public static readonly string FactionPropertyName = "Faction";

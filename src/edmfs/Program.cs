@@ -9,6 +9,9 @@ using EDMinorFactionSupport.SummaryEntries;
 using EDMinorFactionSupport.JournalSources;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace edmfs
 {
@@ -23,11 +26,22 @@ namespace edmfs
 
             //try
             //{
+
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.TryAddEnumerable(
+                Assembly.GetAssembly(typeof(JournalEntryProcessor))
+                                          .GetTypes()
+                                          .Where(t => !t.IsInterface && !t.IsAbstract && typeof(JournalEntryProcessor).IsAssignableFrom(t))
+                                          .Select(t => ServiceDescriptor.Scoped(typeof(IJournalEntryProcessor), t)));
+            ServiceProvider serviceProvider = serviceCollection
+                .AddTransient<Summarizer, Summarizer>()
+                .BuildServiceProvider();
+
             JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-3)); 
             // JournalSource journal = new EdFileJournalSource(DateTime.MinValue); // Does all files
             // JournalSource journal = new FileJournalSource(fileName);
             JournalEntryParser journalEntryParser = new JournalEntryParser();
-            Summarizer missionSummarizer = new Summarizer();
+            Summarizer missionSummarizer = serviceProvider.GetService<Summarizer>();
             PilotState pilotState = new PilotState();
             GalaxyState galaxyState = new GalaxyState();
             string supportedMinorFaction = "EDA Kunti League";

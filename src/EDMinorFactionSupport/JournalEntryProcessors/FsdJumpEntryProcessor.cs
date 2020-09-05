@@ -1,4 +1,4 @@
-﻿using EDMinorFactionSupport.SummaryEntries;
+﻿    using EDMinorFactionSupport.SummaryEntries;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
 {
     public class FsdJumpEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "FSDJump";
+        public override string EventName => "FSDJump";
 
         public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {

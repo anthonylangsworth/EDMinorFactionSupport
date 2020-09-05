@@ -9,7 +9,11 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
 {
     public class MissionCompletedEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "MissionCompleted";
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string EventName => "MissionCompleted";
+
         public static readonly string FactionEffectsSectionName = "FactionEffects";
 
         public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)

@@ -9,7 +9,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
 {
     public class MissionAcceptedEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "MissionAccepted";
+        public override string EventName => "MissionAccepted";
 
         /// <summary>
         /// Track the mission in the <see cref="PilotState"/> because some mission relevant details are only

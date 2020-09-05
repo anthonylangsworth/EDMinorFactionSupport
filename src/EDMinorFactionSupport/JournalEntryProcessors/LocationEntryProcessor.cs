@@ -9,7 +9,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
 {
     public class LocationEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "Location";
+        public override string EventName => "Location";
 
         /// <summary>
         /// Track the mission in the <see cref="PilotState"/> and <see cref="GalaxyState"/> because some mission relevant details are only

@@ -10,26 +10,35 @@ namespace EDMinorFactionSupport
 {
     public class Summarizer
     {
-        protected internal Dictionary<string, JournalEntryProcessor> _journalEntryProcessors;
-
-        public Summarizer()
+        /// <summary>
+        /// Create a new <see cref="Summarizer"/>.
+        /// </summary>
+        /// <param name="journalEntryProcessors"></param>
+        public Summarizer(IEnumerable<IJournalEntryProcessor> journalEntryProcessors)
         {
-            // TODO: Consider injection for building this list
-            _journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
+            if (journalEntryProcessors is null)
             {
-                {  FsdJumpEntryProcessor.EventName, new FsdJumpEntryProcessor() },
-                {  DockedEntryProcessor.EventName, new DockedEntryProcessor() },
-                {  LocationEntryProcessor.EventName, new LocationEntryProcessor() },
-                {  MissionAcceptedEntryProcessor.EventName, new MissionAcceptedEntryProcessor() },
-                {  MissionCompletedEntryProcessor.EventName, new MissionCompletedEntryProcessor() },
-                {  RedeemVoucherEntryProcessor.EventName, new RedeemVoucherEntryProcessor() }
-            };
+                throw new ArgumentNullException(nameof(journalEntryProcessors));
+            }
+
+            JournalEntryProcessors = journalEntryProcessors.ToDictionary(jep => jep.EventName);
+
+            // TODO: Consider injection for building this list
+            //_journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
+            //{
+            //    {  FsdJumpEntryProcessor.EventName, new FsdJumpEntryProcessor() },
+            //    {  DockedEntryProcessor.EventName, new DockedEntryProcessor() },
+            //    {  LocationEntryProcessor.EventName, new LocationEntryProcessor() },
+            //    {  MissionAcceptedEntryProcessor.EventName, new MissionAcceptedEntryProcessor() },
+            //    {  MissionCompletedEntryProcessor.EventName, new MissionCompletedEntryProcessor() },
+            //    {  RedeemVoucherEntryProcessor.EventName, new RedeemVoucherEntryProcessor() }
+            //};
         }
 
         /// <summary>
         /// The <see cref="JournalEntryProcessor"/> types used to process journal entries.
         /// </summary>
-        public IReadOnlyDictionary<string, JournalEntryProcessor> JournalEntryProcessors => _journalEntryProcessors;
+        public IReadOnlyDictionary<string, IJournalEntryProcessor> JournalEntryProcessors;
 
         public IEnumerable<SummaryEntry> Convert(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {
@@ -47,7 +56,7 @@ namespace EDMinorFactionSupport
             }
 
             IEnumerable<SummaryEntry> result = Enumerable.Empty<SummaryEntry>();
-            if (_journalEntryProcessors.TryGetValue(entry.Value<string>("event"), out JournalEntryProcessor journalEntryProcessor))
+            if (JournalEntryProcessors.TryGetValue(entry.Value<string>("event"), out IJournalEntryProcessor journalEntryProcessor))
             {
                 result = journalEntryProcessor.Process(pilotState, galaxyState, supportedMinorFaction, entry);
             }

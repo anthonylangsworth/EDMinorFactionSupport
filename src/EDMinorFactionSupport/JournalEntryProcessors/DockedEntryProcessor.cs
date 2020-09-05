@@ -9,7 +9,10 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
 {
     public class DockedEntryProcessor : JournalEntryProcessor
     {
-        public static readonly string EventName = "Docked";
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string EventName => "Docked";
 
         /// <summary>
         /// Track the mission in the <see cref="PilotState"/> because some mission relevant details are only
