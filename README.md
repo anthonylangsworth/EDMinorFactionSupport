@@ -8,7 +8,7 @@ Instructions:
 1. Compile the executable.
 2. Run the executable after a day of play. It will scan the gane's journal files and output to the console window a summary.
 
-I recommend piping the results to the Windows clipboard by using the built-in "clip" command, e.g. "edmissionsummary | clip". You can then paste the result in Discord easily (although it requires some tweaking still).
+I recommend piping the results to the Windows clipboard by using the built-in "clip" command, e.g. "EDMinorFactionSupport | clip". You can then paste the result in Discord easily (although it requires some tweaking still).
 
 What does it support?
 1. Missions. It correctly detects missions that improve "EDA Kunti League" influence. However, it flags any mission that does not improve that minor faction's incluce as against that faction. This fix is planned but not simple.
