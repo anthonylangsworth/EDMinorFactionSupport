@@ -23,6 +23,7 @@ What does it not support (yet)?
 2. Selling Cartography data at a minor faction controlled station.
 3. Trading at a minor faction controlled stations.
 4. Mission failure and abandonment. There is partial support for mission redirection.
+5. Non-Windows installs. Sorry, PS4 and XBox players.
 
 If this tool proves useful we may automate the collation of these further, e.g. by pasting the results to Discord directly or sending them to a central source for consolidated reporting.
 
