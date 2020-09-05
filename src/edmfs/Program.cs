@@ -16,6 +16,7 @@ using System.CodeDom.Compiler;
 using EDMinorFactionSupport.OutputFormatters;
 using CommandLine;
 using System.Globalization;
+using CommandLine.Text;
 
 namespace edmfs
 {
@@ -27,14 +28,17 @@ namespace edmfs
             //{
 
             Parser parser = new Parser(ps => ps.ParsingCulture = CultureInfo.CurrentCulture);
-            parser.ParseArguments<Options>(args).WithParsed(options =>
-            {
-                Pipeline pipeline = new ServiceCollection()
-                    .AddEDMinorFactionSupport(options.Date, "EDA Kunti League", options.Verbose)
-                    .BuildServiceProvider()
-                    .GetService<Pipeline>();
-                pipeline.Run(Console.Out);
-            });
+            ParserResult<Options> parserResult = parser.ParseArguments<Options>(args);
+            parserResult
+                  .WithParsed(options =>
+                    {
+                        Pipeline pipeline = new ServiceCollection()
+                            .AddEDMinorFactionSupport(options.Date, "EDA Kunti League", options.Verbose)
+                            .BuildServiceProvider()
+                            .GetService<Pipeline>();
+                        pipeline.Run(Console.Out);
+                    })
+                  .WithNotParsed(errors => Console.Error.Write(HelpText.AutoBuild(parserResult)));
 
             //}
             //catch(Exception ex)
