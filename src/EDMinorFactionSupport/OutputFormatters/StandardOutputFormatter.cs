@@ -70,7 +70,7 @@ namespace EDMinorFactionSupport.OutputFormatters
 
             StringBuilder stringBuilder = new StringBuilder();
             s.Take(1).Aggregate(stringBuilder, (sb, c) => sb.Append(char.ToUpper(c)));
-            s.Skip(1).Aggregate(stringBuilder, (sb, c) => sb.Append(char.IsUpper(c) ? $"{ c } " : $"{ c }"));
+            s.Skip(1).Aggregate(stringBuilder, (sb, c) => sb.Append(char.IsUpper(c) ? $" { c }" : $"{ c }"));
             return stringBuilder.ToString();
         }
     }
