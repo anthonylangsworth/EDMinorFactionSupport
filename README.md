@@ -1,34 +1,36 @@
 # ED Minor Faction Support
 
-Creates a summary of pro- and anti-minor faction work by players for Elite:Dangerous used by the "Elite Dangerous AU & NZ" squadron.
+## Overview
+
+Creates a summary of pro- and anti-minor faction work by players for Elite:Dangerous used. It was intended for use by the "Elite Dangerous AU & NZ" squadron supporting "EDA Kunti League" but can be used for any minor faction.
 
 Instructions:
-1. Requires .Net Core installed. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
+1. Install .Net Core installed. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
 2. Compile the executable.
-3. Run the executable after a day of play. It will scan the gane's journal files and output to the console window a summary.
+3. Open a command prompt (e.g. cmd.exe).
+3. Run the executable after a day of play. It will scan the game's journal files and output to the console window a summary.
+4. For command line options, run it with the "-?" paramater.
 
-I recommend piping the results to the Windows clipboard by using the built-in "clip" command, e.g. "EDMinorFactionSupport | clip". You can then paste the result in Discord easily (although it requires some tweaking still).
+I recommend piping the results to the Windows clipboard by using the built-in "clip" command, e.g. "edmfs | clip". You can then paste the result in Discord.
 
 What does it support?
-1. Missions. It correctly detects missions that improve "EDA Kunti League" influence. However, it flags any mission that does not improve that minor faction's incluce as against that faction. This fix is planned but not simple.
-2. Bounties, combat bonds and other "vouchers". It ignores bounties handed into non "EDA Kunti League Factions".
+1. Missions. It displays missions that increase and decrease "EDA Kunti League" influence. It also displays missions that impact other minor factions' influce in systems where "EDA Kunti League" is present, although the effects of these are harder to quantify.
+2. Bounties, combat bonds and other "vouchers". It ignores bounties handed into minor factions other than "EDA Kunti League Factions".
 
-Important things to fix (not necessarily in this order):
-1. A better display (e.g. counting up the number of influence missions instead of listing them separately)
-2. (Done) Fixing anti-minor faction mission detection.
-3. Cartography data.
-4. Trades.
-5. Mission failure, abandonment and redirection.
-6. (Done, will always need better automated tests) Internal fixes like a better folder structure, design improvements and automated tests.
-7. Error handling and command line argument support, e.g. for the day.
+What does it not support (yet)?
+1. Combat Zone activity. The journal files do not currently log this detail. However, selling combat bonds is covered.
+2. Selling Cartography data at a minor faction controlled station.
+3. Trading at a minor faction controlled stations.
+4. Mission failure and abandonment. There is partial support for mission redirection.
 
 If this tool proves useful we may automate the collation of these further, e.g. by pasting the results to Discord directly or sending them to a central source for consolidated reporting.
 
-TODOS for the README:
-1. Add Frontier disclaimer.
-2. Add reference to documentation (http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf)
-3. Discussion on definition of PRO and CON. For example, does a decrease in influence for another faction count?
+## Disclaimer
+
+**Elite: Dangerous** ("Elite") is a game developed by Frontier Developments PLC ("Frontier"). The author has no relationship with Frontier other than having purchased and played Elite. 
+
+This tool uses publically documented journal files written by the game. The latest version at the time of writing is http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf. Thereore, the tool does not intend to exploit Elite or breach the terms of service. Using these journal files also means the accuracy and completeness of the data shown depends on entries written to these journal files.
 
 ## License
  
-(TODO, probably MIT or similar)
+See LICENCE.txt (MIT license)

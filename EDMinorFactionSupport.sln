@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83D7A7FD-FAE4-46A4-8AF2-EC0F946BA8DD}"
 	ProjectSection(SolutionItems) = preProject
+		LICENCE.txt = LICENCE.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -16,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDMinorFactionSupport", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDMinorFactionSupportTest", "test\EDMinorFactionSupportTest\EDMinorFactionSupportTest.csproj", "{0C9C3F36-3921-47E3-8D27-33364AEC4303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "edmfs", "src\edmfs\edmfs.csproj", "{0DAFB316-7790-446E-8187-3C3EC2E6B5D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "edmfs", "src\edmfs\edmfs.csproj", "{0DAFB316-7790-446E-8187-3C3EC2E6B5D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
