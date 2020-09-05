@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "edmfs": {
+      "commandName": "Project",
+      "commandLineArgs": "-d"
+    }
+  }
+}
