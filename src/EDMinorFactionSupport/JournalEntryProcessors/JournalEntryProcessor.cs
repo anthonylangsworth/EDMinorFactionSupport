@@ -12,7 +12,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
     /// <summary>
     /// Base class for classes that process a event type in the journal into <see cref="SummaryEntry"/> objects.
     /// </summary>
-    public abstract class JournalEntryProcessor : IJournalEntryProcessor
+    public abstract class JournalEntryProcessor
     {
         /// <summary>
         /// Process the journal entry.

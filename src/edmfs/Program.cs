@@ -31,8 +31,8 @@ namespace edmfs
             serviceCollection.TryAddEnumerable(
                 Assembly.GetAssembly(typeof(JournalEntryProcessor))
                                           .GetTypes()
-                                          .Where(t => !t.IsInterface && !t.IsAbstract && typeof(JournalEntryProcessor).IsAssignableFrom(t))
-                                          .Select(t => ServiceDescriptor.Scoped(typeof(IJournalEntryProcessor), t)));
+                                          .Where(t => !t.IsAbstract && typeof(JournalEntryProcessor).IsAssignableFrom(t))
+                                          .Select(t => ServiceDescriptor.Scoped(typeof(JournalEntryProcessor), t)));
             ServiceProvider serviceProvider = serviceCollection
                 .AddTransient<Summarizer, Summarizer>()
                 .BuildServiceProvider();
