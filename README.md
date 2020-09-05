@@ -29,6 +29,6 @@ TODOS for the README:
 2. Add reference to documentation (http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf)
 3. Discussion on definition of PRO and CON. For example, does a decrease in influence for another faction count?
 
-# License
+## License
  
 (TODO, probably MIT or similar)

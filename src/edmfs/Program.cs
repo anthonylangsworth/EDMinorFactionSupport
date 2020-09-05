@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using EDMinorFactionSupport;
 using EDMinorFactionSupport.JournalEntryProcessors;
 using EDMinorFactionSupport.SummaryEntries;
 using EDMinorFactionSupport.JournalSources;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace EDMinorFactionSupport
+namespace edmfs
 {
     class Program
     {

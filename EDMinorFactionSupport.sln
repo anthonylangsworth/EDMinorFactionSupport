@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDMinorFactionSupport", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDMinorFactionSupportTest", "test\EDMinorFactionSupportTest\EDMinorFactionSupportTest.csproj", "{0C9C3F36-3921-47E3-8D27-33364AEC4303}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "edmfs", "src\edmfs\edmfs.csproj", "{0DAFB316-7790-446E-8187-3C3EC2E6B5D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{0C9C3F36-3921-47E3-8D27-33364AEC4303}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C9C3F36-3921-47E3-8D27-33364AEC4303}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C9C3F36-3921-47E3-8D27-33364AEC4303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DAFB316-7790-446E-8187-3C3EC2E6B5D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DAFB316-7790-446E-8187-3C3EC2E6B5D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DAFB316-7790-446E-8187-3C3EC2E6B5D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DAFB316-7790-446E-8187-3C3EC2E6B5D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{EBBDAD9D-BE5D-44DE-9AB6-D1ABA042DB99} = {83D7A7FD-FAE4-46A4-8AF2-EC0F946BA8DD}
 		{18549D94-1F7D-4E43-B302-6E5AEFF58003} = {23BC59CC-29C6-444B-9929-922F2A7E81C3}
 		{0C9C3F36-3921-47E3-8D27-33364AEC4303} = {EBBDAD9D-BE5D-44DE-9AB6-D1ABA042DB99}
+		{0DAFB316-7790-446E-8187-3C3EC2E6B5D1} = {23BC59CC-29C6-444B-9929-922F2A7E81C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EDFC803B-9A65-4518-800A-A18045F498D7}
