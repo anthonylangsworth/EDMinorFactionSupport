@@ -14,6 +14,8 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.CodeDom.Compiler;
 using EDMinorFactionSupport.OutputFormatters;
+using CommandLine;
+using System.Globalization;
 
 namespace edmfs
 {
@@ -21,34 +23,18 @@ namespace edmfs
     {
         static void Main(string[] args)
         {
-            // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830134805.01.log";
-            // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830102216.01.log";
-            // string fileName = @"C:\Users\antho\Saved Games\Frontier Developments\Elite Dangerous\Journal.200830212509.01.log";
-            // string fileName = @"TestMissions.log";
-
             //try
             //{
 
-            IServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.TryAddEnumerable(
-                Assembly.GetAssembly(typeof(JournalEntryProcessor))
-                                          .GetTypes()
-                                          .Where(t => !t.IsAbstract && typeof(JournalEntryProcessor).IsAssignableFrom(t))
-                                          .Select(t => ServiceDescriptor.Scoped(typeof(JournalEntryProcessor), t)));
-            ServiceProvider serviceProvider = serviceCollection
-                .AddTransient<Summarizer, Summarizer>()
-                .AddTransient<JournalEntryParser, JournalEntryParser>()
-                .AddTransient(typeof(JournalSource), sp => new EdFileJournalSource(DateTime.Now.AddDays(-6)))
-                //.AddTransient<JournalSource, EdFileJournalSource>()
-                //.AddTransient(typeof(JournalSource), sp => new FileJournalSource(fileName))
-                // .AddTransient<OutputFormatter, VerboseOutputFormatter>()
-                .AddTransient<OutputFormatter, StandardOutputFormatter>()
-                .AddTransient<Pipeline, Pipeline>()
-                .BuildServiceProvider();
-
-            string supportedMinorFaction = "EDA Kunti League";
-            Pipeline pipeline = serviceProvider.GetService<Pipeline>();
-            pipeline.Run(supportedMinorFaction, Console.Out);
+            Parser parser = new Parser(ps => ps.ParsingCulture = CultureInfo.CurrentCulture);
+            parser.ParseArguments<Options>(args).WithParsed(options =>
+            {
+                Pipeline pipeline = new ServiceCollection()
+                    .AddEDMinorFactionSupport(options.Date, "EDA Kunti League", options.Verbose)
+                    .BuildServiceProvider()
+                    .GetService<Pipeline>();
+                pipeline.Run(Console.Out);
+            });
 
             //}
             //catch(Exception ex)

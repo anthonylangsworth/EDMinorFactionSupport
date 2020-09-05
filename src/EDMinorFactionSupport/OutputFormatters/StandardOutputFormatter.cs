@@ -28,7 +28,6 @@ namespace EDMinorFactionSupport.OutputFormatters
                 indentedTextWriter.WriteLine(group.Key);
                 indentedTextWriter.Indent++;
                 DisplayByFactionSupport(group, indentedTextWriter);
-                indentedTextWriter.WriteLine();
                 indentedTextWriter.Indent--;
             }
         }

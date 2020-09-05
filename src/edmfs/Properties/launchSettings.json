@@ -2,7 +2,7 @@
   "profiles": {
     "edmfs": {
       "commandName": "Project",
-      "commandLineArgs": "-d"
+      "commandLineArgs": "-d 02/09/2020"
     }
   }
 }
