@@ -57,7 +57,7 @@ namespace EDMinorFactionSupport.OutputFormatters
         {
             foreach (IGrouping<string, RedeemVoucherSummaryEntry> group in redeemVoucherSummaryEntries.GroupBy(mse => mse.VoucherType))
             {
-                indentedTextWriter.WriteLine("{0} {1:n0} CR", SplitOnUpper(group.Key), group.Sum(rvse => rvse.Amount));
+                indentedTextWriter.WriteLine("{0} redemption for {1:n0} CR", SplitOnUpper(group.Key), group.Sum(rvse => rvse.Amount));
             }
         }
 
