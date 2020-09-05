@@ -6,7 +6,7 @@ Creates a summary of pro- and anti-minor faction work by players for **Elite:Dan
 
 Instructions:
 1. Install .Net Core installed. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
-2. Compile the executable.
+2. Download the latest release and extract the ZIP file.
 3. Open a command prompt (e.g. cmd.exe).
 3. Run the executable after a day of play. It will scan the game's journal files and output a summary to the console window.
 4. For command line options, run it with the "-?" paramater.
