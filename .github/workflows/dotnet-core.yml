@@ -1,4 +1,4 @@
-name: EDMinorFactionSupport
+name: Build and Test
 
 on:
   push:
