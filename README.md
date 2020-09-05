@@ -1,12 +1,11 @@
-# ED Mission Summary
+# ED Minor Faction Support
 
 Creates a summary of pro- and anti-minor faction work by players for Elite:Dangerous used by the "Elite Dangerous AU & NZ" squadron.
 
-Requires .Net Core installed.
-
 Instructions:
-1. Compile the executable.
-2. Run the executable after a day of play. It will scan the gane's journal files and output to the console window a summary.
+1. Requires .Net Core installed. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
+2. Compile the executable.
+3. Run the executable after a day of play. It will scan the gane's journal files and output to the console window a summary.
 
 I recommend piping the results to the Windows clipboard by using the built-in "clip" command, e.g. "EDMinorFactionSupport | clip". You can then paste the result in Discord easily (although it requires some tweaking still).
 
