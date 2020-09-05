@@ -29,7 +29,7 @@ If this tool proves useful we may automate the collation of these further, e.g. 
 
 **Elite: Dangerous** ("Elite") is a game developed by Frontier Developments PLC ("Frontier"). The author has no relationship with Frontier other than purchasing and playing Elite. 
 
-This tool uses publically documented journal files created by the Elite game client. The latest version of the documentation at the time of writing is http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf. Therefore, the tool does not intend to exploit Elite or breach the terms of service. Using these journal files also means the accuracy and completeness of the data shown depends the data written to these journal files.
+This tool uses publically documented journal files created by the Elite game client. The latest version of the documentation at the time of writing is http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf. Therefore, the tool does not intend to exploit Elite or breach the terms of service. Using these journal files also means the accuracy and completeness of the data produced by this tool depends on the data written to these journal files.
 
 ## License
  
