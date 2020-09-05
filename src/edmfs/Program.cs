@@ -35,20 +35,17 @@ namespace edmfs
                                           .Select(t => ServiceDescriptor.Scoped(typeof(JournalEntryProcessor), t)));
             ServiceProvider serviceProvider = serviceCollection
                 .AddTransient<Summarizer, Summarizer>()
+                .AddTransient<JournalEntryParser, JournalEntryParser>()
+                .AddTransient(typeof(JournalSource), sp => new EdFileJournalSource(DateTime.Now.AddDays(-3)))
+                //.AddTransient<JournalSource, EdFileJournalSource>()
+                //.AddTransient(typeof(JournalSource), sp => new FileJournalSource(fileName))
+                .AddTransient<Pipeline, Pipeline>()
                 .BuildServiceProvider();
 
-            JournalSource journal = new EdFileJournalSource(DateTime.Now.AddDays(-3)); 
-            // JournalSource journal = new EdFileJournalSource(DateTime.MinValue); // Does all files
-            // JournalSource journal = new FileJournalSource(fileName);
-            JournalEntryParser journalEntryParser = new JournalEntryParser();
-            Summarizer missionSummarizer = serviceProvider.GetService<Summarizer>();
-            PilotState pilotState = new PilotState();
-            GalaxyState galaxyState = new GalaxyState();
             string supportedMinorFaction = "EDA Kunti League";
+            Pipeline pipeline = serviceProvider.GetService<Pipeline>();
+            IEnumerable<SummaryEntry> summary = pipeline.Run(supportedMinorFaction);
 
-            IEnumerable<SummaryEntry> summary = journal.Entries
-                                                       .Select(journalEntryParser.Parse)
-                                                       .SelectMany(entry => missionSummarizer.Convert(pilotState, galaxyState, supportedMinorFaction, entry));
             // Verbose output
             // Console.Out.WriteLine(summary.Aggregate(new StringBuilder(), (sb, se) => sb.AppendLine(se.ToString())));
 
