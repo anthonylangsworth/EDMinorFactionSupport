@@ -1,8 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>0.1</Version>
+    <Authors>Anthony Langsworth</Authors>
+    <Company />
+    <Product>edmfs</Product>
+    <Copyright>Copyright 2020 Anthony Langsworth</Copyright>
+    <PackageLicenseFile></PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/anthonylangsworth/EDMinorFactionSupport</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/anthonylangsworth/EDMinorFactionSupport</RepositoryUrl>
+    <Description>A command line tool that generates a summary of work supporting a minor faction in the game "Elite: Dangerous".</Description>
   </PropertyGroup>
 
   <ItemGroup>
