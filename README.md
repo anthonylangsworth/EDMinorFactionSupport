@@ -2,13 +2,13 @@
 
 ## Overview
 
-Creates a summary of pro- and anti-minor faction work by players for Elite:Dangerous used. It was intended for use by the "Elite Dangerous AU & NZ" squadron supporting "EDA Kunti League" but can be used for any minor faction.
+Creates a summary of pro- and anti-minor faction work by players for **Elite:Dangerous** ("Elite"). The tool is intended for use by the "Elite Dangerous AU & NZ" squadron supporting the "EDA Kunti League" minor faction. However, a different minor faction can be specified.
 
 Instructions:
 1. Install .Net Core installed. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
 2. Compile the executable.
 3. Open a command prompt (e.g. cmd.exe).
-3. Run the executable after a day of play. It will scan the game's journal files and output to the console window a summary.
+3. Run the executable after a day of play. It will scan the game's journal files and output a summary to the console window.
 4. For command line options, run it with the "-?" paramater.
 
 I recommend piping the results to the Windows clipboard by using the built-in "clip" command, e.g. "edmfs | clip". You can then paste the result in Discord.
@@ -29,7 +29,7 @@ If this tool proves useful we may automate the collation of these further, e.g. 
 
 **Elite: Dangerous** ("Elite") is a game developed by Frontier Developments PLC ("Frontier"). The author has no relationship with Frontier other than having purchased and played Elite. 
 
-This tool uses publically documented journal files written by the game. The latest version at the time of writing is http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf. Thereore, the tool does not intend to exploit Elite or breach the terms of service. Using these journal files also means the accuracy and completeness of the data shown depends on entries written to these journal files.
+This tool uses publically documented journal files created by the Elite game client. The latest version of the documentation at the time of writing is http://hosting.zaonce.net/community/journal/v27/Journal-Manual_v27.pdf. Thereore, the tool does not intend to exploit Elite or breach the terms of service. Using these journal files also means the accuracy and completeness of the data shown depends the data written to these journal files.
 
 ## License
  
