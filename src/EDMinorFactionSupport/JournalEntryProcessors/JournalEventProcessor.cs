@@ -6,13 +6,14 @@ using EDMinorFactionSupport.SummaryEntries;
 using System.Globalization;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using NSW.EliteDangerous.API.Events;
 
 namespace EDMinorFactionSupport.JournalEntryProcessors
 {
     /// <summary>
     /// Base class for classes that process a event type in the journal into <see cref="SummaryEntry"/> objects.
     /// </summary>
-    public abstract class JournalEntryProcessor
+    public abstract class JournalEventProcessor
     {
         /// <summary>
         /// Process the journal entry.
@@ -26,8 +27,8 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <param name="supportedMinorFaction">
         /// The supported minor faction name. This must <b>exactly</b> match the name in the journal.
         /// </param>
-        /// <param name="entry">
-        /// A <see cref="JObject"/> representing the journal entry.
+        /// <param name="journalEvent">
+        /// A <see cref="JournalEvent"/> representing the journal entry.
         /// </param>
         /// <returns>
         /// Zero or more <see cref="SummaryEntry"/> objects representing actions that impact the supported minor faction.
@@ -35,7 +36,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <exception cref="ArgumentNullException">
         /// No argument can be null.
         /// </exception>
-        public abstract IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry);
+        public abstract IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JournalEvent journalEvent);
 
         /// <summary>
         /// The name of the journal event that this processor handles.
@@ -51,34 +52,9 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <returns>
         /// The date and time the journal entyr was written.
         /// </returns>
-        protected DateTime GetTimeStamp(JObject entry)
+        protected DateTime GetTimeStamp(JournalEvent journalEvent)
         {
-            // JObject is "helpful" in that it appears to natively convert it to a DateTime before 
-            // converting back to a string. This means we cannot use a single code path to convert
-            // timestamps.
-            return entry.Value<DateTime>("timestamp").ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Parse the standard jounral entry time stamp.
-        /// </summary>
-        /// <param name="timeStamp">
-        /// The time stamp to parse. Cannot be null, empty or whitespace.
-        /// </param>
-        /// <returns>
-        /// The parsed time stamp.
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        /// <paramref name="timeStamp"/> cannot be null, empty or whitespace.
-        /// </exception>
-        public static DateTime ParseTimeStamp(string timeStamp)
-        {
-            if (string.IsNullOrWhiteSpace(timeStamp))
-            {
-                throw new ArgumentException($"'{nameof(timeStamp)}' cannot be null or whitespace", nameof(timeStamp));
-            }
-
-            return DateTime.ParseExact(timeStamp, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", CultureInfo.InvariantCulture);
+            return journalEvent.Timestamp.ToUniversalTime();
         }
     }
 }

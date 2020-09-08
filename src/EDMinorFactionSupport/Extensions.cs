@@ -32,10 +32,10 @@ namespace EDMinorFactionSupport
             // string fileName = @"TestMissions.log";
 
             serviceCollection.TryAddEnumerable(
-                Assembly.GetAssembly(typeof(JournalEntryProcessor))
+                Assembly.GetAssembly(typeof(JournalEventProcessor))
                                           .GetTypes()
-                                          .Where(t => !t.IsAbstract && typeof(JournalEntryProcessor).IsAssignableFrom(t))
-                                          .Select(t => ServiceDescriptor.Scoped(typeof(JournalEntryProcessor), t)));
+                                          .Where(t => !t.IsAbstract && typeof(JournalEventProcessor).IsAssignableFrom(t))
+                                          .Select(t => ServiceDescriptor.Scoped(typeof(JournalEventProcessor), t)));
             serviceCollection
                 .AddTransient<Summarizer, Summarizer>()
                 .AddTransient<JournalEntryParser, JournalEntryParser>()

@@ -1,13 +1,13 @@
 ﻿using EDMinorFactionSupport.SummaryEntries;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NSW.EliteDangerous.API.Events;
 
 namespace EDMinorFactionSupport.JournalEntryProcessors
 {
-    public class DockedEntryProcessor : JournalEntryProcessor
+    public class DockedEntryProcessor : JournalEventProcessor
     {
         /// <summary>
         /// 
@@ -27,8 +27,8 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <param name="supportedMinorFaction">
         /// The supported minor faction name. This must <b>exactly</b> match the name in the journal.
         /// </param>
-        /// <param name="entry">
-        /// A <see cref="JObject"/> representing the journal entry.
+        /// <param name="journalEvent">
+        /// A <see cref="JournalEvent"/> representing the journal entry.
         /// </param>
         /// <returns>
         /// Will never return <see cref="SummaryEntry"/> objects.
@@ -36,7 +36,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <exception cref="ArgumentNullException">
         /// No argument can be null.
         /// </exception>
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JournalEvent journalEvent)
         {
             if (pilotState is null)
             {
@@ -50,16 +50,18 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
-            if (entry is null)
+            if (journalEvent is null)
             {
-                throw new ArgumentNullException(nameof(entry));
+                throw new ArgumentNullException(nameof(journalEvent));
             }
+
+            DockedEvent dockedEvent = (DockedEvent)journalEvent;
 
             // Create a new station instead of looking it up because the "Docked" event may be received before the "Location" event.
             pilotState.LastDockedStation = new Station(
-                entry.Value<string>("StationName"),
-                long.Parse(entry.Value<string>("SystemAddress")),
-                entry["StationFaction"].Value<string>("Name")
+                dockedEvent.StationName,
+                dockedEvent.SystemAddress,
+                dockedEvent.StationFaction.Name
             );
 
             return Enumerable.Empty<SummaryEntry>();

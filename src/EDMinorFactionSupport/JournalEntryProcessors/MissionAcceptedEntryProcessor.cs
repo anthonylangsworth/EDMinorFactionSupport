@@ -1,5 +1,5 @@
 ﻿using EDMinorFactionSupport.SummaryEntries;
-using Newtonsoft.Json.Linq;
+using NSW.EliteDangerous.API.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EDMinorFactionSupport.JournalEntryProcessors
 {
-    public class MissionAcceptedEntryProcessor : JournalEntryProcessor
+    public class MissionAcceptedEntryProcessor : JournalEventProcessor
     {
         public override string EventName => "MissionAccepted";
 
@@ -24,8 +24,8 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <param name="supportedMinorFaction">
         /// The supported minor faction name. This must <b>exactly</b> match the name in the journal.
         /// </param>
-        /// <param name="entry">
-        /// A <see cref="JObject"/> representing the journal entry.
+        /// <param name="JournalEvent">
+        /// A <see cref="JournalEvent"/> representing the journal entry.
         /// </param>
         /// <returns>
         /// Will never return <see cref="SummaryEntry"/> objects.
@@ -33,7 +33,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <exception cref="ArgumentNullException">
         /// No argument can be null.
         /// </exception>
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JournalEvent journalEvent)
         {
             if (pilotState is null)
             {
@@ -47,18 +47,20 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
-            if (entry is null)
+            if (journalEvent is null)
             {
-                throw new ArgumentNullException(nameof(entry));
+                throw new ArgumentNullException(nameof(journalEvent));
             }
 
+            MissionAcceptedEvent missionAcceptedEvent = (MissionAcceptedEvent) journalEvent;
+
             pilotState.Missions.Add(
-                entry.Value<long>("MissionID"),
+                missionAcceptedEvent.MissionId,
                 new Mission(
-                    entry.Value<long>("MissionID"),
-                    entry.Value<string>("LocalisedName"),
-                    entry.Value<string>("Influence"))
-                );
+                    missionAcceptedEvent.MissionId,
+                    missionAcceptedEvent.NameLocalised,
+                    missionAcceptedEvent.Influence
+                ));
 
             return Enumerable.Empty<SummaryEntry>();
         }

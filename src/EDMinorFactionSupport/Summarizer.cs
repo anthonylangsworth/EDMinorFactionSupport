@@ -14,7 +14,7 @@ namespace EDMinorFactionSupport
         /// Create a new <see cref="Summarizer"/>.
         /// </summary>
         /// <param name="journalEntryProcessors"></param>
-        public Summarizer(IEnumerable<JournalEntryProcessor> journalEntryProcessors)
+        public Summarizer(IEnumerable<JournalEventProcessor> journalEntryProcessors)
         {
             if (journalEntryProcessors is null)
             {
@@ -36,9 +36,9 @@ namespace EDMinorFactionSupport
         }
 
         /// <summary>
-        /// The <see cref="JournalEntryProcessor"/> types used to process journal entries.
+        /// The <see cref="JournalEventProcessor"/> types used to process journal entries.
         /// </summary>
-        public IReadOnlyDictionary<string, JournalEntryProcessor> JournalEntryProcessors;
+        public IReadOnlyDictionary<string, JournalEventProcessor> JournalEntryProcessors;
 
         public IEnumerable<SummaryEntry> Convert(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
         {
@@ -56,7 +56,7 @@ namespace EDMinorFactionSupport
             }
 
             IEnumerable<SummaryEntry> result = Enumerable.Empty<SummaryEntry>();
-            if (JournalEntryProcessors.TryGetValue(entry.Value<string>("event"), out JournalEntryProcessor journalEntryProcessor))
+            if (JournalEntryProcessors.TryGetValue(entry.Value<string>("event"), out JournalEventProcessor journalEntryProcessor))
             {
                 result = journalEntryProcessor.Process(pilotState, galaxyState, supportedMinorFaction, entry);
             }

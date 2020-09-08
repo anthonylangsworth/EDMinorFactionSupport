@@ -1,5 +1,5 @@
 ﻿using EDMinorFactionSupport.SummaryEntries;
-using Newtonsoft.Json.Linq;
+using NSW.EliteDangerous.API.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EDMinorFactionSupport.JournalEntryProcessors
 {
-    public class LocationEntryProcessor : JournalEntryProcessor
+    public class LocationEntryProcessor : JournalEventProcessor
     {
         public override string EventName => "Location";
 
@@ -24,8 +24,8 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <param name="supportedMinorFaction">
         /// The supported minor faction name. This must <b>exactly</b> match the name in the journal.
         /// </param>
-        /// <param name="entry">
-        /// A <see cref="JObject"/> representing the journal entry.
+        /// <param name="journalEvent">
+        /// A <see cref="JournalEvent"/> representing the journal entry.
         /// </param>
         /// <returns>
         /// Will never return <see cref="SummaryEntry"/> objects.
@@ -33,7 +33,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <exception cref="ArgumentNullException">
         /// No argument can be null.
         /// </exception>
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JournalEvent journalEvent)
         {
             if (pilotState is null)
             {
@@ -47,25 +47,27 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
-            if (entry is null)
+            if (journalEvent is null)
             {
-                throw new ArgumentNullException(nameof(entry));
+                throw new ArgumentNullException(nameof(journalEvent));
             }
 
-            if (entry.Value<string>("StationName") != null)
+            LocationEvent locationEvent = (LocationEvent)journalEvent;
+
+            if (locationEvent.StationName != null)
             {
                 Station station = new Station(
-                    entry.Value<string>("StationName"),
-                    long.Parse(entry.Value<string>("SystemAddress")),
-                    entry["StationFaction"].Value<string>("Name"));
+                    locationEvent.StationName,
+                    locationEvent.SystemAddress,
+                    locationEvent.StationFaction.Name);
                 galaxyState.AddOrUpdateStation(station);
                 pilotState.LastDockedStation = station;
             }
 
-            galaxyState.Systems[entry.Value<long>("SystemAddress")] = new StarSystem(
-                    entry.Value<long>("SystemAddress"),
-                    entry.Value<string>("StarSystem"),
-                    entry["Factions"]?.Select(o => o.Value<string>("Name")));
+            galaxyState.Systems[locationEvent.SystemAddress] = new StarSystem(
+                    locationEvent.SystemAddress,
+                    locationEvent.StarSystem,
+                    locationEvent.Factions.Select(faction => faction.Name));
 
             return Enumerable.Empty<SummaryEntry>();
         }

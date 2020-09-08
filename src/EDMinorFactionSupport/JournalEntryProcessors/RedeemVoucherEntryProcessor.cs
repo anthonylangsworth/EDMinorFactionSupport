@@ -1,5 +1,6 @@
 ﻿using EDMinorFactionSupport.SummaryEntries;
-using Newtonsoft.Json.Linq;
+using NSW.EliteDangerous.API;
+using NSW.EliteDangerous.API.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace EDMinorFactionSupport.JournalEntryProcessors
 {
-    public class RedeemVoucherEntryProcessor : JournalEntryProcessor
+    public class RedeemVoucherEntryProcessor : JournalEventProcessor
     {
         /// <summary>
         /// 
@@ -41,15 +42,15 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
         /// <exception cref="ArgumentNullException">
         /// No argument can be null.
         /// </exception>
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JournalEvent journalEvent)
         {
             if (supportedMinorFaction is null)
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
-            if (entry is null)
+            if (journalEvent is null)
             {
-                throw new ArgumentNullException(nameof(entry));
+                throw new ArgumentNullException(nameof(journalEvent));
             }
             if(pilotState.LastDockedStation == null)
             {
@@ -60,15 +61,15 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
                 throw new InvalidOperationException($"System address { pilotState.LastDockedStation.SystemAddress } not found");
             }
 
+            RedeemVoucherEvent redeemVoucherEvent = (RedeemVoucherEvent)journalEvent;
             string systemName = galaxyState.GetSystemName(pilotState.LastDockedStation.SystemAddress);
             Station station = pilotState.LastDockedStation;
 
             List<SummaryEntry> result = new List<SummaryEntry>();
-            if (entry.Value<string>(TypePropertyName) == BountyValue)
+            if (redeemVoucherEvent.Type == VoucherType.Bounty)
             {
-                var categorizedEntries = entry.Value<JArray>(FactionsPropertyName)
-                                     .Select(e => (JObject)e)
-                                     .Select(e => new { Entry = e, FactionInfluence = GetFactionInfluence(supportedMinorFaction, e.Value<string>(FactionPropertyName), station.ControllingMinorFaction, galaxyState.Systems[pilotState.LastDockedStation.SystemAddress].MinorFactions) });
+                var categorizedEntries = redeemVoucherEvent.Factions
+                                                           .Select(f => new { Entry = f, FactionInfluence = GetFactionInfluence(supportedMinorFaction, f.Faction, station.ControllingMinorFaction, galaxyState.Systems[pilotState.LastDockedStation.SystemAddress].MinorFactions) });
                 result.AddRange(categorizedEntries
                                      .Where(e => e.FactionInfluence == FactionInfluence.Increase)
                                      .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, true, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));

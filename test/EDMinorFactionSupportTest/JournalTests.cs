@@ -27,11 +27,11 @@ namespace EDMinorFactionSupportTest
                 new StringJournalSource(journal).Entries
                                                 .Select(new JournalEntryParser().Parse)
                                                 .SelectMany(entry => new Summarizer(
-                                                    Assembly.GetAssembly(typeof(JournalEntryProcessor))
+                                                    Assembly.GetAssembly(typeof(JournalEventProcessor))
                                                             .GetTypes()
-                                                            .Where(t => t != typeof(JournalEntryProcessor) && t.IsAssignableFrom(typeof(JournalEntryProcessor)))
+                                                            .Where(t => t != typeof(JournalEventProcessor) && t.IsAssignableFrom(typeof(JournalEventProcessor)))
                                                             .Select(t => t.GetConstructor(new Type[0]).Invoke(new object[0]))
-                                                            .Cast<JournalEntryProcessor>())
+                                                            .Cast<JournalEventProcessor>())
                                                 .Convert(pilotState, galaxyState, supportedMinorFaction, entry)), 
                 Is.EquivalentTo(expectedSummaryEntries));
         }
