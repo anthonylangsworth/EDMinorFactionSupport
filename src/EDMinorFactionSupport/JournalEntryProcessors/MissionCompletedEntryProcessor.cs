@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using EDMinorFactionSupport.SummaryEntries;
 
 namespace EDMinorFactionSupport.JournalEntryProcessors
@@ -16,7 +16,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
 
         public static readonly string FactionEffectsSectionName = "FactionEffects";
 
-        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
+        public override IEnumerable<SummaryEntry> Process(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JsonElement entry)
         {
             if (pilotState is null)
             {
@@ -38,8 +38,8 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
             List<SummaryEntry> result = new List<SummaryEntry>();
             string missionName = pilotState.Missions.TryGetValue(entry.Value<long>("MissionID"), out Mission mission) ? mission.Name : entry.Value<string>("Name");
 
-            foreach (JObject influenceObject in entry.Value<JArray>(FactionEffectsSectionName)
-                                                    .SelectMany(e => e.Value<JArray>("Influence").Children<JObject>()))
+            foreach (JsonElement influenceObject in entry.GetProperty(FactionEffectsSectionName).EnumerateArray()
+                                                         .SelectMany(e => e.GetProperty("Influence").EnumerateObject()))
             {
                 string influenceFaction = influenceObject.Parent.Parent.Parent.Value<string>("Faction");
                 string entryFaction = entry.Value<string>("Faction");
