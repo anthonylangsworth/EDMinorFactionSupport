@@ -65,9 +65,6 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
                     else if (system != null 
                         && system.MinorFactions.Contains(supportedMinorFaction))
                     {
-                        // && influenceIncrease
-                        // Note that inclureases and decreases to minor faction influence other than the supported faction are harder to quantify.
-
                         result.Add(new MissionSummaryEntry(
                             timeStamp,
                             missionName,
