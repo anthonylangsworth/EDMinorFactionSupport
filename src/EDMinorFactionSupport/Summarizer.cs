@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EDMinorFactionSupport.SummaryEntries;
+using NSW.EliteDangerous.API.Events;
 
 namespace EDMinorFactionSupport
 {
@@ -22,17 +23,6 @@ namespace EDMinorFactionSupport
             }
 
             JournalEntryProcessors = journalEntryProcessors.ToDictionary(jep => jep.EventName);
-
-            // TODO: Consider injection for building this list
-            //_journalEntryProcessors = new Dictionary<string, JournalEntryProcessor>
-            //{
-            //    {  FsdJumpEntryProcessor.EventName, new FsdJumpEntryProcessor() },
-            //    {  DockedEntryProcessor.EventName, new DockedEntryProcessor() },
-            //    {  LocationEntryProcessor.EventName, new LocationEntryProcessor() },
-            //    {  MissionAcceptedEntryProcessor.EventName, new MissionAcceptedEntryProcessor() },
-            //    {  MissionCompletedEntryProcessor.EventName, new MissionCompletedEntryProcessor() },
-            //    {  RedeemVoucherEntryProcessor.EventName, new RedeemVoucherEntryProcessor() }
-            //};
         }
 
         /// <summary>
@@ -40,7 +30,7 @@ namespace EDMinorFactionSupport
         /// </summary>
         public IReadOnlyDictionary<string, JournalEventProcessor> JournalEntryProcessors;
 
-        public IEnumerable<SummaryEntry> Convert(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JObject entry)
+        public IEnumerable<SummaryEntry> Convert(PilotState pilotState, GalaxyState galaxyState, string supportedMinorFaction, JournalEvent journalEvent)
         {
             if (pilotState is null)
             {
@@ -50,15 +40,15 @@ namespace EDMinorFactionSupport
             {
                 throw new ArgumentNullException(nameof(supportedMinorFaction));
             }
-            if (entry == null)
+            if (journalEvent == null)
             {
-                throw new NullReferenceException(nameof(entry));
+                throw new NullReferenceException(nameof(journalEvent));
             }
 
             IEnumerable<SummaryEntry> result = Enumerable.Empty<SummaryEntry>();
-            if (JournalEntryProcessors.TryGetValue(entry.Value<string>("event"), out JournalEventProcessor journalEntryProcessor))
+            if (JournalEntryProcessors.TryGetValue(journalEvent.Event, out JournalEventProcessor journalEntryProcessor))
             {
-                result = journalEntryProcessor.Process(pilotState, galaxyState, supportedMinorFaction, entry);
+                result = journalEntryProcessor.Process(pilotState, galaxyState, supportedMinorFaction, journalEvent);
             }
             return result;
         }

@@ -39,7 +39,7 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
             MissionCompletedEvent missionCompletedEvent = (MissionCompletedEvent)journalEvent;
 
             List<SummaryEntry> result = new List<SummaryEntry>();
-            string missionName = pilotState.Missions.TryGetValue(missionCompletedEvent.MissionId, out Mission mission) ? mission.Name : missionCompletedEvent.Name);
+            string missionName = pilotState.Missions.TryGetValue(missionCompletedEvent.MissionId, out Mission mission) ? mission.Name : missionCompletedEvent.Name;
 
             //foreach (Influence influence in missionCompletedEvent.FactionEffects
             //                                                     .SelectMany(fe => fe.Influence))

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSW.EliteDangerous.API;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -29,12 +30,12 @@ namespace EDMinorFactionSupport.SummaryEntries
         /// <exception cref="ArgumentException">
         /// <paramref name="voucherType"/> cannot be null, empty or whitespace. <paramref name="amount"/> must be positive.
         /// </exception>
-        public RedeemVoucherSummaryEntry(DateTime timestamp, string systemName, bool increasesInfluence, string voucherType, int amount)
+        public RedeemVoucherSummaryEntry(DateTime timestamp, string systemName, bool increasesInfluence, VoucherType voucherType, long amount)
             : base(timestamp, systemName, increasesInfluence)
         {
-            if (string.IsNullOrWhiteSpace(voucherType))
+            if (Enum.IsDefined(typeof(VoucherType), voucherType))
             {
-                throw new ArgumentException($"'{nameof(voucherType)}' cannot be null or whitespace", nameof(voucherType));
+                throw new ArgumentException($"'{nameof(voucherType)}' is not valid", nameof(voucherType));
             }
             if (amount < 0)
 
@@ -49,12 +50,12 @@ namespace EDMinorFactionSupport.SummaryEntries
         /// <summary>
         /// The voucher type, as per the journal entry "type" field.
         /// </summary>
-        public string VoucherType { get; }
+        public VoucherType VoucherType { get; }
 
         /// <summary>
         /// The amount in credits.
         /// </summary>
-        public int Amount { get; }
+        public long Amount { get; }
 
         public override bool Equals(object obj)
         {

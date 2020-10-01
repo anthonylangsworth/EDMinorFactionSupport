@@ -72,17 +72,17 @@ namespace EDMinorFactionSupport.JournalEntryProcessors
                                                            .Select(f => new { Entry = f, FactionInfluence = GetFactionInfluence(supportedMinorFaction, f.Faction, station.ControllingMinorFaction, galaxyState.Systems[pilotState.LastDockedStation.SystemAddress].MinorFactions) });
                 result.AddRange(categorizedEntries
                                      .Where(e => e.FactionInfluence == FactionInfluence.Increase)
-                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, true, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
+                                     .Select(e => new RedeemVoucherSummaryEntry(redeemVoucherEvent.Timestamp, systemName, true, redeemVoucherEvent.Type, e.Entry.Amount)));
                 result.AddRange(categorizedEntries
                                      .Where(e => e.FactionInfluence == FactionInfluence.Decrease)
-                                     .Select(e => new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, false, entry.Value<string>(TypePropertyName), e.Entry.Value<int>(AmountPropertyName))));
+                                     .Select(e => new RedeemVoucherSummaryEntry(redeemVoucherEvent.Timestamp, systemName, false, redeemVoucherEvent.Type, e.Entry.Amount)));
             }
             else
             {
-                FactionInfluence factionInfluence = GetFactionInfluence(supportedMinorFaction, entry.Value<string>(FactionPropertyName), station.ControllingMinorFaction, galaxyState.Systems[pilotState.LastDockedStation.SystemAddress].MinorFactions);
+                FactionInfluence factionInfluence = GetFactionInfluence(supportedMinorFaction, redeemVoucherEvent.Faction, station.ControllingMinorFaction, galaxyState.Systems[pilotState.LastDockedStation.SystemAddress].MinorFactions);
                 if (factionInfluence != FactionInfluence.None)
                 {
-                    result.Add(new RedeemVoucherSummaryEntry(GetTimeStamp(entry), systemName, factionInfluence == FactionInfluence.Increase, entry.Value<string>(TypePropertyName), entry.Value<int>(AmountPropertyName)));
+                    result.Add(new RedeemVoucherSummaryEntry(redeemVoucherEvent.Timestamp, systemName, factionInfluence == FactionInfluence.Increase, redeemVoucherEvent.Type, redeemVoucherEvent.Amount));
                 }
             }
 
