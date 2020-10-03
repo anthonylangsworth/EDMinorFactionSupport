@@ -44,11 +44,9 @@ namespace EDMinorFactionSupportTest
         public static string LoadTestJournal(string name)
         {
             Assembly assembly = Assembly.GetCallingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream("EDMinorFactionSupportTest.TestJournals." + name))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
+            using Stream stream = assembly.GetManifestResourceStream("EDMinorFactionSupportTest.TestJournals." + name);
+            using StreamReader reader = new StreamReader(stream);
+            return reader.ReadToEnd();
         }
     }
 }

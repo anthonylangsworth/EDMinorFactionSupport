@@ -19,8 +19,10 @@ namespace EDMinorFactionSupportTest.JournalEntryProcessors
         public void ProcessSingleEntry(string journalEntry, string supportedMinorFaction, IEnumerable<RedeemVoucherSummaryEntry> expectedSummaryEntries)
         {
             RedeemVoucherEntryProcessor dockedEventProcessor = new RedeemVoucherEntryProcessor();
-            PilotState pilotState = new PilotState();
-            pilotState.LastDockedStation = new Station("Quetelet Dock", 1, "The Sovereign Justice Collective"); 
+            PilotState pilotState = new PilotState
+            {
+                LastDockedStation = new Station("Quetelet Dock", 1, "The Sovereign Justice Collective")
+            };
             GalaxyState galaxyState = new GalaxyState();
             galaxyState.Systems[1] = new StarSystem(1, "Afli", new string[] { "The Sovereign Justice Collective", "Afli Silver Universal Exchange" });
 
