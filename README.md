@@ -5,7 +5,7 @@
 Creates a summary of pro- and anti-minor faction work by players for **Elite:Dangerous** ("Elite"). The tool is intended for use by the "Elite Dangerous AU & NZ" squadron supporting the "EDA Kunti League" minor faction. However, a different minor faction can be specified.
 
 Instructions:
-1. Install .Net Core installed. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
+1. Install .Net Core. See https://docs.microsoft.com/en-us/dotnet/core/install/windows for details.
 2. Download the latest release and extract the ZIP file.
 3. After a session of playing Elite, open a command prompt (e.g. cmd.exe).
 4. Navigate to the folder where the ZIP file extracted to.
